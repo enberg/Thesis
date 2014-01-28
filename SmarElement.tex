@@ -1,13 +1,30 @@
-\documentclass[10pt,a4paper]{article}
-\usepackage[utf8]{inputenc}
+\newcommand{\template}{template}
+\documentclass[listing,syntax,swedish]{\template/thesis}
+
 \usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amssymb}
+\usepackage{tikz}
+\usepackage{alltt}
+\usepackage{textcomp}
+
+
+\newcommand{\bnfrule}[1]{\textit{$\langle$#1$\rangle$}}
+\newcommand\wordbox[2][]{\tikz[overlay]\node[fill=blue!20,inner sep=2pt,
+  anchor=text, rectangle, rounded corners=1mm,#1] {#2};\phantom{#2}}
+\newcommand\boxkeyword[1]{\wordbox[fill=orange!20]{#1}}
+\newcommand\boxint[1]{\wordbox[fill=blue!20]{#1}}
+\newcommand\boxpunct[1]{\wordbox[fill=cyan!20]{#1}}
+\newcommand\boxstring[1]{\wordbox[fill=purple!20]{#1}}
+\lstset{upquote=true} % Disable curly quote conversion in listings.
+
 \author{Staffan Enberg}
 \title{SmartElement}
 \begin{document}
-\section{Introduktion}
-Hej och välkommen
-\section{History}
-Lite historia om saker och ting
+
+\input{settings}
+
+% Preamble stuff
+\input{pages/title}
+\clearpage
+\input{chapters/inledning}
+\clearpage
 \end{document}
