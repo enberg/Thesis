@@ -1,18 +1,22 @@
 \section{Inledning}
 
-En väldigt intressant och ingående inledning
+Detta arbete dokumenterar systemet SmartElement som utvecklades för företaget Developer’s Helsinki Ab. Systemets syfte är att möjliggöra enkel konfiguration av anpassat innehåll för webbsidor, vilket tillåter webbsidors ägare att själva kunna konfigurera regler som bestämmer vad för innehåll som skall lyftas fram för olika användare.
 
-\subsection{Målsättning}
+\subsection{Målsättning och syfte}
 
-Mina målsättningar
+Målsättningen med arbetet är att kartlägga den arkitektur som bäst stöder målet av ett effektivt system för innehålls filtrering och leverering, som även är lätt att vidare utveckla och utvidga i form av nya filter och nya algoritmer för filtrering.
 
-\subsection{Utförande}
 
-Utförande
 
-\subsection{Avgränsning}
+\subsection{Metoder}
 
-Avgränsningar
+Systemet är i sig bara en motor för identifikation av användare och filtrering av innehåll. Det ända gränssnitt som SmartElement har är ett JSON-gränssnitt genom vilket ett skillt grafiskt gränssnitt tillåter användare att konfigurera sitt innehåll.
+
+\subsection{Avgränsningar}
+
+Detta är en redogörelse för den tekniska implementeringen inte användningen av anpassat innehåll på webbplatser, arbetet tar därmed inte ställning till hur anpassat innehåll skall användas, endast hur det kan implementeras.
+
+Även om en av målsättningarna är att skapa ett effektivt system så finns det ingen klar standard för vad som kan anses vara bra prestanda för ett liknande system, därav kommer arbetet inte att innehålla grundliga prestanda analyser.
 
 % vim: set tw=78:ts=2:sw=2:et:fdm=marker:wrap:wm=78:ft=tex
 % vim: spell spelllang=sv
