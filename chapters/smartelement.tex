@@ -15,7 +15,7 @@ SmartElement bygger på några grundläggande koncept; webbsidor, element, filte
 
 \subsubsection{Webbsidan}
 
-Webbsidan är det högsta elementet som SmartElement handskas med. Det representerar en hel webbplats, under vilken man kan definiera element och innehåll. Varje sida har en unik identifikationsnummer som används för att hämta ladda SmartElement tagen.
+Webbsidan är det högsta elementet som SmartElement handskas med. Det representerar en hel webbplats, under vilken man kan definiera element med innehåll. Varje sida har en unik identifikationsnummer som används för att ladda SmartElement tagen.
 
 \subsubsection{Element}
 
@@ -28,3 +28,26 @@ Filter berstår i SmartElement av flere olika regler som ställer en fråga om b
 \subsubsection{Innehåll}
 
 Innehåll är den konkreta data som levereras för ett element efter att ett filter valts som vinnare. Innehållet kan bestå av text, HTML kod eller \gls{json} data, det är upp till användaren att definiera vad för data som sparas.
+
+\subsection{Funktion}
+
+SmartElement har två huvudsakliga funktionsområden, konfiguration av sidor och hantering av sidvisningar.
+
+\subsubsection{Konfiguration}
+
+För att SmartElement skall kunna leverera innehåll, måste användaren konfigurera sidan och dens element på förhand. Processen består av att registrera element under sidobjektet, skapa innehåll samt att konfigurera filter genom att kombinera regler om vilka användare innehållet passar för.
+
+\subsubsection{Sidvisning}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=150mm]{assets/images/smelementactivity.png}
+\caption{Processen vid en sidvisning}
+\label{pageviewprocess}
+\end{figure}
+
+Bild \ref{pageviewprocess} representerar kommunikationen vid en sidvisning. När en användares webbsida laddas, inkluderar den en JavaScript fil som innehåller SmartElements tag. Efter att sidan laddats klar körs tagen, som samlar ihop information om besökaren samt eventuell extra data som användaren specificerat i tagen, och skickar informationen till back-enden.
+
+Backenden tar emot data från tagen och söker upp sidan som motsvarar det id som skickats. Efter att en sida har hittats går back-enden igenom de element som tagen begär innehåll för och filtrerar deras innehåll på basis av den data som tagen skickat. Allt innehåll kompileras till en lista med element-id länkat till innehåll och skickas tillbaka till besökarens webbläsare.
+
+Om användaren inte valt att ändra på beteendet av tagen så kallar backenden på tagen för att fylla elementen med den data som returnerats.
