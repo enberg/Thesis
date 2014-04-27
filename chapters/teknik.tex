@@ -1,28 +1,42 @@
-\section{Teknik}
+\section{Teknisk arkitektur}
 
-SmartElement bygger i stort sett på fem centrala tekniker, PHP som användts för att programmera progamlogiken, MySQL som databaslager var data lagras, Memcache som caching lager vilket tillåter att information som är tung att beräkna kan sparas mellan förfrågningar, dokument databsen MondgoDB för lagring av information om besökare och till sist JavaScript som används för att skapa det informationspaket om användaren som skickas till servern för användning vid filtreringen.
+SmartElement bygger i stort sett på fem centrala tekniker, programmeringsspråket PHP som användts för att skriva koden bakom systemet, MySQL som databaslager för avändar och systemdata, Memcache som caching lager vilket tillåter att information som är tung att beräkna kan sparas mellan förfrågningar, dokument databsen MondgoDB för lagring av information om besökare och statistik, och till sist JavaScript som används för att skapa det informationspaket om användaren som skickas till servern för användning vid filtreringen av innehåll.
+
+Många av de val som gjorts i planeringen av den tekniska arkitekturen bakom SmartElement baserar sig på en möjlighet att kunna skala systemet för att hantera förändrade användarmängder. De grundläggande principerna har varit att det skall vara lätt att utveckla, det skall vara lätt att underhålla, det skall vara lätt att installera och det skall vara lätt att skala upp om det skulle behövas.
 
 \subsection{PHP}
 
-PHP är ett skriptspråk som utvecklats med målet att snabbt kunna skapa dynamiska webbsidor. \citep{phpmanual} Språket valdes för att det är enkelt att arbeta med och det var språket som företagets andra produkter va skrivna med. Det finns också en mängd information och färdiga kodpaket till förfogande för programmerare, vilket underlättar och försnabbar utvecklingen.
+PHP är ett skriptspråk som utvecklats med målet att snabbt kunna skapa dynamiska webbsidor. \citep{phpmanual} Språket valdes för att det är enkelt att arbeta med och det var språket som företagets andra produkter var skrivna med.
 
-\subsection{MySQL}
+PHP är ett av de mest populära språken för webbutveckling \citep{tiobe} och det finns en mängd information och färdiga kodpaket till förfogande för programmerare, vilket underlättar och försnabbar utvecklingen. Genom sin popularitet har språket även den fördelen att det är lätt att hitta utveklare som kan fortsätta utvecklingen av projekt skrivna i PHP.
 
-För lagring av data valdes databasmjukvaran MySQL. En relationell databas passar sig bra för lagring av den information som systemet behandlar eftersom det handlar som entiteter som är starkt länkade till varandra.
+\subsection{Databas}
 
-\subsection{MongoDB}
+Databas lagret inom SmartElement är delat splittrat i dels en relationsdatabas och dels en dokumentdatabas. Denna lösning valdes för att dra nytta av de goda sidorna med båda teknikerna, var vissa data stöds bättre av den stabila datastruktur som en relationsdatabas ger medan annan data drar nytta av flexibiliteten som en dokumentdatabas ger.
 
-Dokumentdatabsen MongoDB används för lagring av användarinformation. MongoDB har använder inte ett strikt schema för datalagring utan dokument i samma samling kan ha skiljande attribut associerade med sig, detta underlättar vidareutveckling av systemet genom att tillåtta legacy data att existera i databasen tillsammans med ny tills den gamla uppdateras genom vanlig operation.
+Eftersom SmartElement hanterar dels intern data som är starkt bunden till systemet och påverkar funktionaliteten av systemet, och dels extern data som är närmare kopplad till användarens webbsida och påverkar hur en användares sida fungerar så finns det två tydliga data-set som båda har egna krav.
+
+\subsubsection{MySQL}
+
+För lagring av intern data används relationsdatabasen MySQL. Databasen lämpar sig bra för lagring av data med starka lenkar mellan objekten, vilket passar bra in på den användardata som SmartElement behandlar, det finns en klar hierarki bland objekten och länkar mellan dessa.
+
+Relationsdatabasen gör sig bra i denna roll då den ger en viss garanti på data strukturen bakom de olika objekt som bygger upp SmartElement. Genom att binda modellerna till en dastabasstruktur har man en sorts garanti att existerande data updateras och transformeras i samband med att processer i systemet uppdateras, på så vis ansågs en rigidare databasmodell bättre anpassad för denna uppgift.
+
+\subsubsection{MongoDB}
+
+För lagring av extern data, relaterad till besökare av användares webbsidor, valdes dokumentdatabasen MongoDB. MongoDB använder inte ett strikt schema för datalagring utan dokument i samma samling kan ha skiljande attribut associerade med sig, detta underlättar vidareutveckling av systemet genom att tillåtta legacy data att existera i databasen tillsammans med ny tills den gamla uppdateras och kompleteras då beökare återvänder till en användares webbsida.
+
+I fallet av denna data så är den strikta datastrukturen inte lika viktig, datan föråldras dels snabbt samt att designen är sådan att datan inte skall behöva vara komplett och innehålla strikta datastrukturer. Tanken med besökarobjekten är att de skall vara levande och öppna för modifikation och utvidgning, om ett nytt filter läggs till i systemet så skall det inte kräva en migration av legacy data, utan statistiken för det nya filtret läggs helt enkelt till på objektet och om inte datan finns på objektet så matchar filtret ej. Denna flexibilitet är lättare att åstadkomma med en dokumentdatabas eftersom att scheman just inte behöver uppdateras, vilket potentiellt skulle vara en väldigt tung operation i fallet av besökarobjektet som är den överdrivet snabbast växande samlingen inom systemet.
 
 \subsection{Memcache}
 
-Eftersom SmartElements datamodeller är relativt tunga att bygga så bestämmdes det att ett caching lager skulle användas för att hålla dessa datamodeller och på så vis låta mjukvaran gå direkt till filtrerings logiken då en förfrågan behandlas.
+Eftersom SmartElements datamodell består av många länkade objekt är det relativt tungt att bygga upp ett sidobjekt från databasen då det måste göras många förfrågningar. På grund av detta samt för att minska risken för (n+1)-problem (var man gör en databasförfrågan för varje element i en samling som man itererar över) så bestämmdes det att ett caching lager skulle användas för att hålla dessa datamodeller och på så vis låta mjukvaran gå direkt till filtrerings logiken då en förfrågan från tagen behandlas.
 
-Målet med cache lagret är att hålla sidorna i minnet på servern, och endast läsa från databasen när ett objekt byggs om i samband med en uppdatering. För detta ändamål valdes Memcache, en väletablerad mjukvara för caching. Memcache valdes för att det var en teknik som utvecklarna var vana vid samt för dess enkla modell av horisontell skalning, vilket skulle tillåta systemet att snabbt reagera på en växande kundskara.
+Målet med cache lagret är att hålla sidobjekten i minnet på servern så mycket som mögligt, och endast läsa från databasen när ett objekt byggs om i samband med en uppdatering. För detta ändamål valdes Memcache, en väletablerad mjukvara för caching. Memcache valdes för att det var en teknik som utvecklarna var vana vid, den var redan i bruk i andra projekt samt att dess enkla modell av horisontell skalning skulle tillåta systemet att snabbt reagera på en växande kundskara.
 
 \subsection{JavaScript}
 
-För att kunna identifiera så mycket information som möjligt om användaren är det nödvändigt att köra kod på klienten innen innehållet kan presenteras. I dagens läge finns det endast ett skriptspråk som kan köras på godtycklig klient, och det är javascript, vilket valdes även för detta projekt. 
+För att kunna identifiera så mycket information som möjligt om besökaren samt för att leverera innehållet som valts ut för beökaren är det nödvändigt att köra kod på klienten. För att stöda detta krav valdes scriptspråket javascript, vilket stöds av så gott som godtyckliga webblädare och tillåter logik att köra på besökarens maskin i samband med en sidvisning.
 
 % vim: set tw=78:ts=2:sw=2:et:fdm=marker:wrap:wm=78:ft=tex
 % vim: spell spelllang=sv
