@@ -11,7 +11,7 @@ SmartElement är ett back-end system som sköter filtrering av innehåll på bas
 \label{abstractstructure}
 \end{figure}
 
-SmartElement bygger på några grundläggande koncept; webbsidor, element, filter och innehåll. Med dessa fyra byggstenar konfigureras det objekt, visualiserat i bild \ref{abstractstructure}, som back-end systemet använder för att filtrera och leverera innehåll.
+SmartElement bygger på några grundläggande koncept; webbsidor, element, filter och innehåll. Med dessa fyra byggstenar konfigureras det objekt, visualiserat i figur \ref{abstractstructure}, som back-end systemet använder för att filtrera och leverera innehåll.
 
 \subsubsection{Webbsidan}
 
@@ -46,7 +46,7 @@ För att SmartElement skall kunna leverera innehåll, måste användaren konfigu
 \label{pageviewprocess}
 \end{figure}
 
-Bild \ref{pageviewprocess} representerar kommunikationen vid en sidvisning. När en användares webbsida laddas, inkluderar den en JavaScript fil som innehåller SmartElements tag. Efter att sidan laddats klar körs tagen, som samlar ihop information om besökaren samt eventuell extra data som användaren specificerat i tagen, och skickar informationen till back-enden.
+Figur \ref{pageviewprocess} representerar kommunikationen vid en sidvisning. När en användares webbsida laddas, inkluderar den en JavaScript fil som innehåller SmartElements tag. Efter att sidan laddats klar körs tagen, som samlar ihop information om besökaren samt eventuell extra data som användaren specificerat i tagen, och skickar informationen till back-enden.
 
 Backenden tar emot data från tagen och söker upp sidan som motsvarar det id som skickats. Efter att en sida har hittats går back-enden igenom de element som tagen begär innehåll för och filtrerar deras innehåll på basis av den data som tagen skickat. Allt innehåll kompileras till en lista med element-id länkat till innehåll och skickas tillbaka till besökarens webbläsare.
 

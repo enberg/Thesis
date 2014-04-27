@@ -33,18 +33,61 @@ De största problemen med statistik är att den är beroende av möjligheten att
 
 \subsubsection{Tid}
 
-Vid varje sidvisning registreras tiden för besöket, dels den tid som användarens webbläsare rapporterar, dels tiden för webbsidan och dels systemtiden på applikationsservern. Denna information sparas i samband med statistiken om besökaren och kan användas för att beräkna hur länge användaren varit på sidan, hur lång tid denne spenderat på en viss sida och hur länge denne i snitt spenderar på sidan.
+Vid varje sidvisning registreras tiden för besöket på basis av den tid som användarens webbläsare rapporterar. Utöver tiden för sidvisningen så beräknar javascript tagen hur lång tid användaren spenderat på sidan under det pågående besöket.
+
+Valet att registrera tiden som rapporteras av webbläsaren gjordes för att undvika problem med olika tidszoner och för att det är troligare att man vill göra ett beslut utgående från användarens tid, och eftersom tagen registrerar användarens tid så får systemet samtidigt möjligheten att registrera besökets längd.
 
 \subsubsection{Användardefinierad information}
 
-För att tillåta så flexibel användning som möjligt, tillåter SmartElement även att användaren själv definierar information som skickas till servern för processering. Detta sker genom att användaren lägger till egna dataelement i tagen då den inkluderas på sidan.
+För att tillåta så flexibel användning som möjligt, tillåter SmartElement även att användaren själv definierar information som skickas till servern för processering. Detta sker genom att användaren lägger till egna dataelement i tagen då den inkluderas på sidan. Det finns två element som kan användas för detta ändamål, dels en samling med nyckel-värde par som kan användas vid processering av den pågående sidvisningen och dels ett element för insamling av användardefinierad statistik.
 
-Genom denna teknik kan användaren i princip använda vad helst information som är relevant i dennes fall. Exempel på data som kunde vara intressant att spara är kundvagns inneåll, nån form av id för registrerade användare, aktiva kampanjer och annan information om webbsidasns status vid sidvisningen. Systemet sätter ingen begränsning på vad som sparas
+Genom denna teknik kan användaren i princip använda vad helst information som är relevant i dennes fall. Exempel på data som kunde vara intressant att spara är kundvagns inneåll, nån form av id för registrerade användare, aktiva kampanjer och annan information om webbsidasns status vid sidvisningen. Systemet sätter ingen begränsning på vad som skickas förutom att det måste sändas i formen av en samling av värden med nycklar.
 
 \subsection{Filtrering}
 
-Hur kan man filtrera på basis av den insamlade informationen?
+För att välja ut vilket innehålls element som skall skickas till besökaren använder sig systemet av informationen som samlats in och ett eller flere filter som användaren definierat för de olika elementen som registrerats i systemet. Filtersystemet bygger på användningen av enkla test som i kombination med olika typers data bildar en fråga om en användare.
 
+\subsubsection{Villkor}
+
+I grunden bygger SmartElements filter system på 12 enkla villkorsfunktioner som utför en jämförelse mellan den information tagen skickat och den information som användaren sparat i filtret.
+
+De tolv villkoren som kan användas samt de datatyper de kan hantera listas i tabell \ref{table:villkor}.
+
+\begin{table}
+    \begin{tabular}{|l|p{8cm}|l|}
+    \hline
+    Namn & Funktion & Datatyp \\
+    \hline
+    Större än & Testar om värdet är större än det i filtret & Alfanumerisk \\
+    \hline
+    Mindre än & Negation av större än villkoret & Alfanumerisk \\
+    \hline
+    Lika med & Testar om värdet är lika med det i filtret & Godtycklig \\
+    \hline
+    Inte lika med & Negation av lika med villkoret & Godtycklig \\
+    \hline
+    I samling & Testar om samlingen som registrerats i filtret innehåller värdet som sändts & Samling \\
+    \hline
+    Icke i samling & Negation av "i samling" villkoret & Samling \\
+    \hline
+    Innehåller & Testar om värdet i filtret innehåller värdet som sändts & Text \\
+    \hline
+    Innehåller ej & Negation av innehåller villkoret & Text \\
+    \hline
+    Börjar med & Testar om värdet som skickats börjar med värdet i filtret & Text \\
+    \hline
+    Slutar med & Testar om värdet som skickats slutar med värdet i filtret & Text \\
+    \hline
+    Tom & Testar om värdet som skickats är tomt & Text, Samling \\
+    \hline
+    Icke tom & Negation av tomhetsfiltret & Text, Samling \\
+    \hline
+    \end{tabular}
+    \caption{Villkorstyper}
+    \label{table:villkor}
+\end{table}
+
+Genom att kombinera dessa simpla villkor med den data som samlas in vid sidvisningar skapas filter som kan göra meningsfulla beslut om besökaren.
 
 % vim: set tw=78:ts=2:sw=2:et:fdm=marker:wrap:wm=78:ft=tex
 % vim: spell spelllang=sv

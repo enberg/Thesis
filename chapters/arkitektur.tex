@@ -1,36 +1,51 @@
 \section{Arkitektur}
 
-Förklaring av arkitekturen
-Arkitekturen designades utgående från några bas idéer, systemet skall vara lätt att utveckla dels i funktionalitet och dels i 
+Arkitekturen designades utgående samma principer som den tekniska arkitekturen, systemet skall vara lätt att utveckla funktionsmässigt, det skall vara lätt att unederhålla systemet och det skall vara lätt attskala upp det vid behöv. 
 
 \subsection{Back-End system}
 
-Back-end systemet är det som gör den egentliga processeringen av information och väljer ut innehållet som levereras.
+Back-end systemet eller serverkomponeneten i SmartElement är den centrala delen av systemet var all data lagras och all filtrering sker. Systemet har i två gränssnitt, ett öppet som används av tagen för att hämta innehåll vid sidvisningar och ett stängt som används av en frontend vid konfiguration av sidor.
+
+Hela back-end systemet är designat med en fokus på att vara "tillståndslöst" vad gäller hanteringen av förfrågnignar. I praktiken betyder detta att man inte skall behöva en session med back-enden för att kunna genomföra förfrågningar utan all information som behövs förses antingen i förfrågan, eller så kan den generaras från databasen. Detta betyder att t.ex. autentikationen är baserad på en nyckel som används för att generara en signatur för varje förfrågan. Orsaken till detta ligger i att det är lättare att skala systemet horisontellt, genom att lägga till applikationsservrar, då sessioner inte behöver synkroniseras mellan de olika servrarna.
+
+Tekniskt sett så finns det fyra huvudsakliga komponenter i back-end systemet som kan skiljas åt, applikationen, caching-lagret, applikations-databasen och statistik-databasen. Denna uppdelning är gjord för att försöka tillåta för oberoende horisontell skalning av resurserna för de olika ansvarsområdena genom att lägga till eller ta bort instanser av de olika komponenterna i takt med behov.
+
 
 \subsubsection{Matcher}
 
-Matchern är den kod som tar emot ett Visitor objekt som innehåller information om användaren och kör sedan igenom filtren för sidan med detta objekt.
+Den centrala delen av hanteringen av en sidvisning sker i den så kallade matchern som tar emot information om besökaren och söker fram det innehåll som skall skickas tillbaka. Rent tekniskt så tar matchern besökarobjektet, synkroniserar statistikdatabasen med besökarobjektet, söker fram sidobjektet ur cachinglagret (alternativt bygger det från databasen), använder sidobjektet för att generera det innehåll som skall sändas tillbaka och formaterar ett svar som skickas tillbaka till klienten.
 
 \subsubsection{Site ojektet}
 
-Objektet som innehåller all information om webbsidan, elementen, filtren och innehållen.
+Sidobjektet är det högsta objektet i hierarkin, det beskriver användarens webbplats i sin helhet. Från sidobjektet går alla relationer enda ner till filtren som används för att välja ut innehåll.
+
+När matchern samlar ihop data för att skicka tillbaka till klienten så kallar den på siteobjektet med ett besökarobjekt och därefter sköter siteobjektet om att kalla på de olika elementen som sparats under sidan och ber dessa filtrera ut lämpligt innehåll innan det lämnar tillbaka kontroller till matchern.
+
+Objektet är designat så att det kan kompileras till en entitet som går att spara i ett caching-lager för kunna hålla objekten i minne vid operation. Detta tillåter snabb åtkomst till data under en sidvisning och sparar på databasförfrågningar.
 
 \subsubsection{Element objekten}
 
-Element objekten motsvarar ett HTML element på webbsidan, dessa har filter med vilka det kan definiera vilket innehåll det skall visa.
+Element objekten motsvarar ett HTML element på användarens webbplats, men de är ej bundna till någon specifik url eller sida på webbplatsen. Detta betyder att man kan använda samma element på olika sidor under samma webbplats om man vill, t.ex. i en side-bar eller som del av en navigation.
+
+Ett element inehåller filterset, innehåll och ett status. Filterseten är samlingar av filter med en länk till ett innehållsobjekt samt en prioritet inom elementet. När sidobjektet kallar på ett element för att få tillbaka det passliga innehållet kör elementet igenom sin samling filter set och ser om de matchar besökarobjektet. Om fler en ett filterset matchar så väljs det med högsta prioritet. När ett filterset valts ut så returnerar elementet det innehåll som filtersetet är länkat till, om inget filterset matchar så returneras ett tomt resultat.
 
 \subsubsection{Filter objekten}
 
-Filter objekten innehåller regler som definierar en målgrupp och ett innehåll som det returnerar.
+Filterobjekten är i slutendan de objekt som utför test mot besökarobjektet. De består av en filtertyp som definierar hur de jämför data, ett fältid som de använder för att läsa ut data ur besökarobjektet, ett värde som de testar mot och ett villkor som de använder för att utföra testet.
+
+Filter tar endast ställning till en sak och returnerar ett booleanskt värde beroende på om kriteriet möts eller ej.
 
 \subsubsection{Content objekten}
 
-Content objekten är innehåll som returneras, detta kan vara dels HTML innehåll eller javaskript kod.
+Content objektet är den data som returneras till klienten efter att filtreringen skett. Systemet sätter ingen restriktion på datan annan än att det måste kunna sparas som en textsträng. Detta betyder att man kan producera avancerad funktionalitet genom att t.ex. spara javascript-kod eller json-data som innehåll och på så vis använda SmartElement för att styra exekvering på klienten. Det betyder också att systemet inte sätter så stora krav på den kallaren eftersom det enda som är viktigt är att klienten kan tolka datan som returneras, detta betyder att man i princip kunde skapa godtycklig klient till backenden genom att implementera protokollet som tagen använder.
 
 \subsection{Javascript tagen}
 
 Javascript tagen är en kort kod som laddas i samband med sidan och samlar ihop informaiton om användaren och sedan skickar denna information till back-end sytemet för processering.
 
+Tagen börjar med att skapa en kaka på klienten om ingen redan existerar, skapar det besökar id som genom systemet används för att identifiera besökaren, registrerar tiden för sidvisningen, beräknar besökets längd, samlar ihop data om besökaren och sänder den till back-enden.
+
+Efter att back-enden processerat förfrågan och returnerat data för de element som begärts så är standardbeteendet att backenden genom ett JSONP-svar kallar på tagen som uppdaterar dokumentet med det returnerade innehållet. Vilken funktion som kallas kan dock ändras och man kan genom att specifcera en callback ändra på funktionskallet i JSONP-svaret och på så vis använda egen logik för uppdateringen av innehållet.
 
 % vim: set tw=78:ts=2:sw=2:et:fdm=marker:wrap:wm=78:ft=tex
 % vim: spell spelllang=sv
