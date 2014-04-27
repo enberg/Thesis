@@ -6,7 +6,10 @@
 \usepackage{alltt}
 \usepackage{textcomp}
 \usepackage{graphicx}
+\usepackage{todonotes}
+\usepackage[xindy]{glossaries}
 
+\makeglossaries
 
 \newcommand{\bnfrule}[1]{\textit{$\langle$#1$\rangle$}}
 \newcommand\wordbox[2][]{\tikz[overlay]\node[fill=blue!20,inner sep=2pt,
@@ -22,14 +25,19 @@
 \begin{document}
 
 \input{settings}
+\input{glossary}
 
 % Preamble stuff
 \input{pages/title}
 \tableofcontents
 \clearpage
+\input{chapters/definitioner}
+\clearpage
 \input{chapters/inledning}
 \clearpage
 \input{chapters/bakgrund}
+\clearpage
+\input{chapters/smartelement}
 \clearpage
 \input{chapters/teknik}
 \clearpage
@@ -39,6 +47,7 @@
 \clearpage
 \input{chapters/sammanfattning}
 \clearpage
+\nocite{*}
 \bibliography{references}
 \appendix
 \end{document}
