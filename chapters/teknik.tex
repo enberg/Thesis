@@ -12,13 +12,13 @@ För lagring av data valdes databasmjukvaran MySQL. En relationell databas passa
 
 \subsection{MongoDB}
 
-Dokumentdatabsen MongoDB används för lagring av användarinformation.
+Dokumentdatabsen MongoDB används för lagring av användarinformation. MongoDB har använder inte ett strikt schema för datalagring utan dokument i samma samling kan ha skiljande attribut associerade med sig, detta underlättar vidareutveckling av systemet genom att tillåtta legacy data att existera i databasen tillsammans med ny tills den gamla uppdateras genom vanlig operation.
 
 \subsection{Memcache}
 
 Eftersom SmartElements datamodeller är relativt tunga att bygga så bestämmdes det att ett caching lager skulle användas för att hålla dessa datamodeller och på så vis låta mjukvaran gå direkt till filtrerings logiken då en förfrågan behandlas.
 
-Målet med cache lagret är att hålla sidorna i minnet på servern, och endast läsa från databasen när ett objekt byggs om i samband med en uppdatering. För detta ändamål valdes Memcache, en väletablerad mjukvara för caching.
+Målet med cache lagret är att hålla sidorna i minnet på servern, och endast läsa från databasen när ett objekt byggs om i samband med en uppdatering. För detta ändamål valdes Memcache, en väletablerad mjukvara för caching. Memcache valdes för att det var en teknik som utvecklarna var vana vid samt för dess enkla modell av horisontell skalning, vilket skulle tillåta systemet att snabbt reagera på en växande kundskara.
 
 \subsection{JavaScript}
 
