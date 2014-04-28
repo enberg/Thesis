@@ -25,6 +25,8 @@ Den centrala delen av hanteringen av en sidvisning sker i den så kallade matche
 
 \subsubsection{Site ojektet}
 
+\input{assets/uml/site}
+
 Sidobjektet är det högsta objektet i hierarkin, det beskriver användarens webbplats i sin helhet. Från sidobjektet går alla relationer enda ner till filtren som används för att välja ut innehåll.
 
 När matchern samlar ihop data för att skicka tillbaka till klienten så kallar den på siteobjektet med ett besökarobjekt och därefter sköter siteobjektet om att kalla på de olika elementen som sparats under sidan och ber dessa filtrera ut lämpligt innehåll innan det lämnar tillbaka kontroller till matchern.
@@ -33,17 +35,29 @@ Objektet är designat så att det kan kompileras till en entitet som går att sp
 
 \subsubsection{Element objekten}
 
+\input{assets/uml/element}
+
 Element objekten motsvarar ett HTML element på användarens webbplats, men de är ej bundna till någon specifik url eller sida på webbplatsen. Detta betyder att man kan använda samma element på olika sidor under samma webbplats om man vill, t.ex. i en side-bar eller som del av en navigation.
+
+\subsubsection{FilterSet objekten}
+
+\input{assets/uml/filterset}
 
 Ett element inehåller filterset, innehåll och ett status. Filterseten är samlingar av filter med en länk till ett innehållsobjekt samt en prioritet inom elementet. När sidobjektet kallar på ett element för att få tillbaka det passliga innehållet kör elementet igenom sin samling filter set och ser om de matchar besökarobjektet. Om fler en ett filterset matchar så väljs det med högsta prioritet. När ett filterset valts ut så returnerar elementet det innehåll som filtersetet är länkat till, om inget filterset matchar så returneras ett tomt resultat.
 
+Filterseten bygger tillsammans med filtren på en design princip som kallas för "Strategy pattern", var idén är att man genoma att definiera ett bra interface för en process, lämnar systemet öppet för enkel vidareutveckling i ett senare skede. FilterSet objektet i samband med Besökar objektet utgör tillsammans det kontext i vlilket strategierna (Filtren) appliceras.
+
 \subsubsection{Filter objekten}
+
+\input{assets/uml/filter}
 
 Filterobjekten är i slutendan de objekt som utför test mot besökarobjektet. De består av en filtertyp som definierar hur de jämför data, ett fältid som de använder för att läsa ut data ur besökarobjektet, ett värde som de testar mot och ett villkor som de använder för att utföra testet.
 
-Filter tar endast ställning till en sak och returnerar ett booleanskt värde beroende på om kriteriet möts eller ej.
+Filterobjekten implementerar strategin i filtreringen som utförs i sammband med filterseten. Filter tar endast ställning till en sak och returnerar ett booleanskt värde beroende på om kriteriet möts eller ej. Filtersetet vet endast att det kan ställa frågan av godtyckligt filter och filtret i sig vet att frågan alltid kommer att ställas på samma vis med likadan input.
 
 \subsubsection{Content objekten}
+
+\input{assets/uml/content}
 
 Content objektet är den data som returneras till klienten efter att filtreringen skett. Systemet sätter ingen restriktion på datan annan än att det måste kunna sparas som en textsträng. Detta betyder att man kan producera avancerad funktionalitet genom att t.ex. spara javascript-kod eller json-data som innehåll och på så vis använda SmartElement för att styra exekvering på klienten. Det betyder också att systemet inte sätter så stora krav på den kallaren eftersom det enda som är viktigt är att klienten kan tolka datan som returneras, detta betyder att man i princip kunde skapa godtycklig klient till backenden genom att implementera protokollet som tagen använder.
 
