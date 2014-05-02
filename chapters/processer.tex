@@ -89,5 +89,85 @@ De tolv villkoren som kan användas samt de datatyper de kan hantera listas i ta
 
 Genom att kombinera dessa simpla villkor med den data som samlas in vid sidvisningar skapas filter som kan göra meningsfulla beslut om besökaren.
 
+Under utvecklingen av SmartElement valdes några färdiga filtrerings metoder ut för implementering i systemet som en grund för användare att börja bygga sin anpassning. Genom att studera den tillgängliga informationen valdes några frågor ut som var lätta att identifiera, dessa utgör de inbyggda filtren i SmartElement.
+
+\subsubsection{Stadsfiltret}
+
+Stadsfiltret använder sig av informationen som samlats in genom IP-geolokalisering och tillåter användaren att visa specifikt innehåll för besökare från en viss stad.
+
+Motivationen för att implementera stadsfiltret kom från iden om att en användare kan köra kampanjer för olika kontor i olika städer eller visa kontorsspecifika öppethållningstider.
+
+\subsubsection{Landfiltret}
+
+Landsfiltret använder sig av IP-golokaliseringsinformationen för att tillåta användare att avgränsa innehåll på basis av vilket land besökare kommer ifrån.
+
+Motivationen bakom landsfiltret var att tillåta dels större företag som sträcker sig över landsgränser att visa landsspecifik information på sin webbsida samt mindre företag att välja att visa mera specifik information för inhemska besökare och en mera generell information för internationella beökare.
+
+\subsubsection{Datumfiltret}
+
+Datumfiltret använder sig av dagens datum fär att tillåta användaren att specificera när ett innehåll skall visas. Filtret kan användas med de olika jämförelse-villkoren, vilket betyder att man kan specificera ett datu efter vilket innehållet skall visas, ett datum före vilket det skall visas, med lika med villkoret kan man specificera en enda dag då innehållet skall visas och lika så en specifik dag då det inte skall visas.
+
+Motivationen bakom datumfiltret var att ge användare möjligheten att visa kampanjinnehåll under en specifik tid genom att kombinera två datum filter, ett med en nedre gräns och ett med en övre.
+
+\subsubsection{Dagsfiltret}
+
+Dagsfiltret använder sig även det av datumet för filtrering. Till skillnad från datumfiltret så tar dagsfiltret emot en samling av datar då ett innehåll skall visas. Filtret kan antingen inkludera dagar eller exkludera dagar.
+
+Användningsfallet som ledde till dagsfiltret var att en användare vill visa en öppethållningstidtabell under veckan men ett anpassat element under veckoslutet som föreslår att beökaren gör en beställning genom en webb-butik.
+
+\subsubsection{Besökstidsfiltret}
+
+Besökstidsfiltret använder sig av tiden en beökare spenderat på webbsidan för att filtrera innehåll. Filtret använder de olika jämförande villkoren för att tillåta användaren att visa innehåll för användare som spenderat en specifik tid på sidan. Man kan ställa in en nedre gräns, en övre gräns och även en exakt tid då innehåll skall visas eller döljas.
+
+Användningsfallen för besökstidsfiltret var att användaren vill skapa ett element som visar ett specialerbjudande för användare som har spenderat en längre tid på webbsidan men inte beställt något samt att användaren vill visa nyheter för användare som nyss anländt.
+
+\subsubsection{Nyckelordsfiltret}
+
+Nyckelordsfiltret använder sig av hänvisningsinformationen för att filtrera ut vilka nyckelord som användts i en sökmotor om besökaren nått sidan via en sådan. Filtret tillåter användaren att specificera grupper av nyckelord som antingen skall eller inte skall vara bland de som användts.
+
+Användningsfallet bakom nyckelordsfiltret är en att en användare väljer att lyfta fram speciell information som passar in på den webbsökning som besökaren användt för att hitta till webbplatsen.
+
+\subsubsection{Landningssidefiltret}
+
+Landningssidefiltret använder sig av statistikinformationen för att välja ut anpassat innehåll. Funktionaliteten fungerar genom att matcha den första sidan under det aktiva besöket mot en grupp som den antingen skall eller inte kall finnas bland.
+
+Användningsfallet för landningssidefiltret är att en användare använder sig av en marknadförings url som leder till en speciell sida, efter detta kan elementen på sidan återspegla kampanjen.
+
+\subsubsection{Sidantalsfiltret}
+
+Sidantalsfiltret använder sig av statistikingormationen för att ge användaren möjlighet att skapa filter som använder antalet av sidor som visats under det aktiva besöket för att visa eller dölja innehåll.
+
+Användningsfallet för sidantalsfiltret är en användare som vill visa ett element som ändrar med sido besöken och på så vis ger information som passar med besökarens bekantskap med sidan och på samma gång ger en levande bild av informationen.
+
+\subsubsection{Hänvisarfiltret}
+
+Hänvisarfiltret använder sig av hänvisningsinformationen för att tillåta användaren att skapa filter som agerar på grupper av hänvisare och på så vis tillåter innehåll att kopplas till de sidor som sändt besökaren till webbsidan.
+
+Användningsfallet för hänvisarfiltret är att användaren vill skapa ett element som visar speciellt innehåll för beökare som når dennes webbsida genom en av deras sammarbetspartners.
+
+\subsubsection{Regionsfiltret}
+
+Regionsfiltret använder sig av IP-gelokaliserings information för att tillåta användaren att visa innehåll anpassat till användarens region. I finland kan man t.ex. specificera att ett innehåll skall visas endast om besökaren befinner sig i södra finland.
+
+Användningsfallet är att användaren har regional-kampanjer som använder samma element på sidan för att visa den relevanta informationen på basis av var besökaren befinner sig.
+
+\subsubsection{Tidsfiltret}
+
+Tidsfiltret använder den aktuella tiden för att välja ut vilket innehåll som skall visas. Användaren kan skapa filter utgående från villkoren större än, mindre än, lika med och icke lika med för att skapa filter som visar olika innehåll olika tider av dagen.
+
+Användningsfallet för tisfiltret är att användaren vill visa speciell information när en butik är öppen, när den håller på att stänga och när den är stängd.
+
+\subsubsection{Besöksfiltret}
+
+Besöksfiltret använder sig av statistikinformationen för att tillåta filtrering baserat på antalet besök som gjorts till webbsidan. Med hjälp av större än, mindre än, lika med och icke lika med villkoren kan användaren skapa filter som visar innehåll på basis denna statistik.
+
+Användningsfallet för besöksfiltret är att användaren vill visa information som passar besökarens lojalitet till webbsidan, en användare som ofta återkommer kan se ett innehåll som reflekterar detta.
+
+\subsubsection{Anpassningsbart filter}
+
+Den sista filterklassen är det anpassningsbara filtret vilket tillåter användaren att skapa filter helt baserat på sina egna behov. Filtret tillåter användning av godtycklig villkorsfunktion med godtycklig data. Beroende på vilken vilkorsfunktion som konfigureras kan det uppstå begränsningar på vilken typs data som kan användas för filtrering. Detta filter ger SmartElement möjligheten implementera ny filtreringsfunktionalitet genom konfiguration.
+
+Användningsfallet för det anpassningsbara filtret är att användaren kan skapa ett filter helt på basis va sina egna behov genom att specificera vilken data som skall användas och hur den skall användas vid filtrering.
+
 % vim: set tw=78:ts=2:sw=2:et:fdm=marker:wrap:wm=78:ft=tex
 % vim: spell spelllang=sv
