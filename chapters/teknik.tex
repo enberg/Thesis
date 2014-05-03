@@ -12,23 +12,29 @@ PHP är ett av de mest populära språken för webbutveckling \citep{tiobe} och 
 
 \subsection{Databas}
 
-Databas lagret inom SmartElement är delat splittrat i dels en relationsdatabas och dels en dokumentdatabas. Denna lösning valdes för att dra nytta av de goda sidorna med båda teknikerna, var vissa data stöds bättre av den stabila datastruktur som en relationsdatabas ger medan annan data drar nytta av flexibiliteten som en dokumentdatabas ger.
+Databas lagret inom SmartElement är delat splittrat i två skillda lager, dels en relationsdatabas och dels en dokumentdatabas. Denna lösning valdes för att dra nytta av de goda sidorna med båda teknikerna, var vissa data stöds bättre av den stabila datastruktur som en relationsdatabas ger medan annan data drar nytta av flexibiliteten som en dokumentdatabas ger.
 
 Eftersom SmartElement hanterar dels intern data som är starkt bunden till systemet och påverkar funktionaliteten av systemet, och dels extern data som är närmare kopplad till användarens webbsida och påverkar hur en användares sida fungerar så finns det två tydliga data-set som båda har egna krav.
 
 \subsubsection{MySQL}
 
-För lagring av intern data används relationsdatabasen MySQL. Databasen lämpar sig bra för lagring av data med starka lenkar mellan objekten, vilket passar bra in på den användardata som SmartElement behandlar, det finns en klar hierarki bland objekten och länkar mellan dessa.
+MySQL är en relationsdatabashanterare som sköter om lagring av data samt modifikation och sökning genom SQL språket. MySQL utvecklades som ett öppen-källkods projekt av det svenska företaget MySQL AB och är ett av de populäraste databassystemen för utveckling av webapplikationer. \citep{dbengines}
+
+MySQL används i SmartElement för lagring av intern data relaterad till systemets funktionalitet. Databasen lämpar sig bra för lagring av data med starka länkar mellan objekten, vilket passar bra in på den användardata som SmartElement behandlar, det finns en klar hierarki bland objekten och länkar mellan dessa.
 
 Relationsdatabasen gör sig bra i denna roll då den ger en viss garanti på data strukturen bakom de olika objekt som bygger upp SmartElement. Genom att binda modellerna till en dastabasstruktur har man en sorts garanti att existerande data updateras och transformeras i samband med att processer i systemet uppdateras, på så vis ansågs en rigidare databasmodell bättre anpassad för denna uppgift.
 
 \subsubsection{MongoDB}
 
+MongoDB är en dokumentdatabas som utvecklas av företaget MongoDB, Inc. Databasen är en av de så kallade NoSQL databserna, vilket är en term som används för att bemärka databaser som inte använder sig av SQL språket för data-manipulering, i MongoDB använder man i stället JavaScript språket för att ge kommandon åt databasen.
+
 För lagring av extern data, relaterad till besökare av användares webbsidor, valdes dokumentdatabasen MongoDB. MongoDB använder inte ett strikt schema för datalagring utan dokument i samma samling kan ha skiljande attribut associerade med sig, detta underlättar vidareutveckling av systemet genom att tillåtta legacy data att existera i databasen tillsammans med ny tills den gamla uppdateras och kompleteras då beökare återvänder till en användares webbsida.
 
 I fallet av denna data så är den strikta datastrukturen inte lika viktig, datan föråldras dels snabbt samt att designen är sådan att datan inte skall behöva vara komplett och innehålla strikta datastrukturer. Tanken med besökarobjekten är att de skall vara levande och öppna för modifikation och utvidgning, om ett nytt filter läggs till i systemet så skall det inte kräva en migration av legacy data, utan statistiken för det nya filtret läggs helt enkelt till på objektet och om inte datan finns på objektet så matchar filtret ej. Denna flexibilitet är lättare att åstadkomma med en dokumentdatabas eftersom att scheman just inte behöver uppdateras, vilket potentiellt skulle vara en väldigt tung operation i fallet av besökarobjektet som är den överdrivet snabbast växande samlingen inom systemet.
 
-\subsection{Memcache}
+\subsection{Memcached}
+
+Memcached är ett object caching system, en mjukvara som tillåter program att spara objekt i minnet och senare läsa tillbaka det i utan att behöva bygga upp datastrukturer igen. Systemet funkgerar som ett nyckel-värde system, det vill säga att information sparas i en nivå med unika nycklar som id, en enkel princip som bidrar till att systemet är mycket effektivt. \citep{memcachedwiki}
 
 Eftersom SmartElements datamodell består av många länkade objekt är det relativt tungt att bygga upp ett sidobjekt från databasen då det måste göras många förfrågningar. På grund av detta samt för att minska risken för (n+1)-problem (var man gör en databasförfrågan för varje element i en samling som man itererar över) så bestämmdes det att ett caching lager skulle användas för att hålla dessa datamodeller och på så vis låta mjukvaran gå direkt till filtrerings logiken då en förfrågan från tagen behandlas.
 

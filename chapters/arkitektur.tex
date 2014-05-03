@@ -1,13 +1,13 @@
 \section{Mjukvaruarkitektur}
 
-Arkitekturen designades utgående samma principer som den tekniska arkitekturen, systemet skall vara lätt att utveckla funktionsmässigt, det skall vara lätt att unederhålla systemet och det skall vara lätt attskala upp det vid behöv. 
+Arkitekturen designades utgående samma principer som den tekniska arkitekturen, systemet skall vara lätt att utveckla funktionsmässigt, det skall vara lätt att unederhålla systemet och det skall vara lätt att skala upp det vid behöv.
 
-\subsection{Back-End system}
+\subsection{Servern}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=120mm]{assets/images/smelementbackendparts.png}
-\caption{Back-endens komponenter}
+\caption{Delarna av serverkomponenten}
 \label{abstractbackend}
 \end{figure}
 
@@ -68,6 +68,12 @@ Javascript tagen är en kort kod som laddas i samband med sidan och samlar ihop 
 Tagen börjar med att skapa en kaka på klienten om ingen redan existerar, skapar det besökar id som genom systemet används för att identifiera besökaren, registrerar tiden för sidvisningen, beräknar besökets längd, samlar ihop data om besökaren och sänder den till back-enden.
 
 Efter att back-enden processerat förfrågan och returnerat data för de element som begärts så är standardbeteendet att backenden genom ett JSONP-svar kallar på tagen som uppdaterar dokumentet med det returnerade innehållet. Vilken funktion som kallas kan dock ändras och man kan genom att specifcera en callback ändra på funktionskallet i JSONP-svaret och på så vis använda egen logik för uppdateringen av innehållet.
+
+\subsection{Begränsningar}
+
+Systemet utvecklades med relativt låg budget och därigenom en del begränsningar på tekniken och hårdvaran som fanns tillgänglig. Detta återspeglar sig i en del begränsningar i själva systemet samt i funktionalitet som inte implementerats.
+
+
 
 % vim: set tw=78:ts=2:sw=2:et:fdm=marker:wrap:wm=78:ft=tex
 % vim: spell spelllang=sv
