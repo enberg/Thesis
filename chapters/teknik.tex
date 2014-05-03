@@ -10,6 +10,12 @@ PHP är ett skriptspråk som utvecklats med målet att snabbt kunna skapa dynami
 
 PHP är ett av de mest populära språken för webbutveckling \citep{tiobe} och det finns en mängd information och färdiga kodpaket till förfogande för programmerare, vilket underlättar och försnabbar utvecklingen. Genom sin popularitet har språket även den fördelen att det är lätt att hitta utveklare som kan fortsätta utvecklingen av projekt skrivna i PHP.
 
+\subsubsection{PHP-ramverket Laravel}
+
+För att snabba upp utvecklingen av systemt användes ett utvecklingsramverk. Ett utvecklingsramverk är en samling av kodpaket som används som bas vid utvecklingen av en applikation och förser utvecklaren med funktionalitet som inte varierar mycket mellan applikationer.
+
+Ramverket som använders för att utveckla SmartElement är PHP-ramverket Laravel. Det är ett yngre ramverk som utvecklats användande komponenter från Symfony, ett väletablerat PHP-ramverk som dock kan vara rätt tungt. Laravel drar även full nytta av Composer pakethanteraren, vilket är tillåter lätt importering av kodpaket i projektet. Utöver detta är hela ramverket uppbyggt för att vara modulärt och tillåter således modifikation och hel erättning av komponenter.
+
 \subsection{Databas}
 
 Databas lagret inom SmartElement är delat splittrat i två skillda lager, dels en relationsdatabas och dels en dokumentdatabas. Denna lösning valdes för att dra nytta av de goda sidorna med båda teknikerna, var vissa data stöds bättre av den stabila datastruktur som en relationsdatabas ger medan annan data drar nytta av flexibiliteten som en dokumentdatabas ger.

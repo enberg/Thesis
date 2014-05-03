@@ -23,6 +23,12 @@ Tekniskt sett så finns det fyra huvudsakliga komponenter i back-end systemet so
 
 Den centrala delen av hanteringen av en sidvisning sker i den så kallade matchern som tar emot information om besökaren och söker fram det innehåll som skall skickas tillbaka. Rent tekniskt så tar matchern besökarobjektet, synkroniserar statistikdatabasen med besökarobjektet, söker fram sidobjektet ur cachinglagret (alternativt bygger det från databasen), använder sidobjektet för att generera det innehåll som skall sändas tillbaka och formaterar ett svar som skickas tillbaka till klienten.
 
+\subsubsection{Besökarobjektet}
+
+Besökarobjektet representerar en besökare på webbsidan och innehåller all information som systemet kunnat samla ihop. Besökarobjektet är det enda objekt i filtreringsprocessen som är designat att röra databasen.
+
+När en förfrågan kommer in, kallas en factory metod som försöker hitta besökaren i statistikdatabasen. Om ett resultat hittas, uppdaterar factory metoden det befintliga objektet med den nya informationen från fårfrågningen. Om besökaren inte är igenkännd så skapas ett nytt besökarobjekt med den försedda informationen.
+
 \subsubsection{Site ojektet}
 
 \input{assets/uml/site}
@@ -45,7 +51,7 @@ Element objekten motsvarar ett HTML element på användarens webbplats, men de �
 
 Ett element inehåller filterset, innehåll och ett status. Filterseten är samlingar av filter med en länk till ett innehållsobjekt samt en prioritet inom elementet. När sidobjektet kallar på ett element för att få tillbaka det passliga innehållet kör elementet igenom sin samling filter set och ser om de matchar besökarobjektet. Om fler en ett filterset matchar så väljs det med högsta prioritet. När ett filterset valts ut så returnerar elementet det innehåll som filtersetet är länkat till, om inget filterset matchar så returneras ett tomt resultat.
 
-Filterseten bygger tillsammans med filtren på en design princip som kallas för "Strategy pattern", var idén är att man genoma att definiera ett bra interface för en process, lämnar systemet öppet för enkel vidareutveckling i ett senare skede. FilterSet objektet i samband med Besökar objektet utgör tillsammans det kontext i vlilket strategierna (Filtren) appliceras.
+Filterseten bygger tillsammans med filtren på en design princip som kallas för "Strategy pattern", var idén är att man genoma att definiera ett bra gränsnitt för en process, lämnar systemet öppet för enkel vidareutveckling i ett senare skede. FilterSet objektet i samband med Besökar objektet utgör tillsammans det kontext i vlilket strategierna (Filtren) appliceras.
 
 \subsubsection{Filter objekten}
 

@@ -37,6 +37,14 @@ SmartElement har två huvudsakliga funktionsområden, konfiguration av konfigura
 
 För att SmartElement skall kunna leverera innehåll, måste användaren konfigurera sidan och dens element på förhand. Processen består av att registrera element under sidobjektet, skapa innehåll samt att konfigurera filter genom att kombinera regler om vilka användare innehållet passar för.
 
+I praktiken sker all konfiguration av systemet, då det är i produktion, genom ett JSON gränssnitt. En klient kopplar upp sig, suktoriserar sig genom en nyckel och kan sedan göra förfrågningar mot gränssnittet.
+
+Konfigurationsprocessen börjar från att registrera en webbsida i systemet. En användare kan ha flere olika sidor registrerade i systemet, så gränssnittet jobbar alltid under en utvald webbsida.
+
+Under webbsidan kan användaren registrera de element för vilka innehållet skall anpassas. Elementen är i grund och botten bara en nyckel som används för att representera ett objekt som kan se ut på olika sätt (ha olika innehåll) beroende på de filter som associeras med det.
+
+Efter konfiguration av element kofigureras ett eller flere innehåll under dessa. I samband med innehållen lägger användaren till filter i innehållets filterset, alla filter som registreras måste matcha för att innehållet skall visas. Det är genom dessa filterkombinationer som avancerade villkor kan implementeras.
+
 \subsubsection{Sidvisning}
 
 \begin{figure}[h!]

@@ -1,6 +1,18 @@
 \section{Sammanfattning och Diskussion}
 
-Sammanfattning av arbetet, tillbakatitt på produkten. Diskussion om förbättringar som skulle kunna göras i systemet. Diskussion om tekniker som kunde bytas ut för att eventuellt förbättra prestanda. Diskussion om svårigheter med produkten.
+Systemet som utvecklades motsvarar de utsatta målen, systemet tillåter filtrering av innehåll på basis av information som samlas in vid ett besök, vilket var det mest grundläggande målet för systemet. Den tekniska arkitekturen är  lätt och flexibel, den tillåter systemet att enkelt skala upp och ner i enlighet med behov. Mjukvaruarkitekturen möter behöven på mjukvaran i det skede som den är och systemet är öppet för vidareutveckling.
+
+\subsection{Ideer för vidare utveckling}
+
+SmartElement har genom projektet utvecklats till ett MVP (Minimum-Viable-Produkt) stadie, det stöder den mest grundläggande funktionaliteten som krävs. Det finns doch en del områden var systemet skulle kunna utvecklas, tekniker som skulle kunna användas för förbättring av systemet.
+
+\subsubsection{Poängsättning av material}
+
+Ett system för poängsättning av material som besökaren ser har planerats, men inte implementerats. Genom att använda anpassad information och de anpassade filtret kan man dock i dagens läge skapa en rudimentär implementation av ett poängsättningssystem. Med dedikerat stöd för poängsättning skulle användare kunna definiera kundsegment baserat på olika mätare och systemet skulle kunna använda statistik informationen klassificera besökare som del av dessa.
+
+\subsubsection{Förutsägning}
+
+I dagens läge är SmartElements filtreringssystem reaktivt, det reagerar på historisk information. Genom att koppla in ett system för förutsägning skulle man kunna förutse relevans. Systet samlar redan in en del data som skulle kunna användas för förutsägning av relevans och genom att träna ett system med information specifik för en webbsida, kunde man potentiellt göra förutsägningar om vilka innehåll en ny beökare kan vara intresserad av.
 
 
 % vim: set tw=78:ts=2:sw=2:et:fdm=marker:wrap:wm=78:ft=tex
