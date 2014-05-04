@@ -4,29 +4,29 @@ För att kunna leverera anpassat webbinehåll till besökaren av en webbsida, m�
 
 \subsection{Information om användaren}
 
-SmartElement använder sig till stor del av statistik som systemet samlar ihop med hjälp av en JavaScript tag som körs i besökarens webbläsare då denne besöker en sida som använder systemet. Denna information skickas till back-end systemet som vidare processerar datan och sparar den i en dokument databas under ett beökarobjekt. På detta viset kan systemet komma ihåg användare mellan sessioner och på så vis skapa historik om användarens beteende och vanor, vilket i sin tur är till nytta för att hitta det bästa innehållet att presentera.
+SmartElement använder sig till stor del av statistik som systemet samlar ihop med hjälp av en JavaScript tag som körs i besökarens webbläsare då denne besöker en sida som använder systemet. Denna information skickas till back-end systemet som vidare processerar datan och sparar den i en dokument databas under ett besökarobjekt. På detta vis kan systemet komma ihåg användare mellan sessioner och på så vis skapa historik om användarens beteende och vanor, vilket i sin tur är till nytta för att hitta det bästa innehållet att presentera.
 
 \subsubsection{Hänvisningsinformation}
 
-Den första informationen som registreras om användaren är varifrån denne anländer till sidan. Webbläsare skickar oftast en så kallad referrer variabel när man navigerar till en webbsida genom att klicka på en länk, denna variabel innehåller addressen på sidan som visade länken.
+Den första informationen som registreras om användaren är varifrån denne anländer till sidan. Webbläsare skickar oftast en så kallad referrer variabel när man navigerar till en webbsida genom att klicka på en länk, denna variabel innehåller adressen på sidan som visade länken.
 
 Genom att spara denna information får man dels en indikation av varifrån besökare hittar till sidan, men även en indikation av vilken typs sidor den aktuella besökaren ofta besöker.
 
-En nackdel är att hänvisningsinformation inte alltid finns tillgänglig, och avsaknad av denna information ger en inte ett definitivt svar om hur användaren hittat till sidan. Detta på grund av att hänvisningsinformation inte skickas t.ex. när man navigerar till webbsidan från en sida med krypterad anslutning, om användarens webbläsare har konfigurerats att inte sända informationen men även om användaren helt enkelt skrivit in webbsidans address i sin webbläsare och är en så kallad direkt träff. \citep{httprfc}
+En nackdel är att hänvisningsinformation inte alltid finns tillgänglig, och avsaknad av denna information ger en inte ett definitivt svar om hur användaren hittat till sidan. Detta på grund av att hänvisningsinformation inte skickas t.ex. när man navigerar till webbsidan från en sida med krypterad anslutning, om användarens webbläsare har konfigurerats att inte sända informationen men även om användaren helt enkelt skrivit in webbsidans adress i sin webbläsare och är en så kallad direkt träff. \citep{httprfc}
 
 \subsubsection{IP Geolokalisering}
 
-Nästa bit av information som samlas in om bseökaren är uppskattng av dennes position på basis av den information som registrerats för IP-addressen som förfrågan kommer från.
+Nästa bit av information som samlas in om besökaren är en uppskattning av dennes position på basis av den information som registrerats för IP-adressen som förfrågan kommer från.
 
-SmartElement använder sig av en databas som köps in av ett företag som specialiserar sig i att uppehålla så noggrann information som möjligt om var i världen IP-addresser egentligen är registrerade. Från denna databas söker systemet sedan fram information om besökarens läge. Information som är tillgänglig är bland annat vilket land användaren befinner sig i, vilken region inom landet samt vilken stad.
+SmartElement använder sig av en databas som köps in av ett företag som specialiserar sig i att uppehålla så noggrann information som möjligt om var i världen IP-adresser egentligen är registrerade. Från denna databas söker systemet sedan fram information om besökarens läge. Information som är tillgänglig är bland annat vilket land användaren befinner sig i, vilken region inom landet samt vilken stad.
 
-Trots att informationen i databasen ar av rätt hög kvalitet, kan man inte helt och hållet lite på informationene som genereras genom IP geolokalisering. Dels så är IP-addressen som sänds till servern inte nödvändigtvis besökarens egna IP-address då denne kan vara uppkopplad via en VPN-anslutning eller eventuellt använda sig av en proxy-server som inte vidare förmedlar ursprungsaddressen, detta betyder i sin tur att man får platsen var VPN- eller proxy-serverns IP är registrerad. Ett annat problem är att den information som finns tillgänglig beror på vad besökarens internet leverantör rapporterar, så även om IP-addressen är användarens egna så kan leverantören ha registrerat addressen på en annan plats än den var användaren befinner sig. 
+Trots att informationen i databasen ar av rätt hög kvalitet, kan man inte helt och hållet lite på informationene som genereras genom IP geolokalisering. Dels så är IP-addressen som sänds till servern inte nödvändigtvis besökarens egna IP-address då denne kan vara uppkopplad via en VPN-anslutning eller eventuellt använda sig av en proxy-server som inte vidare förmedlar ursprungsadressen, detta betyder i sin tur att man får platsen var VPN- eller proxy-serverns IP är registrerad. Ett annat problem är att den information som finns tillgänglig beror på vad besökarens internet leverantör rapporterar, så även om IP-adressen är användarens egna så kan leverantören ha registrerat adressen på en annan plats än den var användaren befinner sig. 
 
 \subsubsection{Besökarstatistik}
 
 För varje sidvisning på en webbsida med SmartElement sparas det statistik. Användarobjektet som sparas i systemet innehåller information om hur ofta besökaren varit på webbplatesen, hur många sidor denne besökt inom webbplatsen samt hur ofta denne sett en specifik sida.
 
-Genom att skapa statistik som är kopplad till användaren kan man generera information om användarens beteemde då denne använder webbsidan. Man kan räkna hur ofta denne besöker specifika delar av sidan, om den inte sett en viss sida på länge, om den börjat besöka en specifik del mer eller mindre o.s.v. All denna information kan hjälpa att söka fram information som kan tänkas relevant för besökaren.
+Genom att skapa statistik som är kopplad till användaren kan man generera information om användarens beteende då denne använder webbsidan. Man kan räkna hur ofta denne besöker specifika delar av sidan, om den inte sett en viss sida på länge, om den börjat besöka en specifik del mer eller mindre o.s.v. All denna information kan hjälpa att söka fram information som kan tänkas relevant för besökaren.
 
 De största problemen med statistik är att den är beroende av möjligheten att identifiera besökaren då denne återvänder till webbsidan. Som systemet är byggt för tillfället hänger detta på användningen av kakor som innehåller en unik id-nummer, vilket betyder att systemet tappar användaren så fort denne raderar denna kaka. Det finns sätt att rundgå detta genom 
 
@@ -35,17 +35,17 @@ De största problemen med statistik är att den är beroende av möjligheten att
 
 Vid varje sidvisning registreras tiden för besöket på basis av den tid som användarens webbläsare rapporterar. Utöver tiden för sidvisningen så beräknar javascript tagen hur lång tid användaren spenderat på sidan under det pågående besöket.
 
-Valet att registrera tiden som rapporteras av webbläsaren gjordes för att undvika problem med olika tidszoner och för att det är troligare att man vill göra ett beslut utgående från användarens tid, och eftersom tagen registrerar användarens tid så får systemet samtidigt möjligheten att registrera besökets längd.
+Valet att registrera tiden som rapporteras av webbläsaren gjordes för att undvika problem med olika tids-zoner och för att det är troligare att man vill göra ett beslut utgående från användarens tid, och eftersom tagen registrerar användarens tid så får systemet samtidigt möjligheten att registrera besökets längd.
 
 \subsubsection{Användardefinierad information}
 
 För att tillåta så flexibel användning som möjligt, tillåter SmartElement även att användaren själv definierar information som skickas till servern för processering. Detta sker genom att användaren lägger till egna dataelement i tagen då den inkluderas på sidan. Det finns två element som kan användas för detta ändamål, dels en samling med nyckel-värde par som kan användas vid processering av den pågående sidvisningen och dels ett element för insamling av användardefinierad statistik.
 
-Genom denna teknik kan användaren i princip använda vad helst information som är relevant i dennes fall. Exempel på data som kunde vara intressant att spara är kundvagns inneåll, nån form av id för registrerade användare, aktiva kampanjer och annan information om webbsidasns status vid sidvisningen. Systemet sätter ingen begränsning på vad som skickas förutom att det måste sändas i formen av en samling av värden med nycklar.
+Genom denna teknik kan användaren i princip använda vad helst information som är relevant i dennes fall. Exempel på data som kunde vara intressant att spara är kundvagns innehåll, nån form av id för registrerade användare, aktiva kampanjer och annan information om webbsidans status vid sidvisningen. Systemet sätter ingen begränsning på vad som skickas förutom att det måste sändas i formen av en samling av värden med nycklar.
 
 \subsection{Filtrering}
 
-För att välja ut vilket innehålls element som skall skickas till besökaren använder sig systemet av informationen som samlats in och ett eller flere filter som användaren definierat för de olika elementen som registrerats i systemet. Filtersystemet bygger på användningen av enkla test som i kombination med olika typers data bildar en fråga om en användare.
+För att välja ut vilket innehålls element som skall skickas till besökaren använder sig systemet av informationen som samlats in och ett eller flera filter som användaren definierat för de olika elementen som registrerats i systemet. Filtersystemet bygger på användningen av enkla test som i kombination med olika typers data bildar en fråga om en användare.
 
 \subsubsection{Villkor}
 
@@ -66,7 +66,7 @@ De tolv villkoren som kan användas samt de datatyper de kan hantera listas i ta
     \hline
     Inte lika med & Negation av lika med villkoret & Godtycklig \\
     \hline
-    I samling & Testar om samlingen som registrerats i filtret innehåller värdet som sändts & Samling \\
+    I samling & Testar om samlingen som registrerats i filtret innehåller värdet som sänts & Samling \\
     \hline
     Icke i samling & Negation av "i samling" villkoret & Samling \\
     \hline
@@ -101,49 +101,49 @@ Motivationen för att implementera stadsfiltret kom från ett användningsfall v
 
 Landsfiltret använder sig av IP-golokaliseringsinformationen för att tillåta användare att avgränsa innehåll på basis av vilket land besökare kommer ifrån.
 
-Motivationen bakom landsfiltret var att tillåta dels större företag som sträcker sig över landsgränser att visa landsspecifik information på sin webbsida samt mindre företag att välja att visa mera specifik information för inhemska besökare och en mera generell information för internationella beökare.
+Motivationen bakom landsfiltret var att tillåta dels större företag som sträcker sig över landsgränser att visa landsspecifik information på sin webbsida samt mindre företag att välja att visa mera specifik information för inhemska besökare och en mera generell information för internationella besökare.
 
 \subsubsection{Datumfiltret}
 
-Datumfiltret använder sig av dagens datum fär att tillåta användaren att specificera när ett innehåll skall visas. Filtret kan användas med de olika jämförelse-villkoren, vilket betyder att man kan specificera ett datu efter vilket innehållet skall visas, ett datum före vilket det skall visas, med lika med villkoret kan man specificera en enda dag då innehållet skall visas och lika så en specifik dag då det inte skall visas.
+Datumfiltret använder sig av dagens datum för att tillåta användaren att specificera när ett innehåll skall visas. Filtret kan användas med de olika jämförelse-villkoren, vilket betyder att man kan specificera ett datum efter vilket innehållet skall visas, ett datum före vilket det skall visas, med lika med villkoret kan man specificera en enda dag då innehållet skall visas och lika så en specifik dag då det inte skall visas.
 
 Motivationen bakom datumfiltret var att ge användare möjligheten att visa kampanjinnehåll under en specifik tid genom att kombinera två datum filter, ett med en nedre gräns och ett med en övre.
 
 \subsubsection{Dagsfiltret}
 
-Dagsfiltret använder sig även det av datumet för filtrering. Till skillnad från datumfiltret så tar dagsfiltret emot en samling av datar då ett innehåll skall visas. Filtret kan antingen inkludera dagar eller exkludera dagar.
+Dagsfiltret använder sig även det av datumet för filtrering. Till skillnad från datumfiltret så tar dagsfiltret emot en samling av dagar då ett innehåll skall visas. Filtret kan antingen inkludera dagar eller exkludera dagar.
 
-Användningsfallet som ledde till dagsfiltret var att en användare vill visa en öppethållningstidtabell under veckan men ett anpassat element under veckoslutet som föreslår att beökaren gör en beställning genom en webb-butik.
+Användningsfallet som ledde till dagsfiltret var att en användare vill visa en tabell med öppettider under veckan men ett anpassat element under veckoslutet som föreslår att besökaren gör en beställning genom en webb-butik.
 
 \subsubsection{Besökstidsfiltret}
 
-Besökstidsfiltret använder sig av tiden en beökare spenderat på webbsidan för att filtrera innehåll. Filtret använder de olika jämförande villkoren för att tillåta användaren att visa innehåll för användare som spenderat en specifik tid på sidan. Man kan ställa in en nedre gräns, en övre gräns och även en exakt tid då innehåll skall visas eller döljas.
+Besökstidsfiltret använder sig av tiden en besökare spenderat på webbsidan för att filtrera innehåll. Filtret använder de olika jämförande villkoren för att tillåta användaren att visa innehåll för användare som spenderat en specifik tid på sidan. Man kan ställa in en nedre gräns, en övre gräns och även en exakt tid då innehåll skall visas eller döljas.
 
-Användningsfallen för besökstidsfiltret var att användaren vill skapa ett element som visar ett specialerbjudande för användare som har spenderat en längre tid på webbsidan men inte beställt något samt att användaren vill visa nyheter för användare som nyss anländt.
+Användningsfallen för besökstidsfiltret var att användaren vill skapa ett element som visar ett specialerbjudande för användare som har spenderat en längre tid på webbsidan men inte beställt något samt att användaren vill visa nyheter för användare som nyss anlänt.
 
 \subsubsection{Nyckelordsfiltret}
 
-Nyckelordsfiltret använder sig av hänvisningsinformationen för att filtrera ut vilka nyckelord som användts i en sökmotor om besökaren nått sidan via en sådan. Filtret tillåter användaren att specificera grupper av nyckelord som antingen skall eller inte skall vara bland de som användts.
+Nyckelordsfiltret använder sig av hänvisningsinformationen för att filtrera ut vilka nyckelord som använts i en sök-motor om besökaren nått sidan via en sådan. Filtret tillåter användaren att specificera grupper av nyckelord som antingen skall eller inte skall vara bland de som använts.
 
-Användningsfallet bakom nyckelordsfiltret är en att en användare väljer att lyfta fram speciell information som passar in på den webbsökning som besökaren användt för att hitta till webbplatsen.
+Användningsfallet bakom nyckelordsfiltret är en att en användare väljer att lyfta fram speciell information som passar in på den webbsökning som besökaren använt för att hitta till webbplatsen.
 
 \subsubsection{Landningssidefiltret}
 
 Landningssidefiltret använder sig av statistikinformationen för att välja ut anpassat innehåll. Funktionaliteten fungerar genom att matcha den första sidan under det aktiva besöket mot en grupp som den antingen skall eller inte kall finnas bland.
 
-Användningsfallet för landningssidefiltret är att en användare använder sig av en marknadförings url som leder till en speciell sida, efter detta kan elementen på sidan återspegla kampanjen.
+Användningsfallet för landningssidefiltret är att en användare använder sig av en marknadsförings url som leder till en speciell sida, efter detta kan elementen på sidan återspegla kampanjen.
 
 \subsubsection{Sidantalsfiltret}
 
-Sidantalsfiltret använder sig av statistikingormationen för att ge användaren möjlighet att skapa filter som använder antalet av sidor som visats under det aktiva besöket för att visa eller dölja innehåll.
+Sidantalsfiltret använder sig av statistikinformationen för att ge användaren möjlighet att skapa filter som använder antalet av sidor som visats under det aktiva besöket för att visa eller dölja innehåll.
 
 Användningsfallet för sidantalsfiltret är en användare som vill visa ett element som ändrar med sido besöken och på så vis ger information som passar med besökarens bekantskap med sidan och på samma gång ger en levande bild av informationen.
 
 \subsubsection{Hänvisarfiltret}
 
-Hänvisarfiltret använder sig av hänvisningsinformationen för att tillåta användaren att skapa filter som agerar på grupper av hänvisare och på så vis tillåter innehåll att kopplas till de sidor som sändt besökaren till webbsidan.
+Hänvisarfiltret använder sig av hänvisningsinformationen för att tillåta användaren att skapa filter som agerar på grupper av hänvisare och på så vis tillåter innehåll att kopplas till de sidor som sänt besökaren till webbsidan.
 
-Användningsfallet för hänvisarfiltret är att användaren vill skapa ett element som visar speciellt innehåll för beökare som når dennes webbsida genom en av deras sammarbetspartners.
+Användningsfallet för hänvisarfiltret är att användaren vill skapa ett element som visar speciellt innehåll för besökare som når dennes webbsida genom en av deras samarbetspartners.
 
 \subsubsection{Regionsfiltret}
 
@@ -165,9 +165,9 @@ Användningsfallet för besöksfiltret är att användaren vill visa information
 
 \subsubsection{Anpassningsbart filter}
 
-Den sista filterklassen är det anpassningsbara filtret vilket tillåter användaren att skapa filter helt baserat på sina egna behov. Filtret tillåter användning av godtycklig villkorsfunktion med godtycklig data. Beroende på vilken vilkorsfunktion som konfigureras kan det uppstå begränsningar på vilken typs data som kan användas för filtrering. Detta filter ger SmartElement möjligheten implementera ny filtreringsfunktionalitet genom konfiguration.
+Den sista filterklassen är det anpassningsbara filtret vilket tillåter användaren att skapa filter helt baserat på sina egna behov. Filtret tillåter användning av godtycklig villkorsfunktion med godtycklig data. Beroende på vilken villkorsfunktion som konfigureras kan det uppstå begränsningar på vilken typs data som kan användas för filtrering. Detta filter ger SmartElement möjligheten implementera ny filtrerings-funktionalitet genom konfiguration.
 
-Användningsfallet för det anpassningsbara filtret är att användaren kan skapa ett filter helt på basis va sina egna behov genom att specificera vilken data som skall användas och hur den skall användas vid filtrering.
+Användningsfallet för det anpassningsbara filtret är att användaren kan skapa ett filter helt på basis av sina egna behov genom att specificera vilken data som skall användas och hur den skall användas vid filtrering.
 
 % vim: set tw=78:ts=2:sw=2:et:fdm=marker:wrap:wm=78:ft=tex
 % vim: spell spelllang=sv

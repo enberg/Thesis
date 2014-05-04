@@ -1,6 +1,6 @@
 \section{Teknisk arkitektur}
 
-SmartElement bygger i stort sett på fem centrala tekniker, programmeringsspråket PHP som användts för att skriva koden bakom systemet, MySQL som databaslager för avändar och systemdata, Memcache som caching lager vilket tillåter att information som är tung att beräkna kan sparas mellan förfrågningar, dokument databsen MondgoDB för lagring av information om besökare och statistik, och till sist JavaScript som används för att skapa det informationspaket om användaren som skickas till servern för användning vid filtreringen av innehåll.
+SmartElement bygger i stort sett på fem centrala tekniker, programmeringsspråket PHP som används för att skriva koden bakom systemet, MySQL som databaslager för användar- och systemdata, Memcache som caching lager vilket tillåter att information som är tung att beräkna kan sparas mellan förfrågningar, dokument databasen MondgoDB för lagring av information om besökare och statistik, och till sist JavaScript som används för att skapa det informationspaket om användaren som skickas till servern för användning vid filtreringen av innehåll.
 
 Många av de val som gjorts i planeringen av den tekniska arkitekturen bakom SmartElement baserar sig på en möjlighet att kunna skala systemet för att hantera förändrade användarmängder. De grundläggande principerna har varit att det skall vara lätt att utveckla, det skall vara lätt att underhålla, det skall vara lätt att installera och det skall vara lätt att skala upp om det skulle behövas.
 
@@ -8,17 +8,17 @@ Många av de val som gjorts i planeringen av den tekniska arkitekturen bakom Sma
 
 PHP är ett skriptspråk som utvecklats med målet att snabbt kunna skapa dynamiska webbsidor. \citep{phpmanual} Språket valdes för att det är enkelt att arbeta med och det var språket som företagets andra produkter var skrivna med.
 
-PHP är ett av de mest populära språken för webbutveckling \citep{tiobe} och det finns en mängd information och färdiga kodpaket till förfogande för programmerare, vilket underlättar och försnabbar utvecklingen. Genom sin popularitet har språket även den fördelen att det är lätt att hitta utveklare som kan fortsätta utvecklingen av projekt skrivna i PHP.
+PHP är ett av de mest populära språken för webbutveckling \citep{tiobe} och det finns en mängd information och färdiga kodpaket till förfogande för programmerare, vilket underlättar och försnabbar utvecklingen. Genom sin popularitet har språket även den fördelen att det är lätt att hitta utvecklare som kan fortsätta utvecklingen av projekt skrivna i PHP.
 
 \subsubsection{PHP-ramverket Laravel}
 
-För att snabba upp utvecklingen av systemt användes ett utvecklingsramverk. Ett utvecklingsramverk är en samling av kodpaket som används som bas vid utvecklingen av en applikation och förser utvecklaren med funktionalitet som inte varierar mycket mellan applikationer.
+För att snabba upp utvecklingen av systemet användes ett utvecklingsramverk. Ett utvecklingsramverk är en samling av kodpaket som används som bas vid utvecklingen av en applikation och förser utvecklaren med funktionalitet som inte varierar mycket mellan applikationer.
 
-Ramverket som använders för att utveckla SmartElement är PHP-ramverket Laravel. Det är ett yngre ramverk som utvecklats användande komponenter från Symfony, ett väletablerat PHP-ramverk som dock kan vara rätt tungt. Laravel drar även full nytta av Composer pakethanteraren, vilket är tillåter lätt importering av kodpaket i projektet. Utöver detta är hela ramverket uppbyggt för att vara modulärt och tillåter således modifikation och hel erättning av komponenter.
+Ramverket som används för att utveckla SmartElement är PHP-ramverket Laravel. Det är ett yngre ramverk som utvecklats användande komponenter från Symfony, ett väletablerat PHP-ramverk som dock kan vara rätt tungt. Laravel drar även full nytta av Composer pakethanteraren, vilket är tillåter lätt importering av kodpaket i projektet. Utöver detta är hela ramverket uppbyggt för att vara modulärt och tillåter således modifikation och hel ersättning av komponenter.
 
 \subsection{Databas}
 
-Databas lagret inom SmartElement är delat splittrat i två skillda lager, dels en relationsdatabas och dels en dokumentdatabas. Denna lösning valdes för att dra nytta av de goda sidorna med båda teknikerna, var vissa data stöds bättre av den stabila datastruktur som en relationsdatabas ger medan annan data drar nytta av flexibiliteten som en dokumentdatabas ger.
+Databas lagret inom SmartElement är delat splittrat i två skilda lager, dels en relationsdatabas och dels en dokumentdatabas. Denna lösning valdes för att dra nytta av de goda sidorna med båda teknikerna, var vissa data stöds bättre av den stabila datastruktur som en relationsdatabas ger medan annan data drar nytta av flexibiliteten som en dokumentdatabas ger.
 
 Eftersom SmartElement hanterar dels intern data som är starkt bunden till systemet och påverkar funktionaliteten av systemet, och dels extern data som är närmare kopplad till användarens webbsida och påverkar hur en användares sida fungerar så finns det två tydliga data-set som båda har egna krav.
 
@@ -28,29 +28,29 @@ MySQL är en relationsdatabashanterare som sköter om lagring av data samt modif
 
 MySQL används i SmartElement för lagring av intern data relaterad till systemets funktionalitet. Databasen lämpar sig bra för lagring av data med starka länkar mellan objekten, vilket passar bra in på den användardata som SmartElement behandlar, det finns en klar hierarki bland objekten och länkar mellan dessa.
 
-Relationsdatabasen gör sig bra i denna roll då den ger en viss garanti på data strukturen bakom de olika objekt som bygger upp SmartElement. Genom att binda modellerna till en dastabasstruktur har man en sorts garanti att existerande data updateras och transformeras i samband med att processer i systemet uppdateras, på så vis ansågs en rigidare databasmodell bättre anpassad för denna uppgift.
+Relationsdatabasen gör sig bra i denna roll då den ger en viss garanti på data strukturen bakom de olika objekt som bygger upp SmartElement. Genom att binda modellerna till en databasstruktur har man en sorts garanti att existerande data uppdateras och transformeras i samband med att processer i systemet uppdateras, på så vis ansågs en mer rigid databasmodell bättre anpassad för denna uppgift.
 
 \subsubsection{MongoDB}
 
-MongoDB är en dokumentdatabas som utvecklas av företaget MongoDB, Inc. Databasen är en av de så kallade NoSQL databserna, vilket är en term som används för att bemärka databaser som inte använder sig av SQL språket för data-manipulering, i MongoDB använder man i stället JavaScript språket för att ge kommandon åt databasen.
+MongoDB är en dokumentdatabas som utvecklas av företaget MongoDB, Inc. Databasen är en av de så kallade NoSQL databaserna, vilket är en term som används för att bemärka databaser som inte använder sig av SQL språket för data-manipulering, i MongoDB använder man i stället JavaScript språket för att ge kommandon åt databasen.
 
-För lagring av extern data, relaterad till besökare av användares webbsidor, valdes dokumentdatabasen MongoDB. MongoDB använder inte ett strikt schema för datalagring utan dokument i samma samling kan ha skiljande attribut associerade med sig, detta underlättar vidareutveckling av systemet genom att tillåtta legacy data att existera i databasen tillsammans med ny tills den gamla uppdateras och kompleteras då beökare återvänder till en användares webbsida.
+För lagring av extern data, relaterad till besökare av användares webbsidor, valdes dokumentdatabasen MongoDB. MongoDB använder inte ett strikt schema för datalagring utan dokument i samma samling kan ha skiljande attribut associerade med sig, detta underlättar vidareutveckling av systemet genom att tillåtta legacy data att existera i databasen tillsammans med ny tills den gamla uppdateras och kompletteras då besökare återvänder till en användares webbsida.
 
 I fallet av denna data så är den strikta datastrukturen inte lika viktig, datan föråldras dels snabbt samt att designen är sådan att datan inte skall behöva vara komplett och innehålla strikta datastrukturer. Tanken med besökarobjekten är att de skall vara levande och öppna för modifikation och utvidgning, om ett nytt filter läggs till i systemet så skall det inte kräva en migration av legacy data, utan statistiken för det nya filtret läggs helt enkelt till på objektet och om inte datan finns på objektet så matchar filtret ej. Denna flexibilitet är lättare att åstadkomma med en dokumentdatabas eftersom att scheman just inte behöver uppdateras, vilket potentiellt skulle vara en väldigt tung operation i fallet av besökarobjektet som är den överdrivet snabbast växande samlingen inom systemet.
 
 \subsection{Memcached}
 
-Memcached är ett object caching system, en mjukvara som tillåter program att spara objekt i minnet och senare läsa tillbaka det i utan att behöva bygga upp datastrukturer igen. Systemet funkgerar som ett nyckel-värde system, det vill säga att information sparas i en nivå med unika nycklar som id, en enkel princip som bidrar till att systemet är mycket effektivt. \citep{memcachedwiki}
+Memcached är ett object caching system, en mjukvara som tillåter program att spara objekt i minnet och senare läsa tillbaka det i utan att behöva bygga upp datastrukturer igen. Systemet fungerar som ett nyckel-värde system, det vill säga att information sparas i en nivå med unika nycklar som id, en enkel princip som bidrar till att systemet är mycket effektivt. \citep{memcachedwiki}
 
-Eftersom SmartElements datamodell består av många länkade objekt är det relativt tungt att bygga upp ett sidobjekt från databasen då det måste göras många förfrågningar. På grund av detta samt för att minska risken för (n+1)-problem (var man gör en databasförfrågan för varje element i en samling som man itererar över) så bestämmdes det att ett caching lager skulle användas för att hålla dessa datamodeller och på så vis låta mjukvaran gå direkt till filtrerings logiken då en förfrågan från tagen behandlas.
+Eftersom SmartElements datamodell består av många länkade objekt är det relativt tungt att bygga upp ett sidobjekt från databasen då det måste göras många förfrågningar. På grund av detta samt för att minska risken för (n+1)-problem (var man gör en databasförfrågan för varje element i en samling som man itererar över) så bestämdes det att ett caching lager skulle användas för att hålla dessa datamodeller och på så vis låta mjukvaran gå direkt till filtrerings logiken då en förfrågan från tagen behandlas.
 
-Målet med cache lagret är att hålla sidobjekten i minnet på servern så mycket som mögligt, och endast läsa från databasen när ett objekt byggs om i samband med en uppdatering. För detta ändamål valdes Memcache, en väletablerad mjukvara för caching. Memcache valdes för att det var en teknik som utvecklarna var vana vid, den var redan i bruk i andra projekt samt att dess enkla modell av horisontell skalning skulle tillåta systemet att snabbt reagera på en växande kundskara.
+Målet med cache lagret är att hålla sidobjekten i minnet på servern så mycket som möjligt, och endast läsa från databasen när ett objekt byggs om i samband med en uppdatering. För detta ändamål valdes Memcache, en väletablerad mjukvara för caching. Memcache valdes för att det var en teknik som utvecklarna var vana vid, den var redan i bruk i andra projekt samt att dess enkla modell av horisontell skalning skulle tillåta systemet att snabbt reagera på en växande kundskara.
 
 \subsection{JavaScript}
 
-JavaScript är ett scriptspråk som utvecklats tillåter utvecklare att implementera kod i webbsidor som exekveras i en besökares webbläsare. 
+JavaScript är ett skriptspråk som utvecklats tillåter utvecklare att implementera kod i webbsidor som exekveras i en besökares webbläsare. 
 
-För att kunna identifiera så mycket information som möjligt om besökaren samt för att leverera innehållet som valts ut för beökaren är det nödvändigt att köra kod på klienten. För att stöda detta krav valdes scriptspråket javascript, vilket stöds av så gott som godtyckliga webblädare och tillåter logik att köra på besökarens maskin i samband med en sidvisning.
+För att kunna identifiera så mycket information som möjligt om besökaren samt för att leverera innehållet som valts ut för besökaren är det nödvändigt att köra kod på klienten. För att stöda detta krav valdes scriptspråket javascript, vilket stöds av så gott som godtyckliga webblädare och tillåter logik att köra på besökarens maskin i samband med en sidvisning.
 
 % vim: set tw=78:ts=2:sw=2:et:fdm=marker:wrap:wm=78:ft=tex
 % vim: spell spelllang=sv
