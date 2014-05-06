@@ -21,9 +21,9 @@ Den tyngsta delen av applikationen, vad gäller skalbarhet, är applikationsdata
 
 Back-end systemet, eller serverkomponeneten, i SmartElement är den centrala delen av systemet var all data lagras och all filtrering sker. Systemet har två gränssnitt, ett öppet som används av tagen för att hämta innehåll vid sidvisningar, och ett stängt som används av en frontend vid konfiguration.
 
-Hela back-end systemet är designat med en fokus på att vara tillståndslöst (jmfr. engelskans \textit{''stateless''}) vad gäller hanteringen av förfrågningar. I praktiken betyder detta att man inte skall behöva en session med back-enden för att kunna genomföra förfrågningar, utan all information som behövs förses antingen i förfrågan, eller så kan den generaras från databasen. Detta betyder att t.ex. autentikationen är baserad på en nyckel som används för att generera en signatur för varje förfrågan. Orsaken till detta ligger i att det är lättare att skala systemet horisontellt, genom att lägga till applikationsservrar, då sessioner inte behöver synkroniseras mellan de olika servrarna.
+Hela back-endsystemet är designat med en fokus på att vara tillståndslöst (jmfr. engelskans \textit{''stateless''}) vad gäller hanteringen av förfrågningar. I praktiken betyder detta att man inte skall behöva en session med back-enden för att kunna genomföra förfrågningar, utan all information som behövs förses antingen i förfrågan, eller så kan den generaras från databasen. Detta betyder att t.ex. autentikationen är baserad på en nyckel som används för att generera en signatur för varje förfrågan. Orsaken till detta ligger i att det är lättare att skala systemet horisontellt, genom att lägga till applikationsservrar, då sessioner inte behöver synkroniseras mellan de olika servrarna.
 
-Tekniskt sett så finns det fyra huvudsakliga komponenter i back-end systemet som kan skiljas åt: applikationen, caching-lagret, applikations-databasen och statistik-databasen. Denna uppdelning är gjord för att försöka tillåta för oberoende horisontell skalning av resurserna för de olika ansvarsområdena genom att lägga till eller ta bort instanser av de olika komponenterna i takt med behov.
+Tekniskt sett så finns det fyra huvudsakliga komponenter i back-endsystemet som kan skiljas åt: applikationen, caching-lagret, applikations-databasen och statistik-databasen. Denna uppdelning är gjord för att försöka tillåta för oberoende horisontell skalning av resurserna för de olika ansvarsområdena genom att lägga till eller ta bort instanser av de olika komponenterna i takt med behov.
 
 \subsection{PHP-ramverket Laravel}
 
@@ -88,7 +88,7 @@ Content objektet är den data som returneras till klienten efter att filtreringe
 
 \subsection{Javascript tagen}
 
-Javascript tagen är en kort kod som laddas i samband med sidan och samlar ihop information om användaren och sedan skickar denna information till back-end systemet för processering.
+Javascript tagen är en kort kod som laddas i samband med sidan och samlar ihop information om användaren och sedan skickar denna information till back-endsystemet för processering.
 
 Tagen börjar med att skapa en kaka på klienten om ingen redan existerar, skapar det besökar id som genom systemet används för att identifiera besökaren, registrerar tiden för sidvisningen, beräknar besökets längd, samlar ihop data om besökaren och sänder den till back-enden.\todo{red upp va sjutton du försöker förklara}
 
