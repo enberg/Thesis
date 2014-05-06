@@ -54,7 +54,7 @@ När en förfrågan kommer in, kallas en metod som försöker hitta besökaren i
 
 Sidobjektet är det högsta objektet i hierarkin som används för att filtrera ut innehåll. det beskriver användarens webbplats i sin helhet. Från sidobjektet går alla relationer enda ner till filtren som används för att välja ut innehåll.
 
-När matchern samlar ihop data för att skicka tillbaka till klienten så kallar den på siteobjektet med ett besökarobjekt och därefter sköter siteobjektet om att kalla på de olika elementen som sparats under sidan och ber dessa filtrera ut lämpligt innehåll innan det lämnar tillbaka kontrollen till matchern.
+När matchern samlar ihop data för att skicka tillbaka till klienten så anropar den på siteobjektet med ett besökarobjekt och därefter sköter siteobjektet om attanropapå de olika elementen som sparats under sidan och ber dessa filtrera ut lämpligt innehåll innan det lämnar tillbaka kontrollen till matchern.
 
 Objektet är designat så att det kan kompileras till en entitet som går att spara i ett caching-lager för kunna hålla objekten i minne vid operation. Detta tillåter snabb åtkomst till data under en sidvisning och sparar på databasförfrågningar.
 
@@ -68,7 +68,7 @@ Element objekten motsvarar ett HTML element på användarens webbplats, men de �
 
 \input{assets/uml/filterset}
 
-Ett element innehåller filterset, innehåll och ett status. Filterseten är samlingar av filter med en länk till ett innehållsobjekt samt en prioritet inom elementet. När sidobjektet kallar på ett element för att få tillbaka det passliga innehållet kör elementet igenom sin samling filter set och ser om de passar besökarobjektet. Om fler en ett filterset passar så väljs det med högsta prioritet. När ett filterset valts ut så returnerar elementet det innehåll som filtersetet är länkat till. Om inget filterset passar så returneras ett tomt resultat.
+Ett element innehåller filterset, innehåll och ett status. Filterseten är samlingar av filter med en länk till ett innehållsobjekt samt en prioritet inom elementet. När sidobjektet anropar ett element för att få tillbaka det passliga innehållet kör elementet igenom sin samling filter set och ser om de passar besökarobjektet. Om fler en ett filterset passar så väljs det med högsta prioritet. När ett filterset valts ut så returnerar elementet det innehåll som filtersetet är länkat till. Om inget filterset passar så returneras ett tomt resultat.
 
 Filterseten bygger tillsammans med filtren på en design princip som kallas för ''Strategy pattern''. Idén är att man genom att definiera ett bra gränssnitt för en process, lämnar systemet öppet för enkel vidareutveckling i ett senare skede. \citep[s. 349]{gof} FilterSet objektet i samband med Besökar objektet utgör tillsammans det kontext i vilket strategierna (Filtren) appliceras.
 
@@ -84,7 +84,7 @@ Filterobjekten implementerar strategin i filtreringen som utförs i samband med 
 
 \input{assets/uml/content}
 
-Content objektet är den data som returneras till klienten efter att filtreringen skett. Systemet sätter ingen restriktion på datan annan än att det måste kunna sparas som en textsträng. Detta betyder att man kan producera avancerad funktionalitet genom att t.ex. spara javascript-kod eller \gls{json}-data som innehåll och på så vis använda SmartElement för att styra exekvering på klienten. Det betyder också att systemet inte sätter så stora krav på kallaren eftersom det enda som är viktigt är att klienten kan tolka datan som returneras. Detta betyder att man i princip kunde skapa godtycklig klient till back-enden genom att implementera protokollet som tagen använder.\todo{bilaga med protokoll?}
+Content objektet är den data som returneras till klienten efter att filtreringen skett. Systemet sätter ingen restriktion på datan annan än att det måste kunna sparas som en textsträng. Detta betyder att man kan producera avancerad funktionalitet genom att t.ex. spara javascript-kod eller \gls{json}-data som innehåll och på så vis använda SmartElement för att styra exekvering på klienten. Det betyder också att systemet inte sätter så stora krav på anroparen eftersom det enda som är viktigt är att klienten kan tolka datan som returneras. Detta betyder att man i princip kunde skapa godtycklig klient till back-enden genom att implementera protokollet som tagen använder.\todo{bilaga med protokoll?}
 
 \subsection{Javascript tagen}
 
@@ -92,7 +92,7 @@ Javascript tagen är en kort kod som laddas i samband med sidan och samlar ihop 
 
 Tagen börjar med att skapa en kaka på klienten om ingen redan existerar, skapar det besökar id som genom systemet används för att identifiera besökaren, registrerar tiden för sidvisningen, beräknar besökets längd, samlar ihop data om besökaren och sänder den till back-enden.\todo{red upp va sjutton du försöker förklara}
 
-Efter att back-enden processerat förfrågan och returnerat data för de element som begärts så är standardbeteendet att back-enden genom ett \gls{jsonp}-svar kallar på tagen som uppdaterar dokumentet med det returnerade innehållet. Vilken funktion som kallas kan dock ändras och man kan genom att specificera en callback ändra på funktionskallet i \gls{jsonp}-svaret och på så vis använda egen logik för uppdateringen av innehållet.
+Efter att back-enden processerat förfrågan och returnerat data för de element som begärts så är standardbeteendet att back-enden genom ett \gls{jsonp}-svar anropar tagen som uppdaterar dokumentet med det returnerade innehållet. Vilken funktion som kallas kan dock ändras och man kan genom att specificera en callback ändra på funktionskallet i \gls{jsonp}-svaret och på så vis använda egen logik för uppdateringen av innehållet.
 
 \subsection{Begränsningar}
 
