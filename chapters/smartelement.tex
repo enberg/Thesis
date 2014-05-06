@@ -1,6 +1,6 @@
 \section{SmartElement}
 
-SmartElement är ett back-end system som sköter filtrering av innehåll på basis av information som samlas in om besökare på en webbsida. Upprätthållare av en webbsida kan genom att integrera SmartElements JavaScript tag i sin sida, låta back-end systemet fylla i specificerade element med anpassat innehåll.
+SmartElement är ett back-end system som sköter filtrering av innehåll på basis av information som samlas in om besökare på en webbsida. Upprätthållare av en webbsida kan genom att integrera SmartElements JavaScript-tag i sin sida låta back-end systemet fylla i specificerade element med anpassat innehåll.
 
 \subsection{Beståndsdelar}
 
@@ -23,7 +23,7 @@ Elementen är hållare för den data som returneras från back-end systemet, de 
 
 \subsubsection{Filter}
 
-Filter består i SmartElement av flera olika regler som ställer en fråga om besökaren och har en länk till ett innehåll, vilket visas om filtret matchar. För att ett filter skall matcha krävs det att besökaren passar alla regler i filtret. För att hantera fall var två eller flera filter passar för en besökare, har filter en prioritets-ordning inom elementet som användaren själv kan definiera.
+Filter består i SmartElement av flera olika regler som ställer en fråga om besökaren och har en länk till ett innehåll, vilket visas om filtret passar. För att ett filter skall passa krävs det att besökaren passar alla regler i filtret. För att hantera fall var två eller flera filter passar för en besökare, har filter en prioritets-ordning inom elementet som användaren själv kan definiera.
 
 \subsubsection{Innehåll}
 
@@ -45,7 +45,7 @@ Konfigurationsprocessen börjar från att registrera en webbsida i systemet. En 
 
 Under webbsidan kan användaren registrera de element för vilka innehållet skall anpassas. Elementen är i grund och botten bara en nyckel som används för att representera ett objekt som kan se ut på olika sätt (ha olika innehåll) beroende på de filter som associeras med det.
 
-Efter konfiguration av element konfigureras ett eller flera innehåll under dessa. I samband med innehållen lägger användaren till filter i innehållets filter-set. Alla filter som registreras måste matcha för att ett innehåll skall visas. Det är genom dessa filterkombinationer som avancerade villkor kan implementeras.
+Efter konfiguration av element konfigureras ett eller flera innehåll under dessa. I samband med innehållen lägger användaren till filter i innehållets filter-set. Alla filter som registreras måste passa för att ett innehåll skall visas. Det är genom dessa filterkombinationer som avancerade villkor kan implementeras.
 
 \subsubsection{Sidvisning}
 

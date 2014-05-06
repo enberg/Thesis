@@ -68,7 +68,7 @@ Element objekten motsvarar ett HTML element på användarens webbplats, men de �
 
 \input{assets/uml/filterset}
 
-Ett element innehåller filterset, innehåll och ett status. Filterseten är samlingar av filter med en länk till ett innehållsobjekt samt en prioritet inom elementet. När sidobjektet kallar på ett element för att få tillbaka det passliga innehållet kör elementet igenom sin samling filter set och ser om de matchar besökarobjektet. Om fler en ett filterset matchar så väljs det med högsta prioritet. När ett filterset valts ut så returnerar elementet det innehåll som filtersetet är länkat till. Om inget filterset matchar så returneras ett tomt resultat.
+Ett element innehåller filterset, innehåll och ett status. Filterseten är samlingar av filter med en länk till ett innehållsobjekt samt en prioritet inom elementet. När sidobjektet kallar på ett element för att få tillbaka det passliga innehållet kör elementet igenom sin samling filter set och ser om de passar besökarobjektet. Om fler en ett filterset passar så väljs det med högsta prioritet. När ett filterset valts ut så returnerar elementet det innehåll som filtersetet är länkat till. Om inget filterset passar så returneras ett tomt resultat.
 
 Filterseten bygger tillsammans med filtren på en design princip som kallas för ''Strategy pattern''. Idén är att man genom att definiera ett bra gränssnitt för en process, lämnar systemet öppet för enkel vidareutveckling i ett senare skede. \citep[s. 349]{gof} FilterSet objektet i samband med Besökar objektet utgör tillsammans det kontext i vilket strategierna (Filtren) appliceras.
 
