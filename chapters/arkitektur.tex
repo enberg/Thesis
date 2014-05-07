@@ -1,14 +1,14 @@
 \section{Mjukvaruarkitektur}
 
-Arkitekturen designades utgående samma principer som den tekniska arkitekturen. Systemet har designats utgående ifrån skalbarhet. Det vill säga att systemet skall vara lätt att utveckla funktionsmässigt, det skall vara lätt att underhålla systemet och det skall vara lätt att skala upp det vid behov. \citep[s. 203]{scalableweb}
+Arkitekturen designades utgående samma principer som den tekniska arkitekturen. Systemet har designats utgående ifrån skalbarhet. Det vill säga att systemet skall vara lätt att utveckla funktionsmässigt, det skall vara lätt att underhålla systemet och det skall vara lätt att öka dess kapacitet vid behov. \citep[s. 203]{scalableweb}
 
 \subsection{Horisontell skalbarhet}
 
-För att tillåta systemet att adapteras till växande resurskrav, har SmartElement designats för att tillåta sig skala horisontellt. Att ett system är horisontellt skalbart betyder att man kan öka systemets kapacitet genom att lägga till instanser.\citep[s. 205-207]{scalableweb}
+För att tillåta systemet att adapteras till växande resurskrav, har SmartElement designats för att tillåta sig skala horisontellt. Att ett system är horisontellt skalbart betyder att man kan öka systemets kapacitet genom att öka antalet av någon komponent och sprida ut belastningen.\citep[s. 205-207]{scalableweb}
 
 I SmartElements fall betydde det att mjukvaruarkitekturen måste vara tillräckligt flexibel för att kunna köras på flera instanser. Detta ledde till en modulär design som försöker separera ansvarsområden inom mjukvaran. På så vis att de olika delarna kan byggas ut oberoende av varandra.
 
-Den tyngsta delen av applikationen, vad gäller skalbarhet, är applikationsdatabasen. På grund av detta designades processer som är menade att skydda detta lager genom att spara objekt i cache minne. På så vis hålls databas förfrågningarna lägre och applicationsdatabasen behöver inte skala lika mycket för att systemet skall klara större mängder förfrågningar.
+Den tyngsta delen av applikationen, vad gäller skalbarhet, är applikationsdatabasen. På grund av detta designades processer som är menade att skydda detta lager genom att spara objekt i cache minne. På så vis hålls databas antalet förfrågningarna lägre och applikationsdatabasen behöver inte skala lika mycket för att systemet skall klara större mängder förfrågningar.
 
 \subsection{Servern}
 
@@ -33,14 +33,13 @@ Ramverket som används för att utveckla SmartElement är PHP-ramverket Laravel.
 
 Laravel-ramverket bygger på ett \gls{mvc} mönster i sin arkitektur. Det vill säga att ramverket delar upp ansvar i olika komponenter: datalager (Model), presentationslager (View) och kontrolllager (Controller). Datalagret ansvarar för applikationslogik och data, presentationslagret ansvarar för att presentera data och kontrolllagret ansvarar för att binda ihop presentations- och datalagret.\citep[s. 14-16]{gof}
 
-\subsection{Komponenter}
+\subsection{Komponenter i systemet}
 
-\todo{Förklara att vi går in på komponenter i systemet, underlätta context switch}
+SmartElement består egentligen av endast några få centrala komponenter som tillsammans skapar delarna i identifikation av användare och filtrering av innehåll. Här listat dessa centrala komponenter och deras egenskaper.
 
-\subsubsection{Matcher}
-\todo[inline]{rename?}
+\subsubsection{Sidvisningshanteraren}
 
-Den centrala delen av hanteringen av en sidvisning sker i den så kallade matchern som tar emot information om besökaren och söker fram det innehåll som skall skickas tillbaka. Rent tekniskt så tar matchern besökarobjektet, synkroniserar statistikdatabasen med besökarobjektet, söker fram sidobjektet ur cachinglagret (alternativt bygger det från databasen), använder sidobjektet för att generera det innehåll som skall sändas tillbaka och formaterar ett svar som skickas tillbaka till klienten.
+Den centrala delen av hanteringen av en sidvisning sker i en hanterare som tar emot information om besökaren och söker fram det innehåll som skall skickas tillbaka. Rent tekniskt så tar denna komponent emot förfrågan från besökarens webbläsare, synkroniserar informationen med statistikdatabasen, söker fram sidobjektet ur cachinglagret (alternativt bygger det från databasen), använder sidbjektet för att generera det innehåll som skall sändas tillbaka och formaterar ett svar som skickas tillbaka till klienten.
 
 \subsubsection{Besökarobjektet}
 
@@ -48,7 +47,7 @@ Besökarobjektet representerar en besökare på webbsidan och innehåller all in
 
 När en förfrågan kommer in, kallas en metod som försöker hitta besökaren i statistikdatabasen. Om ett resultat hittas, uppdaterars det befintliga objektet med den nya informationen från förfrågningen. Om besökaren inte är igenkänd så skapas ett nytt besökarobjekt med den försedda informationen.
 
-\subsubsection{Site objektet}
+\subsubsection{Siteobjektet}
 
 \input{assets/uml/site}
 
@@ -58,13 +57,13 @@ När matchern samlar ihop data för att skicka tillbaka till klienten så anropa
 
 Objektet är designat så att det kan kompileras till en entitet som går att spara i ett caching-lager för kunna hålla objekten i minne vid operation. Detta tillåter snabb åtkomst till data under en sidvisning och sparar på databasförfrågningar.
 
-\subsubsection{Element objekten}
+\subsubsection{Elementobjekten}
 
 \input{assets/uml/element}
 
 Element objekten motsvarar ett HTML element på användarens webbplats, men de är ej bundna till någon specifik webbadress eller sida på webbplatsen. Detta betyder att man kan använda samma element på olika sidor under samma webbplats om man vill, t.ex. i en side-bar eller som del av en navigation.
 
-\subsubsection{FilterSet objekten}
+\subsubsection{FilterSetobjekten}
 
 \input{assets/uml/filterset}
 
@@ -72,7 +71,7 @@ Ett element innehåller filterset, innehåll och ett status. Filterseten är sam
 
 Filterseten bygger tillsammans med filtren på en design princip som kallas för ''Strategy pattern''. Idén är att man genom att definiera ett bra gränssnitt för en process, lämnar systemet öppet för enkel vidareutveckling i ett senare skede. \citep[s. 349]{gof} FilterSet objektet i samband med Besökar objektet utgör tillsammans det kontext i vilket strategierna (Filtren) appliceras.
 
-\subsubsection{Filter objekten}
+\subsubsection{Filterobjekten}
 
 \input{assets/uml/filter}
 
@@ -80,25 +79,27 @@ Filterobjekten är i slutändan de objekt som utför test mot besökarobjektet. 
 
 Filterobjekten implementerar strategin i filtreringen som utförs i samband med filterseten. Filter tar endast ställning till en sak och returnerar ett booleanskt värde beroende på om kriteriet möts eller ej. Filtersetet vet endast att det kan ställa frågan av godtyckligt filter och filtret i sig vet att frågan alltid kommer att ställas på samma vis med likadan input.
 
-\subsubsection{Content objekten}
+\subsubsection{Contentobjekten}
 
 \input{assets/uml/content}
 
 Content objektet är den data som returneras till klienten efter att filtreringen skett. Systemet sätter ingen restriktion på datan annan än att det måste kunna sparas som en textsträng. Detta betyder att man kan producera avancerad funktionalitet genom att t.ex. spara javascript-kod eller \gls{json}-data som innehåll och på så vis använda SmartElement för att styra exekvering på klienten. Det betyder också att systemet inte sätter så stora krav på anroparen eftersom det enda som är viktigt är att klienten kan tolka datan som returneras. Detta betyder att man i princip kunde skapa godtycklig klient till back-enden genom att implementera protokollet som tagen använder.\todo{bilaga med protokoll?}
 
-\subsection{Javascript tagen}
+\subsection{JavaScript-tagen}
 
-Javascript tagen är en kort kod som laddas i samband med sidan och samlar ihop information om användaren och sedan skickar denna information till back-endsystemet för processering.
+JavaScript tagen är en kort kod som laddas i samband med sidan och samlar ihop information om besökaren och sedan skickar denna information till back-endsystemet för processering.
 
-Tagen börjar med att skapa en kaka på klienten om ingen redan existerar, skapar det besökar id som genom systemet används för att identifiera besökaren, registrerar tiden för sidvisningen, beräknar besökets längd, samlar ihop data om besökaren och sänder den till back-enden.\todo{red upp va sjutton du försöker förklara}
+Tagen försöker hitta en kaka i besökarens webbläsare, om ingen finns så skapas en ny unik id och sparas i en ny kaka. Efter att tagen fått en id, läser den ut information från besökarens webbläsare. Den läser bl.a. hänvisarinformationen och extraherar sökord om hänvisaren varit en sökmotor. Tagen kan även räkna ut tiden för besöket med hjälp av en tid som sparas i kakan då den skapas. Om sidvisningen är den första i besöket läser tagen addressfältet och använder värdet som landningssida för besöket. Efter att tagen samlat ihop sin information och en kaka lästs eller skapats, skickar den iväg informationen till back-enden.
 
 Efter att back-enden processerat förfrågan och returnerat data för de element som begärts så är standardbeteendet att back-enden genom ett \gls{jsonp}-svar anropar tagen som uppdaterar dokumentet med det returnerade innehållet. Vilken funktion som kallas kan dock ändras och man kan genom att specificera en callback ändra på funktionskallet i \gls{jsonp}-svaret och på så vis använda egen logik för uppdateringen av innehållet.
 
 \subsection{Begränsningar}
 
-Systemet utvecklades med relativt låg budget och därigenom en del begränsningar på tekniken och hårdvaran som fanns tillgänglig. Detta återspeglar sig i en del begränsningar i själva systemet samt i funktionalitet som inte implementerats.
-\todo[inline]{Is this necessary?}
+Systemet utvecklades med relativt låg budget vad gäller både tid och pengar. Därigenom finns en del begränsningar på tekniken och hårdvaran som fanns tillgänglig. Detta återspeglar sig i en del begränsningar i själva systemet samt i funktionalitet som inte implementerats.
 
+För tillfället sparas statistik endast som en lista av adresser som besökts. En mer avancerad modell skulle kunna aggregera data från denna lista och ge flere filtreringsmöjligheter. Statistikdatan behandlas endast i samband med besökarobjektet som systemet fungerar nu, genom att aggregera statistik för hela sidan skulle man kunna skapa rekommendationer för upprätthållaren vad gäller olika besökarkretsar.
+
+Gränssnittet för leverering av innehåll är i dagens läge ennu ganska hårt bundet till tagen. Ett mer generellt API-skulle gagna systemet genom att tillåta enklare integrering i utomstående system.
 
 % vim: set tw=78:ts=2:sw=2:et:fdm=marker:wrap:wm=78:ft=tex
 % vim: spell spelllang=sv

@@ -1,12 +1,21 @@
 \section{Processer}
 
-För att kunna leverera anpassat webbinehåll till besökaren av en webbsida, måste systemet ha ett sätt att kunna identifiera information om denne, som sedan kan användas för att filtrera bland det tillgängliga innehållet.\todo{Skriv om och ta upp filtrering}
+För att kunna leverera anpassat webbinehåll till besökaren av en webbsida, måste systemet ha ett sätt att om denne kunna identifiera information. SmartElement använder sig av några olika tekniker för att samla in information om besökare då de anländer på en webbsida, dels teknisk information och dels statistik.
+
+Denna information används sedan för att söka igenom tillgängligt innehåll och testa om informationen passar för de filter som registrerats. Filtren bygger i sig på olika villkor som kan appliceras på den insamlade informationen.
 
 \subsection{Information om användaren}
 
 SmartElement använder sig till stor del av statistik som systemet samlar ihop med hjälp av en JavaScript tag som körs i besökarens webbläsare då denne besöker en sida som använder systemet. Denna information skickas till back-endsystemet som vidare processerar datan och sparar den i en dokument databas under ett besökarobjekt. På detta vis kan systemet komma ihåg användare mellan sessioner och på så vis skapa historik om användarens beteende och vanor, vilket i sin tur är till nytta för att hitta det bästa innehållet att presentera.
 
 \subsubsection{Hänvisningsinformation}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=150mm]{assets/images/smelereferer.png}
+\caption{Hänvisningsinformationen berättar varifrån beökaren kommer}
+\label{referer}
+\end{figure}
 
 Den första informationen som registreras om användaren är varifrån denne anländer till sidan. Webbläsare skickar oftast en så kallad referrer variabel när man navigerar till en webbsida genom att klicka på en länk. Denna variabel innehåller adressen på sidan som visade länken.
 
@@ -16,7 +25,12 @@ En nackdel är att hänvisningsinformation inte alltid finns tillgänglig. Avsak
 
 \subsubsection{IP Geolokalisering}
 
-\missingfigure{Grafisk representation av geolokalisering?}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=120mm]{assets/images/geolocation.png}
+\caption{IP-geolokalisering handlar om att associera plats med IP-address}
+\label{geolocation}
+\end{figure}
 
 Nästa bit av information som samlas in om besökaren är en uppskattning av dennes position på basis av den information som registrerats för IP-adressen som förfrågan kommer från.
 
@@ -42,9 +56,13 @@ Valet att registrera tiden som rapporteras av webbläsaren gjordes för att undv
 
 \subsubsection{Användardefinierad information}
 
-För att tillåta så flexibel användning som möjligt, tillåter SmartElement även att användaren själv definierar information som skickas till servern för processering. Detta sker genom att användaren lägger till egna dataelement i tagen då den inkluderas på sidan. Det finns två element som kan användas för detta ändamål, dels en samling med nyckel-värde par, som kan användas vid processering av den pågående sidvisningenm och dels ett element för insamling av användardefinierad statistik.\todo{förklara användardefinierad statistik}
+För att tillåta så flexibel användning som möjligt, tillåter SmartElement även att användaren själv definierar information som skickas till servern för processering. Detta sker genom att användaren lägger till egna dataelement i tagen då den inkluderas på sidan.
 
-Genom denna teknik kan användaren i princip använda vad helst information som är relevant i dennes fall. Exempel på data som kunde vara intressant att spara är kundvagns innehåll, nån form av id för registrerade användare, aktiva kampanjer och annan information om webbsidans status vid sidvisningen. Systemet sätter ingen begränsning på vad som skickas förutom att det måste sändas i formen av en samling av värden med nycklar.
+Genom att förse tagen med egen information kan upprätthållaren av en webbsida använda information son SmartElement inte i sig kan ta reda på, information som besökaren matar in på webbsidan eller information som uppräthållaren genererar.
+
+Det går även att skapa statistik över användardefinierad information. Funktionen är den samma som för SmartElements egna statistik, man kan lägga till nya värden för varje sidvisning och sedan göra filtrering baserad på denna informationssamling.
+
+Genom denna teknik kan användaren i princip använda vad helst information som är relevant i dennes fall. Exempel på data som kunde vara intressant att spara är shoppingvagnens innehåll i en webbutik, någon form av id för registrerade användare, aktiva kampanjer och annan information om webbsidans status vid sidvisningen. Systemet sätter ingen begränsning på vad som skickas förutom att det måste sändas i formen av en samling av värden med nycklar.
 
 \subsection{Filtrering}
 

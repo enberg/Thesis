@@ -12,9 +12,9 @@ PHP är ett av de mest populära språken för webbutveckling \citep{tiobe} och 
 
 \subsection{Databas}
 
-Databas lagret inom SmartElement är delat i två skilda lager, dels en relationsdatabas och dels en dokumentdatabas. Denna lösning valdes för att dra nytta av de goda sidorna med båda teknikerna. Viss data stöds bättre av den stabila datastruktur som en relationsdatabas ger medan annan data drar nytta av flexibiliteten som en dokumentdatabas ger.\todo{Bättre föklaring av varför två databaser valts.}
+Eftersom SmartElement hanterar dels intern data som är starkt bunden till systemet och påverkar funktionaliteten av systemet, och dels extern data, som är närmare kopplad till upprätthållarens webbsida och påverkar hur en dennes sida fungerar, så finns det två tydliga data-set som båda har egna krav.
 
-Eftersom SmartElement hanterar dels intern data som är starkt bunden till systemet och påverkar funktionaliteten av systemet, och dels extern data, som är närmare kopplad till användarens webbsida och påverkar hur en användares sida fungerar, så finns det två tydliga data-set som båda har egna krav.
+På grund av denna delning var det möjligt att använda två skilda databaser, var med sitt ansvarsområde. Databas lagret inom SmartElement splittrades därvid i två skilda lager, dels en relationsdatabas för systemets interna data och en dokumentdatabas för lagring av extern data. Denna lösning valdes för att på bästa vis stöda de egenskaper som dataseten har.
 
 \subsubsection{MySQL}
 
@@ -26,7 +26,7 @@ Relationsdatabasen gör sig bra i denna roll då den ger en viss garanti på dat
 
 \subsubsection{MongoDB}
 
-MongoDB är en dokumentdatabas som utvecklas av företaget MongoDB, Inc. Databasen är en av de så kallade NoSQL databaserna, vilket är en term som används för att bemärka databaser som inte använder sig av \gls{sql} språket för data-manipulering. I MongoDB använder man i stället JavaScript språket för att ge kommandon åt databasen.\todo{Ref till dokumentation}
+MongoDB är en dokumentdatabas som utvecklas av företaget MongoDB, Inc. Databasen är en av de så kallade NoSQL databaserna, vilket är en term som används för att bemärka databaser som inte använder sig av \gls{sql} språket för data-manipulering. I MongoDB använder man i stället ett objektorienterat gränssnitt för att ge kommandon till databasen. Utöver det kan man även skicka JavaScript kod som exekveras i databasen för att vidare filtrera data. \citep{mongoquery}
 
 För lagring av extern data, relaterad till besökare av användares webbsidor, valdes dokumentdatabasen MongoDB. MongoDB använder inte ett strikt schema för datalagring utan dokument i samma samling kan ha skiljande attribut associerade med sig. Detta underlättar vidareutveckling av systemet genom att tillåtta gammal data att existera i databasen tillsammans med ny data tills den gamla uppdateras och kompletteras då besökare återvänder till en användares webbsida.
 

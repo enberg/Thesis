@@ -1,6 +1,8 @@
 \section{SmartElement}
 
-SmartElement är ett back-endsystem som sköter filtrering av innehåll på basis av information som samlas in om besökare på en webbsida. Upprätthållare av en webbsida kan genom att integrera SmartElements JavaScript-tag i sin sida låta back-endsystemet fylla i specificerade element med anpassat innehåll.
+SmartElement är ett back-endsystem som sköter filtrering av innehåll på basis av information som samlas in om besökare på en webbsida. Upprätthållarem av en webbsida kan genom att integrera SmartElements JavaScript-tag i sin sida låta back-end systemet fylla i specificerade element med anpassat innehåll.
+
+Systemet är i sig bara en motor för identifikation av användare och filtrering av innehåll. Det enda gränssnitt som SmartElement har är ett \gls{json}-gränssnitt genom vilket ett separat grafiskt gränssnitt tillåter användare att konfigurera sitt innehåll.
 
 \subsection{Beståndsdelar}
 
@@ -11,7 +13,7 @@ SmartElement är ett back-endsystem som sköter filtrering av innehåll på basi
 \label{abstractstructure}
 \end{figure}
 
-SmartElement bygger på några grundläggande koncept; webbsidor, element, filter och innehåll. Med dessa fyra byggstenar konfigureras objekt, visualiserat i figur \ref{abstractstructure}, som back-endsystemet använder för att filtrera och leverera innehåll.
+SmartElement bygger på några grundläggande koncept; webbsidor, element, filter och innehåll. Med dessa fyra byggstenar konfigureras objekt, visualiserat i figur \ref{abstractstructure}, som back-end systemet använder för att filtrera och leverera innehåll.
 
 \subsubsection{Webbsidan}
 
@@ -19,7 +21,7 @@ Webbsidan är det högsta elementet i hierarkin som SmartElement handskas med. D
 
 \subsubsection{Element}
 
-Elementen är hållare för den data som returneras från back-endsystemet, de knyter innehållet till webbsidan. Elementet har i sig fler innehåll och filter. Filtren används för att välja ut det innehåll som skall visas i elementet. Element har en inom webbsidan unik kod som används för att specificera vilka element som behöver processeras när man anropar back-endsystemet.
+Elementen är hållare för den data som returneras från back-end systemet, de knyter innehållet till webbsidan. Elementet har i sig fler innehåll och filter. Filtren används för att välja ut det innehåll som skall visas i elementet. Element har en inom webbsidan unik kod som används för att specificera vilka element som behöver processeras när man anropar back-end systemet.
 
 \subsubsection{Filter}
 
