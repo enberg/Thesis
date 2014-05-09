@@ -6,7 +6,7 @@ Denna information används sedan för att söka igenom tillgängligt innehåll o
 
 \subsection{Information om användaren}
 
-SmartElement använder sig till stor del av statistik som systemet samlar ihop med hjälp av en JavaScript tag som körs i besökarens webbläsare då denne besöker en sida som använder systemet. Denna information skickas till back-endsystemet som vidare processerar datan och sparar den i en dokument databas under ett besökarobjekt. På detta vis kan systemet komma ihåg användare mellan sessioner och på så vis skapa historik om användarens beteende och vanor, vilket i sin tur är till nytta för att hitta det bästa innehållet att presentera.
+SmartElement använder sig till stor del av statistik som systemet samlar ihop med hjälp av en JavaScript tag som körs i besökarens webbläsare då denne besöker en sida som använder systemet. Denna information skickas till back-endsystemet som vidare processerar datan och sparar den i en dokumentdatabas under ett besökarobjekt. På detta vis kan systemet komma ihåg besökare mellan sessioner och på så vis skapa historik om dennes beteende och vanor, vilket i sin tur är till nytta för att hitta det bästa innehållet att presentera.
 
 \subsubsection{Hänvisningsinformation}
 
@@ -17,11 +17,11 @@ SmartElement använder sig till stor del av statistik som systemet samlar ihop m
 \label{referer}
 \end{figure}
 
-Den första informationen som registreras om användaren är varifrån denne anländer till sidan. Webbläsare skickar oftast en så kallad referrer variabel när man navigerar till en webbsida genom att klicka på en länk. Denna variabel innehåller adressen på sidan som visade länken.
+Den första informationen som registreras om användaren är varifrån denne anländer till sidan. Webbläsare skickar oftast en s.k. referer variabel när man navigerar till en webbsida genom att klicka på en länk. Denna variabel innehåller adressen på sidan som visade länken.
 
-Genom att spara denna information får man dels en indikation av varifrån besökare hittar till sidan, men även en indikation av vilken typs sidor den aktuella besökaren ofta besöker.
+Genom att spara denna information får man dels en indikation av varifrån en besökare hittar till sidan, men även en indikation av vilken typs sidor den aktuella besökaren ofta besöker.
 
-En nackdel är att hänvisningsinformation inte alltid finns tillgänglig. Avsaknad av denna information ger en inte ett definitivt svar om hur användaren hittat till sidan. Detta på grund av att hänvisningsinformation inte skickas t.ex. när man navigerar till webbsidan från en sida med krypterad anslutning, om användarens webbläsare har konfigurerats att inte sända informationen eller om användaren helt enkelt skrivit in webbsidans adress i sin webbläsare och är en så kallad direkt träff. \citep{httprfc}
+En nackdel är att hänvisningsinformation inte alltid finns tillgänglig. Avsaknad av denna information leder till att ett definitivt svar inte erhålls om hur användaren hittat till sidan. Detta sker på grund av att hänvisningsinformation inte skickas t.ex. när man navigerar till webbsidan från en sida med krypterad anslutning, om användarens webbläsare har konfigurerats att inte sända informationen eller om användaren helt enkelt skrivit in webbsidans adress i sin webbläsare och är en så kallad direkt träff. \citep{httprfc}
 
 \subsubsection{IP Geolokalisering}
 
@@ -32,17 +32,17 @@ En nackdel är att hänvisningsinformation inte alltid finns tillgänglig. Avsak
 \label{geolocation}
 \end{figure}
 
-Nästa bit av information som samlas in om besökaren är en uppskattning av dennes position på basis av den information som registrerats för IP-adressen som förfrågan kommer från.
+Nästa information som samlas in om besökaren är en uppskattning av dennes position på basis av den information som registrerats för IP-adressen som förfrågan kommer från.
 
-SmartElement använder sig av en databas som köps in av ett företag som specialiserar sig i att uppehålla så noggrann information som möjligt om var i världen IP-adresser egentligen är registrerade. Från denna databas söker systemet sedan fram information om besökarens läge. Information som är tillgänglig är bland annat vilket land användaren befinner sig i, vilken region inom landet samt vilken stad.
+SmartElement använder sig av en databas som köps in av ett företag som specialiserar sig på att upprätthålla så noggrann information som möjligt om var i världen IP-adresser egentligen är registrerade. Från denna databas söker systemet sedan fram information om besökarens läge. Information som är tillgänglig är bland annat vilket land användaren befinner sig i, vilken region inom landet samt vilken stad.
 
-Trots att informationen i databasen är av rätt hög kvalitet, kan man inte helt och hållet lite på information som genereras genom IP geolokalisering. Dels så är IP-addressen som sänds till servern inte nödvändigtvis besökarens egna IP-address då denne kan vara uppkopplad via en VPN-anslutning eller eventuellt använda sig av en proxy-server som inte vidare förmedlar ursprungsadressen. Detta betyder i sin tur att man får platsen var VPN- eller proxy-serverns IP är registrerad. Ett annat problem är att den information som finns tillgänglig beror på vad besökarens internet leverantör rapporterar. Även om IP-adressen är användarens egna så kan leverantören ha registrerat adressen på en annan plats än den var användaren befinner sig. 
+Trots att informationen i databasen är av rätt hög kvalitet, kan man inte helt och hållet lite på information som genereras genom IP-geolokalisering. Dels så är IP-addressen som sänds till servern inte nödvändigtvis besökarens egna IP-address då denne kan vara uppkopplad via en VPN-anslutning eller eventuellt använda sig av en proxy-server som inte vidareförmedlar ursprungsadressen. Detta betyder i sin tur att man får platsen var VPN- eller proxy-serverns IP är registrerad. Ett annat problem är att den information som finns tillgänglig beror på vad besökarens Internet-operator rapporterar. Även om IP-adressen är användarens egna så kan leverantören ha registrerat adressen på en annan plats än den var användaren befinner sig. 
 
 \subsubsection{Besökarstatistik}
 
 För varje sidvisning på en webbsida med SmartElement sparas det statistik. Användarobjektet som sparas i systemet innehåller information om hur ofta besökaren varit på webbplatesen, hur många sidor denne besökt inom webbplatsen, samt hur ofta denne sett en specifik sida.
 
-Genom att skapa statistik som är kopplad till användaren kan man generera information om användarens beteende då denne använder webbsidan. Man kan räkna hur ofta denne besöker specifika delar av sidan, om den inte sett en viss sida på länge, om den börjat besöka en specifik del mer eller mindre o.s.v. All denna information kan hjälpa att söka fram information som kan tänkas vara relevant för besökaren.
+Genom att skapa statistik som är kopplad till användaren kan man generera information om användarens beteende då denne använder webbsidan. Man kan räkna hur ofta denne besöker specifika delar av sidan, om denne inte sett en viss sida på länge, om denne börjat besöka en specifik del mer eller mindre o.s.v. All denna information kan hjälpa att söka fram information som kan tänkas vara relevant för besökaren.
 
 De största problemen med statistik är att den är beroende av möjligheten att identifiera besökaren då denne återvänder till webbsidan. Som systemet är byggt för tillfället hänger detta på användningen av kakor som innehåller ett unikt id-nummer, vilket betyder att systemet tappar användaren så fort denne raderar denna kaka. Det finns sätt att rundgå detta genom att använda sig av till exempel caching information för att identifiera besökare trots att denne raderat eller blockerat kakor. \citep{ashkanblog}
 
@@ -50,7 +50,7 @@ De största problemen med statistik är att den är beroende av möjligheten att
 
 \subsubsection{Tid}
 
-Vid varje sidvisning registreras tiden för besöket på basis av den tid som användarens webbläsare rapporterar. Utöver tiden för sidvisningen så beräknar javascript tagen hur lång tid användaren spenderat på sidan under det pågående besöket.
+Vid varje sidvisning registreras tiden för besöket på basis av den tid som användarens webbläsare rapporterar. Utöver tiden för sidvisningen så beräknar javascript-tagen hur lång tid användaren spenderat på sidan under det pågående besöket.
 
 Valet att registrera tiden som rapporteras av webbläsaren gjordes för att undvika problem med olika tids-zoner och för att det är troligare att man vill göra ett beslut utgående från användarens tid, och eftersom tagen registrerar användarens tid så får systemet samtidigt möjligheten att registrera besökets längd.
 
@@ -66,15 +66,14 @@ Genom denna teknik kan användaren i princip använda vad helst information som 
 
 \subsection{Filtrering}
 
-\missingfigure{Bild som representerar filter och besökare}
 
 För att välja ut vilket innehålls-element som skall skickas till besökaren, använder sig systemet av informationen som samlats in och ett eller flera filter som användaren definierat för de olika elementen som registrerats i systemet. Filtersystemet bygger på användningen av enkla test som i kombination med olika typers data bildar en fråga om en användare.
 
 \subsubsection{Villkor}
 
-I grunden bygger SmartElements filter system på 12 enkla villkorsfunktioner som utför en jämförelse mellan den information tagen skickat och den information som användaren sparat i filtret.
+I grunden bygger SmartElements filtersystem på 12 enkla villkorsfunktioner som utför en jämförelse mellan den information tagen skickat och den information som användaren sparat i filtret.
 
-De tolv villkoren som kan användas samt de datatyper de kan hantera listas i tabell \ref{table:villkor}.
+De tolv villkoren som kan användas samt de datatyper de kan hantera visas i Tabell \ref{table:villkor}.
 
 \begin{table}
     \begin{tabular}{|l|p{8cm}|l|}
@@ -95,7 +94,7 @@ De tolv villkoren som kan användas samt de datatyper de kan hantera listas i ta
     \hline
     Innehåller & Testar om värdet i filtret innehåller värdet som sändts & Text \\
     \hline
-    Innehåller ej & Negation av innehåller villkoret & Text \\
+    Innehåller ej & Negation av innehåller-villkoret & Text \\
     \hline
     Börjar med & Testar om värdet som skickats börjar med värdet i filtret & Text \\
     \hline
@@ -110,9 +109,9 @@ De tolv villkoren som kan användas samt de datatyper de kan hantera listas i ta
     \label{table:villkor}
 \end{table}
 
-Genom att kombinera dessa simpla villkor med den data som samlas in vid sidvisningar skapas filter som kan göra meningsfulla beslut om besökaren.
+Genom att kombinera dessa enkla villkor med den data som samlas in vid sidvisningar skapas filter som kan göra meningsfulla beslut om besökaren.
 
-Under utvecklingen av SmartElement valdes några färdiga filtrerings-metoder ut för implementering i systemet som en grund för användare att börja bygga sin anpassning. Genom att studera den tillgängliga informationen valdes några frågor ut som var lätta att identifiera. Dessa utgör de inbyggda filtren i SmartElement.
+Under utvecklingen av SmartElement utvaldes några färdiga filtrerings-metoder för implementering i systemet som en grund för användare att börja bygga sin anpassning. Genom att studera den tillgängliga informationen valdes några frågor ut som var lätta att identifiera. Dessa utgör de inbyggda filtren i SmartElement.
 
 \subsubsection{Stadsfiltret}
 
@@ -122,7 +121,7 @@ Motivationen för att implementera stadsfiltret kom från ett användningsfall v
 
 \subsubsection{Landfiltret}
 
-Landsfiltret använder sig av IP-geolokaliseringsinformationen för att tillåta användare att avgränsa innehåll på basis av vilket land besökare kommer ifrån.
+Landsfiltret använder sig av IP-geolokaliseringsinformationen för att tillåta användare att avgränsa innehåll på basis av vilket land besök kommer ifrån.
 
 Motivationen bakom landsfiltret var att tillåta dels större företag, som sträcker sig över landsgränser, att visa landsspecifik information på sin webbsida, samt mindre företag att välja att visa mera specifik information för inhemska besökare, och en mera generell information för internationella besökare.
 
@@ -130,7 +129,7 @@ Motivationen bakom landsfiltret var att tillåta dels större företag, som str�
 
 Datumfiltret använder sig av dagens datum för att tillåta användaren att specificera när ett innehåll skall visas. Filtret kan användas med de olika jämförelse-villkoren. Användaren kan specificera ett datum efter vilket innehåll skall visas eller ett datum före vilket det skall visas. Med lika med villkoret kan man specificera en enda dag då innehållet skall visas och lika så en specifik dag då det inte skall visas.
 
-Motivationen bakom datumfiltret var att ge användare möjligheten att visa kampanjinnehåll under en specifik tid genom att kombinera två datum filter, ett med en nedre gräns och ett med en övre.
+Motivationen bakom datumfiltret var att ge användare möjligheten att visa kampanj innehåll under en specifik tid genom att kombinera två datum filter, ett med en nedre gräns och ett med en övre.
 
 \subsubsection{Dagsfiltret}
 
@@ -140,21 +139,21 @@ Användningsfallet som ledde till dagsfiltret var att en användare vill visa en
 
 \subsubsection{Besökstidsfiltret}
 
-Besökstidsfiltret använder sig av tiden en besökare spenderat på webbsidan för att filtrera innehåll. Filtret använder de olika jämförande villkoren för att tillåta användaren att visa innehåll för användare som spenderat en specifik tid på sidan. Man kan ställa in en nedre gräns, en övre gräns och även en exakt tid då innehåll skall visas eller döljas.
+Besökstidsfiltret använder sig av tiden en besökare spenderat på webbsidan för att filtrera innehåll. Filtret använder de olika jämförande villkoren för att tillåta upprätthållare att visa innehåll för besökare som spenderat en specifik tid på sidan. Man kan ställa in en nedre gräns, en övre gräns och även en exakt tid då innehåll skall visas eller döljas.
 
-Användningsfallen för besökstidsfiltret var att användaren vill skapa ett element som visar ett specialerbjudande för användare som har spenderat en längre tid på webbsidan men inte beställt något samt att användaren vill visa nyheter för användare som nyss anlänt.
+Användningsfallen för besökstidsfiltret var att upprätthållaren vill skapa ett element som visar ett specialerbjudande för besökare som har spenderat en längre tid på webbsidan men inte beställt något samt att upprätthållaren vill visa nyheter för besökare som nyss anlänt.
 
 \subsubsection{Nyckelordsfiltret}
 
 Nyckelordsfiltret använder sig av hänvisningsinformationen för att filtrera ut vilka nyckelord som använts i en sök-motor om besökaren nått sidan via en sådan. Filtret tillåter användaren att specificera grupper av nyckelord som antingen skall eller inte skall vara bland de som använts.
 
-Användningsfallet bakom nyckelordsfiltret är en att en användare väljer att lyfta fram speciell information som passar in på den webbsökning som besökaren använt för att hitta till webbplatsen.
+Användningsfallet bakom nyckelordsfiltret är att en användare väljer att lyfta fram speciell information som passar in på den webbsökning som besökaren använt för att hitta till webbplatsen.
 
 \subsubsection{Landningssidefiltret}
 
-Landningssidefiltret använder sig av statistikinformationen för att välja ut anpassat innehåll. Funktionaliteten fungerar genom att passa den första sidan under det aktiva besöket mot en grupp som den antingen skall eller inte skall finnas bland.
+Landningssidefiltret använder sig av statistikinformationen för att välja ut anpassat innehåll. Funktionaliteten fungerar genom att jämföra den första sidan under det aktiva besöket mot en samling av sidor som den antingen skall eller inte skall finnas bland.
 
-Användningsfallet för landningssidefiltret är att en användare använder sig av en marknadsförings webbadress som leder till en speciell sida. Efter detta kan elementen på sidan återspegla kampanjen.
+Användningsfallet för landningssidefiltret är att en användare använder sig av en marknadsföringswebbadress som leder till en speciell sida. Efter detta kan elementen på sidan återspegla kampanjen.
 
 \subsubsection{Sidantalsfiltret}
 

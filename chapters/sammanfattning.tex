@@ -1,8 +1,10 @@
-\section{Sammanfattning och Diskussion}
+\section{Diskussion och slutsatser}
 
 SmartElements arkitektur har så här långt uppfyllt de krav som sattes upp för systemt. Den tillåter filtrering av innehåll på basis av information som samlas in vid ett besök, vilket var det mest grundläggande målet för systemet. Den tekniska arkitekturen är lätt och flexibel, den tillåter systemet att enkelt utvidgas upp och ner i enlighet med behov. Mjukvaruarkitekturen möter behoven på mjukvaran i det skede som den är och systemet är öppet för vidareutveckling.
 
-\subsection{Idéer för vidare utveckling}
+Projektet gav mig, som utvecklare, en mängd erfarenhet av genomförandet av ett mjukvaruutvecklingsprojekt. Jag hade innan projektet jobbat med såväl utveckling som planering i viss mån men SmartElement var det första projektet som jag själv lett den tekniska planeringen och utvecklingen av. Att ta rollen som arkitekt och ledande utvecklare gav mig väldigt värdefull kunskap för framtiden. Projektet i sig var intressant då det handlade om att bygga en helt ny produkt för företaget. Vi hade tidigare jobbat med webbanalys, men anpassning av webbinnehåll var nytt.
+
+\subsection{Riktlinjer för vidare utveckling}
 
 SmartElement har genom projektet utvecklats till ett MVP-stadium (Minimum-Viable-Produkt). Det stöder den mest grundläggande funktionaliteten som krävs. Det finns dock en del områden var systemet skulle kunna utvecklas och tekniker som skulle kunna användas för förbättring av systemet.
 
@@ -12,7 +14,11 @@ Ett system för poängsättning av material som besökaren ser har planerats men
 
 \subsubsection{Förutsägning}
 
-I dagens läge är SmartElements filtreringssystem reaktivt. Det reagerar på historisk information. Genom att koppla in ett system för förutsägning skulle man kunna förutse relevans. Systemet samlar redan in en del data som skulle kunna användas för förutsägning av relevans och genom att träna ett system med information specifik för en webbsida, kunde man potentiellt förutsäga vilka innehåll en ny besökare potentiellt är intresserad av.
+I dagens läge är SmartElements filtreringssystem reaktivt. Det reagerar på historisk information. Genom att koppla in ett system för förutsägning skulle man kunna förutse relevans. Systemet samlar redan in en del data som skulle kunna användas för förutsägning av relevans och genom att träna ett system med information specifik för en webbsida, kunde man potentiellt förutsäga vilka innehåll en ny besökare potentiellt är intresserad av. Till exempel genom att integrera PredictIO kunde man skapa rätt effektiv anpassning.
+
+\subsubsection{Integration med tredjepartstjänster}
+
+Ett potentiellt område för utveckling av informationen som kan användas för filtrering skulle vara att tillåta integration mot tredjepartstrjänster. Genom en integration mot ett e-postkampanjverktyg kunde man visa en lista över aktiva kampanjer att anpassa efter, utan att upprätthållaren måste komma ihåg kampanjkoder och URL-adresser. Genom integration med en dedikerad webbanalysplatform kunde man drastiskt öka den mängd data som finns tillgänglig för besökaren. Möjligheterna är många och man kunde ge upprätthållare av webbsidor bättre stöd för deras egna processer.
 
 
 % vim: set tw=78:ts=2:sw=2:et:fdm=marker:wrap:wm=78:ft=tex
