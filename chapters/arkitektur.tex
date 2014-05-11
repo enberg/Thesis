@@ -1,6 +1,6 @@
 \section{Mjukvaruarkitektur}
 
-Arkitekturen utformades utgående samma principer som den tekniska arkitekturen. Systemet har planerats utgående ifrån skalbarhet. Det vill säga att systemet skall vara lätt att utveckla funktionsmässigt, det skall vara lätt att underhålla systemet och det skall vara lätt att öka dess kapacitet vid behov. \citep[s. 203]{scalableweb}
+Arkitekturen utformades utgående från samma principer som den tekniska arkitekturen. Systemet har planerats utgående ifrån skalbarhet. Det vill säga att systemet skall vara lätt att utveckla funktionsmässigt, det skall vara lätt att underhålla systemet och det skall vara lätt att öka dess kapacitet vid behov. \citep[s. 203]{scalableweb}
 
 \subsection{Horisontell skalbarhet}
 
@@ -63,9 +63,9 @@ När en förfrågan kommer in, anropas en metod som försöker hitta besökaren 
 \label{siteuml}
 \end{figure}
 
-Sidobjektet är det högsta objektet i hierarkin som används för att filtrera ut innehåll. det beskriver användarens webbplats i sin helhet. Från sidobjektet går alla relationer enda ner till filtren som används för att välja ut innehåll.
+Sidobjektet är det högsta objektet i hierarkin som används för att filtrera ut innehåll. det beskriver användarens webbplats i sin helhet. Från sidobjektet går alla relationer hela vägen ner till filtren som används för att välja ut innehåll.
 
-När sidbvisningshanteraren samlar ihop data för att skicka tillbaka till klienten så anropar den siteobjektet med ett besökarobjekt och därefter sköter siteobjektet om attanropapå de olika elementen som sparats under sidan och ber dessa filtrera ut lämpligt innehåll innan det lämnar tillbaka kontrollen till matchern.
+När sidvisningshanteraren samlar ihop data för att skicka tillbaka till klienten så anropar den siteobjektet med ett besökarobjekt och därefter sköter siteobjektet om att anropa de olika elementen som sparats under sidan och ber dessa filtrera ut lämpligt innehåll innan det lämnar tillbaka kontrollen till matchern.
 
 Objektet är realiserat så att det kan kompileras till en entitet som går att spara i ett cache-lager för kunna hålla objektet i minne vid operationer. Detta tillåter snabb åtkomst till data under en sidvisning och sparar på databasförfrågningar.
 
@@ -91,7 +91,7 @@ Elementobjekten motsvarar ett HTML-element på användarens webbplats, men de ä
 
 Ett element innehåller filterset, innehåll och ett status. Filterseten är filtersamlingar med en länk till ett innehållsobjekt samt en prioritet inom elementet. När sidobjektet anropar ett element för att få tillbaka det lämpliga innehållet kör elementet igenom sin filtersetsamling och ser om filtren passar besökarobjektet. Om fler en ett filterset passar så väljs det med högsta prioritet. När ett filterset valts ut så returnerar elementet det innehåll som filtersetet är länkat till. Om inget filterset passar så returneras ett tomt resultat.
 
-Filterseten bygger tillsammans med filtren på ett utvecklingsmönster som kallas för ''Strategy pattern''. Idén är att man genom att definiera ett bra gränssnitt för en process, lämnar systemet öppet för enkel vidareutveckling i ett senare skede. \citep[s. 349]{gof} FilterSetobjektet i samband med besökarobjektet utgör tillsammans det sakontextmmanhang i vilket strategierna (Filtren) appliceras.
+Filterseten bygger tillsammans med filtren på ett utvecklingsmönster som kallas för ''Strategy pattern''. Idén är att man genom att definiera ett bra gränssnitt för en process, lämnar systemet öppet för enkel vidareutveckling i ett senare skede. \citep[s. 349]{gof} FilterSetobjektet i samband med besökarobjektet utgör tillsammans det sammanhang i vilket strategierna (Filtren) appliceras.
 
 \subsubsection{Filterobjekten}
 
@@ -131,7 +131,7 @@ Systemet utvecklades med relativt låg budget vad gäller både tid och pengar. 
 
 För tillfället sparas statistik endast som en lista av adresser som besökts. En mer avancerad modell skulle kunna aggregera data från denna lista och ge flere filtreringsmöjligheter. Statistikdatan behandlas endast i samband med besökarobjektet som systemet fungerar nu, genom att aggregera statistik för hela sidan skulle man kunna skapa rekommendationer för upprätthållaren vad gäller olika besökarkretsar.
 
-Gränssnittet för leverering av innehåll är i dagens läge ennu ganska hårt bundet till tagen. Ett mer generellt API-skulle gagna systemet genom att tillåta enklare integrering i utomstående system.
+Gränssnittet för leverering av innehåll är i dagens läge ännu ganska hårt bundet till tagen. Ett mer generellt API-skulle gagna systemet genom att tillåta enklare integrering i utomstående system.
 
 % vim: set tw=78:ts=2:sw=2:et:fdm=marker:wrap:wm=78:ft=tex
 % vim: spell spelllang=sv
