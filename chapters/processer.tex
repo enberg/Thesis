@@ -17,7 +17,7 @@ SmartElement använder sig till stor del av statistik som systemet samlar ihop m
 \label{referer}
 \end{figure}
 
-Den första informationen som registreras om besökaren är varifrån denne anländer till sidan. Webbläsare skickar oftast en s.k. referer variabel när man navigerar till en webbsida genom att klicka på en länk. Denna variabel innehåller adressen på sidan som visade länken.
+Den första informationen som registreras om besökaren är varifrån denne anländer till sidan. Webbläsare skickar oftast en s.k. referer-variabel när man navigerar till en webbsida genom att klicka på en länk. Denna variabel innehåller adressen på sidan som visade länken.
 
 Genom att spara denna information får man dels en indikation av varifrån en besökare hittar till sidan, men även en indikation av vilken typs sidor den aktuella besökaren ofta besöker.
 
@@ -36,7 +36,7 @@ Nästa information som samlas in om besökaren är en uppskattning av dennes pos
 
 SmartElement använder sig av en databas som köps in av ett företag som specialiserar sig på att upprätthålla så noggrann information som möjligt om var i världen IP-adresser egentligen är registrerade. Från denna databas söker systemet sedan fram information om besökarens läge. Information som är tillgänglig är bland annat vilket land besökaren befinner sig i, vilken region inom landet samt vilken stad.
 
-Trots att informationen i databasen är av rätt hög kvalitet, kan man inte helt och hållet lita på information som genereras genom IP-geolokalisering. Dels så är IP-addressen som sänds till servern inte nödvändigtvis besökarens egna IP-address då denne kan vara uppkopplad via en VPN-anslutning eller eventuellt använda sig av en proxy-server som inte vidareförmedlar ursprungsadressen. Detta betyder i sin tur att man får platsen var VPN- eller proxy-serverns IP är registrerad. Ett annat problem är att den information som finns tillgänglig beror på vad besökarens Internet-operator rapporterar. Även om IP-adressen är besökarens egna så kan leverantören ha registrerat adressen på en annan plats än den var besökaren befinner sig. 
+Trots att informationen i databasen är av rätt hög kvalitet, kan man inte helt och hållet lita på information som genereras genom IP-geolokalisering. Dels så är IP-addressen som sänds till servern inte nödvändigtvis besökarens egna IP-address då denne kan vara uppkopplad via en VPN-anslutning eller eventuellt använda sig av en proxy-server som inte vidareförmedlar ursprungsadressen. Detta betyder i sin tur att man får platsen var VPN- eller proxy-serverns IP är registrerad. Ett annat problem är att den information som finns tillgänglig beror på vad besökarens Internet-operatör rapporterar. Även om IP-adressen är besökarens egna så kan leverantören ha registrerat adressen på en annan plats än den var besökaren befinner sig. 
 
 \subsubsection{Besökarstatistik}
 
@@ -50,7 +50,7 @@ De största problemen med statistik är att den är beroende av möjligheten att
 
 \subsubsection{Tid}
 
-Vid varje sidvisning registreras tiden för besöket på basis av den tid som besökarens webbläsare rapporterar. Utöver tiden för sidvisningen så beräknar javascript-tagen hur lång tid besökaren spenderat på sidan under det pågående besöket.
+Vid varje sidvisning registreras tiden för besöket på basis av den tid som besökarens webbläsare rapporterar. Utöver tiden för sidvisningen så beräknar Javascript-tagen hur lång tid besökaren spenderat på sidan under det pågående besöket.
 
 Valet att registrera tiden som rapporteras av webbläsaren gjordes för att undvika problem med olika tids-zoner och för att det är troligare att man vill göra ett beslut utgående från besökarens tid, och eftersom tagen registrerar besökarens tid så får systemet samtidigt möjligheten att registrera besökets längd.
 
@@ -58,7 +58,7 @@ Valet att registrera tiden som rapporteras av webbläsaren gjordes för att undv
 
 För att tillåta så flexibel användning som möjligt, tillåter SmartElement även att upprätthållaren av en webbsida själv definierar information som skickas till servern för processering. Detta sker genom att upprätthållaren lägger till egna dataelement i tagen då den inkluderas på sidan.
 
-Genom att förse tagen med egen information kan upprätthållaren av en webbsida använda information som SmartElement inte i sig kan ta reda på, information som besökaren matar in på webbsidan eller information som uppräthållaren genererar.
+Genom att förse tagen med egen information kan upprätthållaren av en webbsida använda information som SmartElement inte i sig kan ta reda på, information som besökaren matar in på webbsidan eller information som upprätthållaren genererar.
 
 Det går även att skapa statistik över användardefinierad information. Funktionen är den samma som för SmartElements egna statistik, man kan lägga till nya värden för varje sidvisning och sedan göra filtrering baserad på denna informationssamling.
 
@@ -71,7 +71,7 @@ För att välja ut vilket innehålls-element som skall skickas till besökaren, 
 
 \subsubsection{Villkor}
 
-I grunden bygger SmartElements filtersystem på 12 enkla villkorsfunktioner som utför en jämförelse mellan den information tagen skickat och den information som upprätthållaren sparat i filtret.
+I grunden bygger SmartElements filtersystem på 12 enkla villkorsfunktioner som utför jämförelser mellan den information tagen skickat och den information som upprätthållaren sparat i filtret.
 
 De tolv villkoren som kan användas samt de datatyper de kan hantera visas i Tabell \ref{table:villkor}.
 
@@ -129,7 +129,7 @@ Motivationen bakom landsfiltret var att tillåta dels större företag, som str�
 
 Datumfiltret använder sig av dagens datum för att tillåta upprätthållaren att specificera när ett innehåll skall visas. Filtret kan användas med de olika jämförelse-villkoren. Upprätthållaren kan specificera ett datum efter vilket innehåll skall visas eller ett datum före vilket det skall visas. Med lika med villkoret kan man specificera en enda dag då innehållet skall visas och lika så en specifik dag då det inte skall visas.
 
-Motivationen bakom datumfiltret var att ge upprätthållaren möjligheten att visa kampanj innehåll under en specifik tid genom att kombinera två datum filter, ett med en nedre gräns och ett med en övre.
+Motivationen bakom datumfiltret var att ge upprätthållaren möjligheten att visa kampanjinnehåll under en specifik tid genom att kombinera två datum filter, ett med en nedre gräns och ett med en övre.
 
 \subsubsection{Dagsfiltret}
 
@@ -145,7 +145,7 @@ Användningsfallen för besökstidsfiltret var att upprätthållaren vill skapa 
 
 \subsubsection{Nyckelordsfiltret}
 
-Nyckelordsfiltret använder sig av hänvisningsinformationen för att filtrera ut vilka nyckelord som använts i en sök-motor om besökaren nått sidan via en sådan. Filtret tillåter upprätthållaren att specificera grupper av nyckelord som antingen skall eller inte skall vara bland de som använts.
+Nyckelordsfiltret använder sig av hänvisningsinformationen för att filtrera ut vilka nyckelord som använts i en sökmotor om besökaren nått sidan via en sådan. Filtret tillåter upprätthållaren att specificera grupper av nyckelord som antingen skall eller inte skall vara bland de som använts.
 
 Användningsfallet bakom nyckelordsfiltret är att en upprätthållare väljer att lyfta fram speciell information som passar in på den webbsökning som besökaren använt för att hitta till webbplatsen.
 

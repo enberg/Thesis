@@ -1,6 +1,6 @@
 \section{SmartElement}
 
-SmartElement är ett back-endsystem som sköter filtrering av innehåll på basis av information som samlas in om besökare på en webbsida. Upprätthållaren av en webbsida kan genom att integrera SmartElements JavaScript-tag i sin sida låta back-end systemet fylla i specificerade element med anpassat innehåll.
+SmartElement är ett back-endsystem som sköter filtrering av innehåll på basis av information som samlas in om besökare på en webbsida. Upprätthållaren av en webbsida kan genom att integrera SmartElements JavaScript-tag i sin sida låta back-endsystemet fylla i specificerade element med anpassat innehåll.
 
 Systemet är i sig bara en motor för identifikation av användare och filtrering av innehåll. Det enda gränssnitt som SmartElement har är ett \gls{json}-gränssnitt genom vilket ett separat grafiskt gränssnitt tillåter användare att konfigurera sitt innehåll.
 
@@ -13,7 +13,7 @@ Systemet är i sig bara en motor för identifikation av användare och filtrerin
 \label{actors}
 \end{figure}
 
-Genom detta arbete används några aktörer för att förklara sammanhanget kring SmartElement. Närmast handlar det om besökaren, besökarens webbläsare, en webbsida, webbsidans upprätthållare samt SmartElement systemet.
+Genom detta arbete används några aktörer, visualiserade i Figur \ref{actors}, för att förklara sammanhanget kring SmartElement. Närmast handlar det om besökaren, besökarens webbläsare, en webbsida, webbsidans upprätthållare samt SmartElement systemet.
 
 Besökaren är den person som med sin webbläsare beöker webbsidan. Upprätthållaren är den person som upprätthåller en webbsida, på vilken denne installerat SmartElement-tagen. Med SmartElement ämnas, om ej annat nämns, back-endsystemet av SmartElement.
 
@@ -26,7 +26,7 @@ Besökaren är den person som med sin webbläsare beöker webbsidan. Upprätthå
 \label{abstractstructure}
 \end{figure}
 
-SmartElement bygger på några grundläggande koncept; webbsidor, element, filter och innehåll. Med dessa fyra byggstenar konfigureras objekt, visualiserat i figur \ref{abstractstructure}, som back-end systemet använder för att filtrera och leverera innehåll.
+SmartElement bygger på några grundläggande koncept; webbsidor, element, filter och innehåll. Med dessa fyra byggstenar konfigureras objekt, visualiserat i Figur \ref{abstractstructure}, som back-endsystemet använder för att filtrera och leverera innehåll.
 
 \subsubsection{Webbsidan}
 
@@ -34,11 +34,11 @@ Webbsidan är det högsta elementet i hierarkin som SmartElement handskas med. D
 
 \subsubsection{Element}
 
-Elementen är hållare för den data som returneras från back-end systemet, de knyter innehållet till webbsidan. Elementet har i sig flere innehåll och filter. Filtren används för att välja ut det innehåll som skall visas i elementet. Element har en inom webbsidan unik kod som används för att specificera vilka element som behöver processeras när man anropar back-end systemet.
+Elementen är hållare för den data som returneras från back-endsystemet, de knyter innehållet till webbsidan. Elementet har i sig flere innehåll och filter. Filtren används för att välja ut det innehåll som skall visas i elementet. Element har en inom webbsidan unik kod som används för att specificera vilka element som behöver processeras när man anropar back-endsystemet.
 
 \subsubsection{Filter}
 
-Filter består i SmartElement av flera olika regler som ställer en fråga om besökaren och har en länk till ett innehåll, vilket visas om filtret matchar. För att ett filter skall matcha krävs det att besökaren passar alla regler i filtret. För att hantera fall var två eller flera filter passar för en besökare, har filter en prioritets-ordning inom elementet som användaren själv kan definiera.
+Filter består i SmartElement av flera olika regler som ställer en fråga om besökaren och har en länk till ett innehåll, vilket visas om filtret passar. För att ett filter skall passa krävs det att besökaren passar för alla regler i filtret. För att hantera fall var två eller flera filter passar för en besökare, har filter inom elementet en prioritets-ordning som användaren själv kan definiera.
 
 \subsubsection{Innehåll}
 
@@ -46,7 +46,7 @@ Innehåll är den konkreta data som levereras för ett element efter att ett fil
 
 \subsection{Funktion}
 
-SmartElement har två huvudsakliga funktionsområden. Konfiguration av systemet genom API-gränssnittet samt hantering av sidvisningar och filtrering av innehåll genom innehålls-gränssnittet.
+SmartElement har två huvudsakliga funktionsområden. Konfiguration av systemet genom \gls{api}-gränssnittet samt hantering av sidvisningar och filtrering av innehåll genom innehålls-gränssnittet.
 
 \subsubsection{Konfiguration}
 
@@ -57,7 +57,7 @@ SmartElement har två huvudsakliga funktionsområden. Konfiguration av systemet 
 \label{smelementelement}
 \end{figure}
 
-För att SmartElement skall kunna leverera innehåll, måste användaren konfigurera sidan och dess element på förhand. Processen består av att registrera element under sidobjektet, skapa innehåll samt att konfigurera filter genom att kombinera regler om vilka användare innehållet passar för.
+För att SmartElement skall kunna leverera innehåll, måste användaren konfigurera sidan och dess element på förhand. Processen består av att registrera element under sidobjektet, skapa innehåll samt att konfigurera filter genom att kombinera regler om vilka användare innehållet passar för. En färdig elementkonfiguration visualiseras i Figur \ref{smelementelement}.
 
 I praktiken sker all konfiguration av systemet, då det är i produktion, genom ett \gls{json} gränssnitt. En klient kopplar upp sig, autentiserar sig med en nyckel och kan sedan göra förfrågningar mot gränssnittet.
 

@@ -4,11 +4,11 @@ Arkitekturen utformades utgående från samma principer som den tekniska arkitek
 
 \subsection{Horisontell skalbarhet}
 
-För att tillåta systemet att anpassas till växande resurskrav, har SmartElement utformats för att tillåta horisontell skalbarhet. Att ett system är horisontellt skalbart betyder att man kan öka systemets kapacitet genom att öka antalet av någon komponent och sprida ut belastningen.\citep[s. 205-207]{scalableweb}
+För att tillåta systemet att anpassas till växande resurskrav, har SmartElement utformats för att tillåta horisontell skalbarhet. Att ett system är horisontellt skalbart betyder att man kan öka systemets kapacitet genom att öka antalet av någon komponent och sprida ut belastningen. \citep[s. 205-207]{scalableweb}
 
 I SmartElements fall betydde det att mjukvaruarkitekturen måste vara tillräckligt flexibel för att kunna köras på flera servrar. Detta ledde till en modulär design som försöker separera ansvarsområden inom mjukvaran. På så vis kan de olika delarna byggas ut oberoende av varandra.
 
-Den tyngsta delen av applikationen, vad gäller skalbarhet, är applikationsdatabasen. På grund av detta skapades processer som är menade att skydda detta lager genom att spara objekt i cache-minnet. På så vis hålls databas antalet förfrågningarna lägre och applikationsdatabasen behöver inte skala lika mycket för att systemet skall klara större mängder förfrågningar.
+Den tyngsta delen av applikationen, vad gäller skalbarhet, är applikationsdatabasen. På grund av detta skapades processer som är menade att skydda detta lager genom att spara objekt i cache-minnet. På så vis hålls databas förfrågningarnas antal lägre och applikationsdatabasen behöver inte vara lika skalbar för att systemet skall klara större mängder förfrågningar.
 
 \subsection{Servern}
 
@@ -19,9 +19,9 @@ Den tyngsta delen av applikationen, vad gäller skalbarhet, är applikationsdata
 \label{abstractbackend}
 \end{figure}
 
-Back-end systemet, dvs. serverkomponeneten, i SmartElement är den centrala delen av systemet var all data lagras och all filtrering sker. Systemet har två gränssnitt, ett öppet som används av tagen för att hämta innehåll vid sidvisningar, och ett stängt som används av en frontend vid konfiguration.
+Back-endsystemet, dvs. serverkomponenten, i SmartElement är den centrala delen av systemet var all data lagras och all filtrering sker. Systemet har två gränssnitt, ett öppet som används av tagen för att hämta innehåll vid sidvisningar, och ett stängt som används av en frontend vid konfiguration.
 
-Hela back-endsystemet är realiserat med en fokus på att vara tillståndslöst (jmfr. engelskans \textit{''stateless''}) vad gäller hanteringen av förfrågningar. I praktiken betyder detta att man inte skall behöva en session med back-enden för att kunna genomföra förfrågningar, utan all information som behövs förses antingen i förfrågningen, eller så kan den generaras från databasen. Detta betyder att t.ex. autentiseringen är baserad på en nyckel som används för att generera en signatur för varje förfrågning. Orsaken till detta ligger i att det är lättare att realisera horisontellt skalbarhet i systemet, genom att lägga till applikationsservrar, då sessioner inte behöver synkroniseras mellan de olika servrarna.
+Hela back-endsystemet är realiserat med en fokus på att vara tillståndslöst (jmfr. engelskans \textit{''stateless''}) vad gäller hanteringen av förfrågningar. I praktiken betyder detta att man inte skall behöva en session med back-enden för att kunna genomföra förfrågningar, utan all information som behövs förses antingen i förfrågningen, eller så kan den generaras från databasen. Detta betyder att t.ex. autentiseringen är baserad på en nyckel som används för att generera en signatur för varje förfrågning. Orsaken till detta ligger i att det är lättare att realisera horisontellt skalbarhet i systemet genom att lägga till applikationsservrar, då sessioner inte behöver synkroniseras mellan de olika servrarna.
 
 Tekniskt sett så finns det fyra huvudsakliga komponenter i back-endsystemet: applikationen, cache-lagret, applikations-databasen och statistik-databasen. Denna uppdelning är gjord för att försöka tillåta för oberoende horisontell skalbarhet i de olika ansvarsområdena genom att lägga till eller ta bort resurser av de olika komponenterna i takt med behov.
 
@@ -131,7 +131,7 @@ Systemet utvecklades med relativt låg budget vad gäller både tid och pengar. 
 
 För tillfället sparas statistik endast som en lista av adresser som besökts. En mer avancerad modell skulle kunna aggregera data från denna lista och ge flere filtreringsmöjligheter. Statistikdatan behandlas endast i samband med besökarobjektet som systemet fungerar nu, genom att aggregera statistik för hela sidan skulle man kunna skapa rekommendationer för upprätthållaren vad gäller olika besökarkretsar.
 
-Gränssnittet för leverering av innehåll är i dagens läge ännu ganska hårt bundet till tagen. Ett mer generellt API-skulle gagna systemet genom att tillåta enklare integrering i utomstående system.
+Gränssnittet för leverering av innehåll är i dagens läge ännu ganska hårt bundet till tagen. Ett mer generellt \gls{api}-skulle gagna systemet genom att tillåta enklare integrering i utomstående system.
 
 % vim: set tw=78:ts=2:sw=2:et:fdm=marker:wrap:wm=78:ft=tex
 % vim: spell spelllang=sv

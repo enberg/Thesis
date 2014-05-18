@@ -2,7 +2,7 @@
 
 SmartElement bygger i stort sett på fem centrala tekniker, programmeringsspråket PHP som används för att skriva systemets kod, MySQL som databaslager för användar- och systemdata, Memcache som cache-lager, vilket tillåter att information som är tung att beräkna kan sparas mellan förfrågningar, dokumentdatabasen MongoDB för lagring av information om besökare och statistik, och till sist JavaScript som används för att skapa det informationspaket om användaren som skickas till servern för användning vid filtreringen av innehåll.
 
-Många av de val som gjorts i planeringen av den tekniska arkitekturen bakom SmartElement baserar sig på en möjlighet att kunna göra systemet skalbart för hantering av förändrade användarmängder. De grundläggande principerna har varit att det skall vara lätt att utveckla, det skall vara lätt att underhålla, det skall vara lätt att installera och det skall vara lätt att skala upp om det skulle behövas.
+Många av de val som gjorts i planeringen av den tekniska arkitekturen bakom Smart-Element baserar sig på en möjlighet att kunna göra systemet skalbart för hantering av förändrade användarmängder. De grundläggande principerna har varit att det skall vara lätt att utveckla, det skall vara lätt att underhålla, det skall vara lätt att installera och det skall vara lätt att skala upp om det skulle behövas.
 
 \subsection{PHP}
 
@@ -12,9 +12,9 @@ PHP är ett av de mest populära språken för webbutveckling \citep{tiobe}. Det
 
 \subsection{Databas}
 
-Eftersom SmartElement hanterar dels intern data som är starkt bunden till systemet och påverkar funktionaliteten av systemet, och dels extern data, som är närmare kopplad till upprätthållarens webbsida och påverkar hur en dennes sida fungerar, så finns det två tydliga data-set som båda har egna krav.
+Eftersom SmartElement hanterar dels intern data som är starkt bunden till systemet och påverkar funktionaliteten av systemet, och dels extern data, som är närmare kopplad till upprätthållarens webbsida och påverkar hur dennes sida fungerar, så finns det två tydliga data-set som båda har egna krav.
 
-På grund av denna delning var det möjligt att använda två skilda databaser, var med sitt ansvarsområde. Databaslagret inom SmartElement splittrades därvid i två skilda lager, dels en relationsdatabas för systemets interna data och en dokumentdatabas för lagring av extern data. Denna lösning valdes för att på bästa vis stöda de egenskaper som dataseten har.
+På grund av denna indelning var det möjligt att använda två skilda databaser, var med sitt ansvarsområde. Databaslagret inom SmartElement splittrades därvid i två skilda lager, dels en relationsdatabas för systemets interna data och en dokumentdatabas för lagring av extern data. Denna lösning valdes för att på bästa vis stöda de egenskaper som dataseten har.
 
 \subsubsection{MySQL}
 
@@ -26,15 +26,15 @@ Relationsdatabasen gör sig bra i denna roll då den ger en viss garanti på dat
 
 \subsubsection{MongoDB}
 
-MongoDB är en dokumentdatabas som utvecklas av företaget MongoDB, Inc. Databasen är en av de s.k. NoSQL-databaserna, vilket är en term som används för att beteckna databaser som inte använder sig av \gls{sql}-språket för data-manipulering. I MongoDB använder man i stället ett objektorienterat gränssnitt för att ge kommandon till databasen. Utöver det kan man även skicka JavaScript-kod som exekveras i databasen för att vidare filtrera data. \citep{mongoquery}
+MongoDB är en dokumentdatabas som utvecklas av företaget MongoDB, Inc. Databasen är en av de s.k. NoSQL-databaserna, vilket är en term som används för att beteckna databaser som inte använder sig av \gls{sql}-språket för datamanipulering. I MongoDB använder man i stället ett objektorienterat gränssnitt för att ge kommandon till databasen. Utöver det kan man även skicka JavaScript-kod som exekveras i databasen för att vidare filtrera data. \citep{mongoquery}
 
-För lagring av extern data, relaterad till besök av upprätthållares webbsidor, valdes dokumentdatabasen MongoDB. MongoDB använder inte ett strikt schema för datalagring utan dokument i samma samling kan ha skiljande attribut associerade med sig. Detta underlättar vidareutveckling av systemet genom att tillåtta gammal data att existera i databasen tillsammans med ny data tills den gamla uppdateras och kompletteras då en besökare återvänder till webbsidan.
+För lagring av extern data, relaterad till besök på upprätthållarens webbsidor, valdes dokumentdatabasen MongoDB. MongoDB använder inte ett strikt schema för datalagring utan dokument i samma samling kan ha skiljande attribut associerade med sig. Detta underlättar vidareutveckling av systemet genom att tillåtta gammal data att existera i databasen tillsammans med ny data tills den gamla uppdateras och kompletteras då en besökare återvänder till webbsidan.
 
-I fallet av den externa datan så är den strikta datastrukturen inte lika viktig. Datan föråldras dels snabbt samt att designen är sådan att datan inte skall behöva vara komplett och innehålla strikta datastrukturer. Tanken med besökarobjekten är att de skall vara levande och öppna för modifikation och utvidgning. Om ett nytt filter läggs till i systemet så skall det inte kräva en migration av gammal data, utan statistiken för det nya filtret läggs helt enkelt till på objektet. Om inte datan finns på objektet så passar filtret ej. Denna flexibilitet är lättare att åstadkomma med en dokumentdatabas eftersom scheman inte behöver uppdateras, vilket potentiellt skulle vara en väldigt tung operation i fallet av besökarobjektet, som är den snabbast växande samlingen inom systemet.
+I fallet av den externa datan så är den strikta datastrukturen inte lika viktig. Datan föråldras dels snabbt samt att designen är sådan att datan inte skall behöva vara komplett och innehålla strikta datastrukturer. Tanken med besökarobjekten är att de skall vara levande och öppna för modifikation och utvidgning. Om ett nytt filter läggs till i systemet så skall det inte kräva en migration av gammal data, utan statistiken för det nya filtret läggs helt enkelt till på objektet. Om inte datan finns på objektet så passar filtret ej. Denna flexibilitet är lättare att åstadkomma med en dokumentdatabas eftersom scheman inte behöver uppdateras, vilket potentiellt skulle vara en väldigt tung operation i fallet av besökarobjekt, som är den snabbast växande samlingen inom systemet.
 
 \subsection{Memcached}
 
-Memcached är ett objectcachesystem, en mjukvara som tillåter program att spara objekt i minnet och senare läsa tillbaka dem utan att behöva bygga upp datastrukturer igen. Systemet fungerar som ett nyckel-värdesystem, dvs. att information sparas i en nivå med unika nycklar som identitetsvärde, en enkel princip som bidrar till att systemet är mycket effektivt. \citep{memcachedwiki}
+Memcached är ett objectcachesystem, en mjukvara som tillåter program att spara objekt i minnet och senare läsa tillbaka dem utan att behöva bygga upp datastrukturer igen. Systemet fungerar som ett nyckel-värdesystem, dvs. att information sparas i en nivå med unika nycklar som identitetsvärden, en enkel princip som bidrar till att systemet är mycket effektivt. \citep{memcachedwiki}
 
 Eftersom SmartElements datamodell består av många länkade objekt är det relativt tungt att bygga upp ett sidobjekt från databasen då det måste göras många förfrågningar. På grund av detta, samt för att minska risken för (n+1)-problem (var man gör en databasförfrågan för varje element i en samling som man itererar över), så bestämdes det att ett cachelager skulle användas för att lagra dessa datamodeller, och på så vis låta mjukvaran gå direkt till filtrerings-logiken då en förfrågan från tagen behandlas.
 
