@@ -19,7 +19,7 @@ Den tyngsta delen av applikationen, vad gäller skalbarhet, är applikationsdata
 \label{abstractbackend}
 \end{figure}
 
-Back-endsystemet, dvs. serverkomponenten, i SmartElement är den centrala delen av systemet var all data lagras och all filtrering sker. Systemet har två gränssnitt, ett öppet som används av tagen för att hämta innehåll vid sidvisningar, och ett stängt som används av en frontend vid konfiguration.
+Back-endsystemet, dvs. serverkomponenten, i SmartElement är den centrala delen av systemet var all data lagras och all filtrering sker. De delar som bygger upp serverkomponenten illustreras i Figur \ref{abstractbackend}. Systemet har två gränssnitt, ett öppet som används av tagen för att hämta innehåll vid sidvisningar, och ett stängt som används av en frontend vid konfiguration.
 
 Hela back-endsystemet är realiserat med en fokus på att vara tillståndslöst (jmfr. engelskans \textit{''stateless''}) vad gäller hanteringen av förfrågningar. I praktiken betyder detta att man inte skall behöva en session med back-enden för att kunna genomföra förfrågningar, utan all information som behövs förses antingen i förfrågningen, eller så kan den generaras från databasen. Detta betyder att t.ex. autentiseringen är baserad på en nyckel som används för att generera en signatur för varje förfrågning. Orsaken till detta ligger i att det är lättare att realisera horisontellt skalbarhet i systemet genom att lägga till applikationsservrar, då sessioner inte behöver synkroniseras mellan de olika servrarna.
 
@@ -50,7 +50,7 @@ Den centrala delen av hanteringen av en sidvisning sker i en hanterare som tar e
 \label{visitoruml}
 \end{figure}
 
-Besökarobjektet representerar en besökare på webbsidan och innehåller all information som systemet kunnat samla ihop. Besökarobjektet är det enda objekt i filtreringsprocessen som är realiserat att använda databasen.
+Besökarobjektet, illustrerat i Figur \ref{visitoruml}, representerar en besökare på webbsidan och innehåller all information som systemet kunnat samla ihop. Besökarobjektet är det enda objekt i filtreringsprocessen som är realiserat att använda databasen.
 
 När en förfrågan kommer in, anropas en metod som försöker hitta besökaren i statistikdatabasen. Om ett resultat hittas, uppdaterars det befintliga objektet med den nya informationen från förfrågningen. Om besökaren inte är igenkänd så skapas ett nytt besökarobjekt med den försedda informationen.
 
@@ -63,7 +63,7 @@ När en förfrågan kommer in, anropas en metod som försöker hitta besökaren 
 \label{siteuml}
 \end{figure}
 
-Sitebjektet är det högsta objektet i hierarkin som används för att filtrera ut innehåll. Det beskriver upprätthållarens webbplats i sin helhet. Från sitebjektet går alla relationer hela vägen ner till filtren som används för att välja ut innehåll.
+Sitebjektet, illustrerat i Figur \ref{siteuml}, är det högsta objektet i hierarkin som används för att filtrera ut innehåll. Det beskriver upprätthållarens webbplats i sin helhet. Från sitebjektet går alla relationer hela vägen ner till filtren som används för att välja ut innehåll.
 
 När sidvisningshanteraren samlar ihop data för att skicka tillbaka till besökaren så anropar den siteobjektet med ett besökarobjekt. Därefter sköter siteobjektet om att anropa de olika elementen som sparats under sidan och ber dessa filtrera ut lämpligt innehåll innan det lämnar tillbaka kontrollen till sidvisningshanteraren.
 
@@ -78,7 +78,7 @@ Objektet är realiserat så att det kan kompileras till en entitet som går att 
 \label{elementuml}
 \end{figure}
 
-Elementobjektet motsvarar ett HTML-element på användarens webbplats, men det är ej bundet till någon specifik webbadress eller sida på webbplatsen. Detta betyder att man kan använda samma element på olika sidor under samma webbplats om man vill, t.ex. i en banner eller som del av en navigation.
+Elementobjektet, illustrerat i Figur \ref{elementuml}, motsvarar ett HTML-element på användarens webbplats, men det är ej bundet till någon specifik webbadress eller sida på webbplatsen. Detta betyder att man kan använda samma element på olika sidor under samma webbplats om man vill, t.ex. i en banner eller som del av en navigation.
 
 \subsubsection{FilterSetobjektet}
 
@@ -89,7 +89,7 @@ Elementobjektet motsvarar ett HTML-element på användarens webbplats, men det �
 \label{filtersetuml}
 \end{figure}
 
-Ett element innehåller filterset, innehåll och ett status. Filterseten är filtersamlingar med en länk till ett innehållsobjekt samt en prioritet inom elementet. När sidobjektet anropar ett element för att få tillbaka det lämpliga innehållet kör elementet igenom sin filtersetsamling och ser om filtren passar besökarobjektet. Om fler en ett filterset passar så väljs det med högsta prioritet. När ett filterset valts ut så returnerar elementet det innehåll som filtersetet är länkat till. Om inget filterset passar så returneras ett tomt resultat.
+Ett element innehåller filterset, innehåll och ett status. Figur \ref{filtersetuml} representerar ett FilterSetobjekt. Filterseten är filtersamlingar med en länk till ett innehållsobjekt samt en prioritet inom elementet. När sidobjektet anropar ett element för att få tillbaka det lämpliga innehållet kör elementet igenom sin filtersetsamling och ser om filtren passar besökarobjektet. Om fler en ett filterset passar så väljs det med högsta prioritet. När ett filterset valts ut så returnerar elementet det innehåll som filtersetet är länkat till. Om inget filterset passar så returneras ett tomt resultat.
 
 Filterseten bygger tillsammans med filtren på ett utvecklingsmönster som kallas för ''Strategy pattern''. Idén är att man genom att definiera ett bra gränssnitt för en process, lämnar systemet öppet för enkel vidareutveckling i ett senare skede. \citep[s. 349]{gof} FilterSetobjektet i samband med besökarobjektet utgör tillsammans det sammanhang i vilket strategierna (Filtren) appliceras.
 
@@ -102,7 +102,7 @@ Filterseten bygger tillsammans med filtren på ett utvecklingsmönster som kalla
 \label{filteruml}
 \end{figure}
 
-Filterobjekten är i slutändan de objekt som utför tester mot besökarobjekten. De består av en filtertyp som definierar hur de jämför data, en fältidentitet som de använder för att läsa ut data ur besökarobjektet, ett värde som de testar mot och ett villkor som de använder för att utföra testet.
+Filterobjekten är i slutändan de objekt som utför tester mot besökarobjekten. Som Figur \ref{filteruml} illustrerar består de av en filtertyp som definierar hur de jämför data, en fältidentitet som de använder för att läsa ut data ur besökarobjektet, ett värde som de testar mot och ett villkor som de använder för att utföra testet.
 
 Filterobjekten implementerar strategin i filtreringen som utförs i samband med filterseten. Ett filter tar endast ställning till en sak och returnerar ett logiskt värde beroende på om kriteriet möts eller ej. Filtersetet vet endast att det kan innehålla godtyckligt filter och filtret i sig vet att frågan alltid kommer att ställas på samma vis med likadan input.
 
@@ -115,7 +115,7 @@ Filterobjekten implementerar strategin i filtreringen som utförs i samband med 
 \label{contenttuml}
 \end{figure}
 
-Contentobjektet är den data som returneras till besökaren efter att filtreringen skett. Systemet sätter ingen annan begränsning på datan än att den måste kunna sparas som en textsträng. Detta betyder att man kan producera avancerad funktionalitet genom att t.ex. spara Javascript-kod eller \gls{json}-data som innehåll och på så vis använda SmartElement för att styra exekvering i besökarens webbläsare. Det betyder också att systemet inte sätter så stora krav på anroparen eftersom det enda som är viktigt är att denne kan tolka datan som returneras. Detta betyder att man i princip kunde skapa godtycklig klient till back-enden genom att implementera protokollet som tagen använder.
+Contentobjektet, illustrerat i Figur \ref{contenttuml}, är den data som returneras till besökaren efter att filtreringen skett. Systemet sätter ingen annan begränsning på datan än att den måste kunna sparas som en textsträng. Detta betyder att man kan producera avancerad funktionalitet genom att t.ex. spara Javascript-kod eller \gls{json}-data som innehåll och på så vis använda SmartElement för att styra exekvering i besökarens webbläsare. Det betyder också att systemet inte sätter så stora krav på anroparen eftersom det enda som är viktigt är att denne kan tolka datan som returneras. Detta betyder att man i princip kunde skapa godtycklig klient till back-enden genom att implementera protokollet som tagen använder.
 
 \subsection{JavaScript-tagen}
 
