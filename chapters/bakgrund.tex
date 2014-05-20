@@ -1,6 +1,6 @@
 \section{Bakgrund}
 
-Projektet började hösten 2012 som ett internt verktyg på Developer's Helsinki efter att behov uppstått för ett system som skulle tillåta snabb implementation av anpassat innehåll på kunders webbsidor. Det bestämdes att det skulle utvecklas en mjukvara först för internt bruk men med målsättningen att lanseras som en SaaS-produkt. Mjukvaran skulle utvecklas för att vara möjligast anpassningsbar och tillåta flera olika sorters anpassningssätt. Utvecklingen genomfördes med ganska låg budget både mätt både i tid och pengar, med fokus på att få ut en Minimum-Viable-Product innan företaget binder sig till den.
+Projektet började hösten 2012 som ett internt verktyg på Developer's Helsinki efter att behov uppstått för ett system som skulle tillåta snabb implementation av anpassat innehåll på kunders webbsidor. Det bestämdes att det skulle utvecklas en mjukvara först för internt bruk men med målsättningen att lanseras som en SaaS-produkt. Mjukvaran skulle utvecklas för att vara möjligast anpassningsbar och tillåta flera olika sorters anpassningssätt. Utvecklingen genomfördes med ganska låg budget mätt både i tid och pengar, med fokus på att få ut en Minimum-Viable-Product innan företaget binder sig till den.
 
 \subsection{Developer's Helsinki}
 
@@ -21,9 +21,9 @@ Anpassat innehåll, eller personaliserat innehåll (eng. \textit{Personalized co
 
 Anpassat innehåll har bland annat använts inom nätbutiker för att visa reklam anpassad för kunden på basis av dennes beställningshistorik. Figur \ref{amazon} visar användarsidan som visas då man loggar in på Amazons webb-butik. Inom social media används anpassat innehåll för att lyfta fram innehåll som antas vara intressant för användaren, som till exempel uppdateringar från vänner som användaren ofta är i kontakt med eller reklam från företag användaren har gillat. \citep{socialmedia}
 
-Anpassning av innehåll kan anses ha börjat med de första webbsidorna som tillåtit inloggning och på så vis anpassat webbsidan för en återvändande användare. Man kan anse att så lite som en användarinformations-box för inloggade användare är anpassning av innehåll. I dagens läge menar man oftast mera avancerad anpassning baserad på segmentering av användare och klassificering av innehåll.
+Anpassning av innehåll kan anses ha börjat med de första webbsidorna som tillåtit inloggning och på så vis anpassat webbsidan för en återvändande användare. Man kan anse att så lite som en användarinformationsbox för inloggade användare är anpassning av innehåll. I dagens läge menar man oftast mera avancerad anpassning baserad på segmentering av användare och klassificering av innehåll.
 
-En för det flesta bekant form av anpassning av webbinnehåll är anpassade sökresultat. Söktjänsten Google har sedan 2004 använt sig av anpassade sökresultat, sedan 2009 anpassas sökresultat dessutom för icke autentiserade besökare \citep{Hannak:2013:MPW:2488388.2488435}. Googles anpassade sökresultat kan ses som en föregångare för anpassat webbinnehåll, de har presenterat konceptet för en bred publik.
+En för det flesta bekant form av anpassning av webbinnehåll är anpassade sökresultat. Söktjänsten Google har sedan 2004 använt sig av anpassade sökresultat. Sedan 2009 anpassas sökresultat dessutom för icke autentiserade besökare \citep{Hannak:2013:MPW:2488388.2488435}. Googles anpassade sökresultat kan ses som en föregångare för anpassat webbinnehåll, de har presenterat konceptet för en bred publik.
 
 Anpassningen av innehåll kan åstadkommas på olika sätt. Ofta handlar det om användning av statistik för att välja ut innehåll som motsvarar en besökares uppvisade intressen. Det kan handla om en så enkel sak som att använda statistiken för att visa en liten hälsning för återkommande besökare. Det finns dock mera avancerade metoder för anpassning, som att använda information som besökaren förser webbsidan med i kombination med användarens beteende på sidan för att klassificera denne. \citep{Albanese:2004:WPB:1031453.1031469} 
 
@@ -47,7 +47,7 @@ Den kommersiella lösning som närmast liknar SmartElement i funktionalitet är 
 
 \subsection{Lösningar baserade på öppen källkod}
 
-På open-soucefronten finns det bl.a. webbinnehållsplattformen Pimcore som innehåller en anpassningsmotor. Funktionaliteten baserar sig på att skapa besökarsegment. Efter konfiguration kan upprätthållaren, medan denne editerar en sida, välja ett besökarsegment att anpassa innehållet för. \citep{pimcore}
+På open-sourcefronten finns det bl.a. webbinnehållsplattformen Pimcore som innehåller en anpassningsmotor. Funktionaliteten baserar sig på att skapa besökarsegment. Efter konfiguration kan upprätthållaren, medan denne editerar en sida, välja ett besökarsegment att anpassa innehållet för. \citep{pimcore}
 Till skillnad från SmartElement är Pimcore en hel plattform för hantering av webbinnehåll. För att använda plattformen måste upprätthållaren ta i bruk systemet samt upprätthålla en server var systemet kan köras. SmartElement är däremot tänkt som en tjänst för upprätthållare att lägga till på sin befintliga sida, oberoende av underliggande system.
 
 Ett mera tekniskt krävande system för utveckling av anpassat innehåll är PredictionIO. Det är en maskinlärningssystem baserat på öppen källkod som kan användas för att automatiskt generera anpassade rekommendationer för besökare. Systemet bygger på att man skapar en motor som sedan tränas genom att mata in beteende data om användare i relation till olika ting. \citep{predicionioconcepts}

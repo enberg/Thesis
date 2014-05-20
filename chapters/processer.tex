@@ -1,6 +1,6 @@
 \section{Processer}
 
-För att kunna leverera anpassat webbinehåll till besökaren av en webbsida, måste systemet ha ett sätt att om denne kunna identifiera information. SmartElement använder sig av några olika tekniker för att samla in information om besökare då de anländer på en webbsida, dels teknisk information och dels statistik.
+För att kunna leverera anpassat webbinehåll till besökaren av en webbsida, måste systemet ha ett sätt att kunna identifiera information om denne. SmartElement använder sig av några olika tekniker för att samla in information om besökare då de anländer på en webbsida, dels teknisk information och dels statistik.
 
 Denna information används sedan för att söka igenom tillgängligt innehåll och testa om informationen passar för de filter som registrerats. Filtren bygger i sig på olika villkor som kan appliceras på den insamlade informationen.
 
@@ -42,7 +42,7 @@ Trots att informationen i databasen är av rätt hög kvalitet, kan man inte hel
 
 För varje sidvisning på en webbsida med SmartElement sparas det statistik. Besökarobjektet som sparas i systemet innehåller information om hur ofta besökaren varit på webbplatesen, hur många sidor denne besökt inom webbplatsen, samt hur ofta denne sett en specifik sida.
 
-Genom att skapa statistik som är kopplad till beökaren kan man generera information om besökarens beteende då denne använder webbsidan. Man kan räkna hur ofta denne besöker specifika delar av sidan, om denne inte sett en viss sida på länge, om denne börjat besöka en specifik del mer eller mindre o.s.v. All denna information kan hjälpa att söka fram information som kan tänkas vara relevant för besökaren.
+Genom att skapa statistik som är kopplad till besökaren kan man generera information om besökarens beteende då denne använder webbsidan. Man kan räkna hur ofta denne besöker specifika delar av sidan, om denne inte sett en viss sida på länge, om denne börjat besöka en specifik del mer eller mindre o.s.v. All denna information kan hjälpa att söka fram information som kan tänkas vara relevant för besökaren.
 
 De största problemen med statistik är att den är beroende av möjligheten att identifiera besökaren då denne återvänder till webbsidan. Som systemet är byggt för tillfället hänger detta på användningen av kakor som innehåller ett unikt id-nummer, vilket betyder att systemet tappar besökaren så fort denne raderar denna kaka. Det finns sätt att rundgå detta genom att använda sig av till exempel caching information för att identifiera besökare trots att denne raderat eller blockerat kakor. \citep{ashkanblog}
 
@@ -52,7 +52,7 @@ De största problemen med statistik är att den är beroende av möjligheten att
 
 Vid varje sidvisning registreras tiden för besöket på basis av den tid som besökarens webbläsare rapporterar. Utöver tiden för sidvisningen så beräknar Javascript-tagen hur lång tid besökaren spenderat på sidan under det pågående besöket.
 
-Valet att registrera tiden som rapporteras av webbläsaren gjordes för att undvika problem med olika tids-zoner och för att det är troligare att man vill göra ett beslut utgående från besökarens tid, och eftersom tagen registrerar besökarens tid så får systemet samtidigt möjligheten att registrera besökets längd.
+Valet att registrera tiden som rapporteras av webbläsaren gjordes för att undvika problem med olika tidszoner och för att det är mer troligt att man vill göra ett beslut utgående från besökarens tid, och eftersom tagen registrerar besökarens tid så får systemet samtidigt möjligheten att registrera besökets längd.
 
 \subsubsection{Användardefinierad information}
 
@@ -67,7 +67,7 @@ Genom denna teknik kan upprätthållaren i princip använda vad helst informatio
 \subsection{Filtrering}
 
 
-För att välja ut vilket innehålls-element som skall skickas till besökaren, använder sig systemet av informationen som samlats in och ett eller flera filter som upprätthållaren av webbsidan definierat för de olika elementen som registrerats i systemet. Filtersystemet bygger på användningen av enkla test som i kombination med olika typers data bildar en fråga om en besökare.
+För att välja ut vilket innehållselement som skall skickas till besökaren, använder sig systemet av informationen som samlats in och ett eller flera filter som upprätthållaren av webbsidan definierat för de olika elementen som registrerats i systemet. Filtersystemet bygger på användningen av enkla test som i kombination med olika typers data bildar en fråga om en besökare.
 
 \subsubsection{Villkor}
 
@@ -111,7 +111,7 @@ De tolv villkoren som kan användas samt de datatyper de kan hantera visas i Tab
 
 Genom att kombinera dessa enkla villkor med den data som samlas in vid sidvisningar skapas filter som kan göra meningsfulla beslut om besökaren.
 
-Under utvecklingen av SmartElement utvaldes några färdiga filtrerings-metoder för implementering i systemet som en grund för upprätthållare att börja bygga sin anpassning. Genom att studera den tillgängliga informationen valdes några frågor ut som var lätta att identifiera. Dessa utgör de inbyggda filtren i SmartElement.
+Under utvecklingen av SmartElement utvaldes några färdiga filtreringsmetoder för implementering i systemet som en grund för upprätthållare att börja bygga sin anpassning. Genom att studera den tillgängliga informationen valdes några frågor ut som var lätta att identifiera. Dessa utgör de inbyggda filtren i SmartElement.
 
 \subsubsection{Stadsfiltret}
 
@@ -127,7 +127,7 @@ Motivationen bakom landsfiltret var att tillåta dels större företag, som str�
 
 \subsubsection{Datumfiltret}
 
-Datumfiltret använder sig av dagens datum för att tillåta upprätthållaren att specificera när ett innehåll skall visas. Filtret kan användas med de olika jämförelse-villkoren. Upprätthållaren kan specificera ett datum efter vilket innehåll skall visas eller ett datum före vilket det skall visas. Med lika med villkoret kan man specificera en enda dag då innehållet skall visas och lika så en specifik dag då det inte skall visas.
+Datumfiltret använder sig av dagens datum för att tillåta upprätthållaren att specificera när ett innehåll skall visas. Filtret kan användas med de olika jämförelsevillkoren. Upprätthållaren kan specificera ett datum efter vilket innehåll skall visas eller ett datum före vilket det skall visas. Med lika med villkoret kan man specificera en enda dag då innehållet skall visas och lika så en specifik dag då det inte skall visas.
 
 Motivationen bakom datumfiltret var att ge upprätthållaren möjligheten att visa kampanjinnehåll under en specifik tid genom att kombinera två datum filter, ett med en nedre gräns och ett med en övre.
 
@@ -145,7 +145,7 @@ Användningsfallen för besökstidsfiltret var att upprätthållaren vill skapa 
 
 \subsubsection{Nyckelordsfiltret}
 
-Nyckelordsfiltret använder sig av hänvisningsinformationen för att filtrera ut vilka nyckelord som använts i en sökmotor om besökaren nått sidan via en sådan. Filtret tillåter upprätthållaren att specificera grupper av nyckelord som antingen skall eller inte skall vara bland de som använts.
+Nyckelordsfiltret använder sig av hänvisningsinformationen för att filtrera ut vilka nyckelord som använts i en sökmotor ifall besökaren nått sidan via en sådan. Filtret tillåter upprätthållaren att specificera grupper av nyckelord som antingen skall eller inte skall vara bland de som använts.
 
 Användningsfallet bakom nyckelordsfiltret är att en upprätthållare väljer att lyfta fram speciell information som passar in på den webbsökning som besökaren använt för att hitta till webbplatsen.
 

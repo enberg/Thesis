@@ -8,7 +8,7 @@ För att tillåta systemet att anpassas till växande resurskrav, har SmartEleme
 
 I SmartElements fall betydde det att mjukvaruarkitekturen måste vara tillräckligt flexibel för att kunna köras på flera servrar. Detta ledde till en modulär design som försöker separera ansvarsområden inom mjukvaran. På så vis kan de olika delarna byggas ut oberoende av varandra.
 
-Den tyngsta delen av applikationen, vad gäller skalbarhet, är applikationsdatabasen. På grund av detta skapades processer som är menade att skydda detta lager genom att spara objekt i cache-minnet. På så vis hålls databas förfrågningarnas antal lägre och applikationsdatabasen behöver inte vara lika skalbar för att systemet skall klara större mängder förfrågningar.
+Den tyngsta delen av applikationen, vad gäller skalbarhet, är applikationsdatabasen. På grund av detta skapades processer som är menade att skydda detta lager genom att spara objekt i cache-minnet. På så vis hålls databasförfrågningarnas antal lägre och applikationsdatabasen behöver inte vara lika skalbar för att systemet skall klara större mängder förfrågningar.
 
 \subsection{Servern}
 
@@ -35,11 +35,11 @@ Laravel-ramverket bygger på mönstret \gls{mvc} i sin arkitektur. Dvs. att ramv
 
 \subsection{Komponenter i systemet}
 
-SmartElement består egentligen av endast några få centrala komponenter som tillsammans skapar delarna i identifikation av användare och filtrering av innehåll. Här listat dessa centrala komponenter och deras egenskaper.
+SmartElement består egentligen av endast några få centrala komponenter som tillsammans skapar delarna i identifikation av besökare och filtrering av innehåll. Här beskrivs dessa centrala komponenter och deras egenskaper.
 
 \subsubsection{Sidvisningshanteraren}
 
-Den centrala delen av hanteringen av en sidvisning sker i en hanterare som tar emot information om besökaren och söker fram det innehåll som skall skickas tillbaka. Rent tekniskt så tar denna komponent emot förfrågan från besökarens webbläsare, synkroniserar informationen med statistikdatabasen, söker fram sidobjektet ur cachinglagret (alternativt bygger det från databasen), använder sidbjektet för att generera det innehåll som skall sändas tillbaka och formaterar ett svar som skickas tillbaka till klienten.
+Den centrala delen av hanteringen av en sidvisning sker i en hanterare som tar emot information om besökaren och söker fram det innehåll som skall skickas tillbaka. Rent tekniskt så tar denna komponent emot en förfrågning från besökarens webbläsare, synkroniserar informationen med statistikdatabasen, söker fram sidobjektet ur cachinglagret (alternativt bygger upp det från databasen), använder siteobjektet för att generera det innehåll som skall sändas tillbaka och formaterar ett svar som skickas tillbaka till besökaren.
 
 \subsubsection{Besökarobjektet}
 
@@ -63,13 +63,13 @@ När en förfrågan kommer in, anropas en metod som försöker hitta besökaren 
 \label{siteuml}
 \end{figure}
 
-Sidobjektet är det högsta objektet i hierarkin som används för att filtrera ut innehåll. det beskriver användarens webbplats i sin helhet. Från sidobjektet går alla relationer hela vägen ner till filtren som används för att välja ut innehåll.
+Sitebjektet är det högsta objektet i hierarkin som används för att filtrera ut innehåll. Det beskriver upprätthållarens webbplats i sin helhet. Från sitebjektet går alla relationer hela vägen ner till filtren som används för att välja ut innehåll.
 
-När sidvisningshanteraren samlar ihop data för att skicka tillbaka till klienten så anropar den siteobjektet med ett besökarobjekt och därefter sköter siteobjektet om att anropa de olika elementen som sparats under sidan och ber dessa filtrera ut lämpligt innehåll innan det lämnar tillbaka kontrollen till matchern.
+När sidvisningshanteraren samlar ihop data för att skicka tillbaka till besökaren så anropar den siteobjektet med ett besökarobjekt. Därefter sköter siteobjektet om att anropa de olika elementen som sparats under sidan och ber dessa filtrera ut lämpligt innehåll innan det lämnar tillbaka kontrollen till sidvisningshanteraren.
 
 Objektet är realiserat så att det kan kompileras till en entitet som går att spara i ett cache-lager för kunna hålla objektet i minne vid operationer. Detta tillåter snabb åtkomst till data under en sidvisning och sparar på databasförfrågningar.
 
-\subsubsection{Elementobjekten}
+\subsubsection{Elementobjektet}
 
 \begin{figure}[h!]
 \centering
@@ -78,9 +78,9 @@ Objektet är realiserat så att det kan kompileras till en entitet som går att 
 \label{elementuml}
 \end{figure}
 
-Elementobjekten motsvarar ett HTML-element på användarens webbplats, men de är ej bundna till någon specifik webbadress eller sida på webbplatsen. Detta betyder att man kan använda samma element på olika sidor under samma webbplats om man vill, t.ex. i en banner eller som del av en navigation.
+Elementobjektet motsvarar ett HTML-element på användarens webbplats, men det är ej bundet till någon specifik webbadress eller sida på webbplatsen. Detta betyder att man kan använda samma element på olika sidor under samma webbplats om man vill, t.ex. i en banner eller som del av en navigation.
 
-\subsubsection{FilterSetobjekten}
+\subsubsection{FilterSetobjektet}
 
 \begin{figure}[h!]
 \centering
@@ -93,7 +93,7 @@ Ett element innehåller filterset, innehåll och ett status. Filterseten är fil
 
 Filterseten bygger tillsammans med filtren på ett utvecklingsmönster som kallas för ''Strategy pattern''. Idén är att man genom att definiera ett bra gränssnitt för en process, lämnar systemet öppet för enkel vidareutveckling i ett senare skede. \citep[s. 349]{gof} FilterSetobjektet i samband med besökarobjektet utgör tillsammans det sammanhang i vilket strategierna (Filtren) appliceras.
 
-\subsubsection{Filterobjekten}
+\subsubsection{Filterobjektet}
 
 \begin{figure}[h!]
 \centering
@@ -102,9 +102,9 @@ Filterseten bygger tillsammans med filtren på ett utvecklingsmönster som kalla
 \label{filteruml}
 \end{figure}
 
-Filterobjekten är i slutändan de objekt som utför tester mot besökarobjektet. De består av en filtertyp som definierar hur de jämför data, en fältidentitet som de använder för att läsa ut data ur besökarobjektet, ett värde som de testar mot och ett villkor som de använder för att utföra testet.
+Filterobjekten är i slutändan de objekt som utför tester mot besökarobjekten. De består av en filtertyp som definierar hur de jämför data, en fältidentitet som de använder för att läsa ut data ur besökarobjektet, ett värde som de testar mot och ett villkor som de använder för att utföra testet.
 
-Filterobjekten implementerar strategin i filtreringen som utförs i samband med filterseten. Filter tar endast ställning till en sak och returnerar ett logiskt värde beroende på om kriteriet möts eller ej. Filtersetet vet endast att det kan innehålla godtyckligt filter och filtret i sig vet att frågan alltid kommer att ställas på samma vis med likadan input.
+Filterobjekten implementerar strategin i filtreringen som utförs i samband med filterseten. Ett filter tar endast ställning till en sak och returnerar ett logiskt värde beroende på om kriteriet möts eller ej. Filtersetet vet endast att det kan innehålla godtyckligt filter och filtret i sig vet att frågan alltid kommer att ställas på samma vis med likadan input.
 
 \subsubsection{Contentobjekten}
 
@@ -115,23 +115,23 @@ Filterobjekten implementerar strategin i filtreringen som utförs i samband med 
 \label{contenttuml}
 \end{figure}
 
-Contentobjektet är den data som returneras till klienten efter att filtreringen skett. Systemet sätter ingen annan begränsning på datan än att den måste kunna sparas som en textsträng. Detta betyder att man kan producera avancerad funktionalitet genom att t.ex. spara Javascript-kod eller \gls{json}-data som innehåll och på så vis använda SmartElement för att styra exekvering på klienten. Det betyder också att systemet inte sätter så stora krav på anroparen eftersom det enda som är viktigt är att klienten kan tolka datan som returneras. Detta betyder att man i princip kunde skapa godtycklig klient till back-enden genom att implementera protokollet som tagen använder.
+Contentobjektet är den data som returneras till besökaren efter att filtreringen skett. Systemet sätter ingen annan begränsning på datan än att den måste kunna sparas som en textsträng. Detta betyder att man kan producera avancerad funktionalitet genom att t.ex. spara Javascript-kod eller \gls{json}-data som innehåll och på så vis använda SmartElement för att styra exekvering i besökarens webbläsare. Det betyder också att systemet inte sätter så stora krav på anroparen eftersom det enda som är viktigt är att denne kan tolka datan som returneras. Detta betyder att man i princip kunde skapa godtycklig klient till back-enden genom att implementera protokollet som tagen använder.
 
 \subsection{JavaScript-tagen}
 
 JavaScript-tagen är en kort kod som laddas i samband med webbsidan och samlar ihop information om besökaren och sedan skickar denna information till back-endsystemet för processering.
 
-Tagen försöker hitta en kaka i besökarens webbläsare, om ingen finns så skapas en ny unik id och sparas i en ny kaka. Efter att tagen fått en id, läser den ut information från besökarens webbläsare. Den läser bl.a. hänvisarinformationen och extraherar sökord om hänvisaren varit en sökmotor. Tagen kan även räkna ut tiden för besöket med hjälp av en tid som sparas i kakan då den skapas. Om sidvisningen är den första i besöket läser tagen addressfältet och använder värdet som landningssida för besöket. Efter att tagen samlat ihop sin information och en kaka lästs eller skapats, skickar den iväg informationen till back-enden.
+Tagen försöker hitta en s.k. kaka i besökarens webbläsare. Om ingen finns så skapas en ny unik id som sparas i en ny kaka. Efter att tagen fått en id, läser den ut information från besökarens webbläsare. Den läser bl.a. hänvisarinformationen och extraherar sökord om hänvisaren varit en sökmotor. Tagen kan även räkna ut tiden för besöket med hjälp av en tid som sparas i kakan då den skapas. Om sidvisningen är den första i besöket läser tagen adressfältet och använder värdet som landningssida för besöket. Efter att tagen samlat ihop sin information och en kaka lästs eller skapats, skickar den iväg informationen till back-enden.
 
-Efter att back-enden processerat förfrågan och returnerat data för de element som begärts så är standardbeteendet att back-enden genom ett \gls{jsonp}-svar anropar tagen som uppdaterar dokumentet med det returnerade innehållet. Vilken funktion som kallas kan dock ändras och man kan genom att specificera en callback ändra på funktionskallet i \gls{jsonp}-svaret och på så vis använda egen logik för uppdateringen av innehållet.
+Efter att back-enden processerat förfrågningen och returnerat data för de element som begärts så är standardbeteendet att back-enden genom ett \gls{jsonp}-svar anropar tagen som uppdaterar dokumentet med det returnerade innehållet. Vilken funktion som anropas kan dock ändras och man kan genom att specificera en callback ändra på funktionsanropet i \gls{jsonp}-svaret och på så vis använda egen logik för uppdateringen av innehållet.
 
 \subsection{Begränsningar}
 
 Systemet utvecklades med relativt låg budget vad gäller både tid och pengar. Därigenom finns en del begränsningar på tekniken och hårdvaran som fanns tillgänglig. Detta återspeglar sig i en del begränsningar i själva systemet samt i funktionalitet som inte implementerats.
 
-För tillfället sparas statistik endast som en lista av adresser som besökts. En mer avancerad modell skulle kunna aggregera data från denna lista och ge flere filtreringsmöjligheter. Statistikdatan behandlas endast i samband med besökarobjektet som systemet fungerar nu, genom att aggregera statistik för hela sidan skulle man kunna skapa rekommendationer för upprätthållaren vad gäller olika besökarkretsar.
+För tillfället sparas statistik endast som en lista av adresser som besökts. En mer avancerad modell skulle kunna aggregera data från denna lista och ge flere filtreringsmöjligheter. Statistikdatan behandlas endast i samband med besökarobjektet som systemet fungerar nu. Genom att aggregera statistik för hela sidan skulle man kunna skapa rekommendationer för upprätthållaren vad gäller olika besökarkretsar.
 
-Gränssnittet för leverering av innehåll är i dagens läge ännu ganska hårt bundet till tagen. Ett mer generellt \gls{api}-skulle gagna systemet genom att tillåta enklare integrering i utomstående system.
+Gränssnittet för leverering av innehåll är i dagens läge ännu ganska hårt bundet till tagen. Ett mer generellt \gls{api} skulle gagna systemet genom att tillåta enklare integrering i utomstående system.
 
 % vim: set tw=78:ts=2:sw=2:et:fdm=marker:wrap:wm=78:ft=tex
 % vim: spell spelllang=sv
