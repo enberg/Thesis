@@ -13,9 +13,9 @@ Systemet är i sig bara en motor för identifikation av användare och filtrerin
 \label{actors}
 \end{figure}
 
-Genom detta arbete används några aktörer, visualiserade i Figur \ref{actors}, för att förklara sammanhanget kring SmartElement. Närmast handlar det om besökaren, besökarens webbläsare, en webbsida, webbsidans upprätthållare samt SmartElement systemet.
+Aktörer, visualiserade i Figur \ref{actors}, används i detta arbete för att förklara sammanhanget kring SmartElement. Närmast handlar det om besökaren, besökarens webbläsare, en webbsida, webbsidans upprätthållare samt SmartElement-systemet.
 
-Besökaren är den person som med sin webbläsare besöker webbsidan. Upprätthållaren är den person som upprätthåller en webbsida, på vilken denne installerat SmartElement-tagen. Med SmartElement ämnas, om ej annat nämns, back-endsystemet av SmartElement.
+Besökaren är den person som med sin webbläsare besöker webbsidan. Upprätthållaren är den person eller instans som upprätthåller en webbsida, på vilken denne installerat SmartElement-tagen. Med SmartElement avses, om ej annat nämns, back-endsystemet av SmartElement.
 
 \subsection{Beståndsdelar}
 
@@ -26,7 +26,7 @@ Besökaren är den person som med sin webbläsare besöker webbsidan. Upprätth�
 \label{abstractstructure}
 \end{figure}
 
-SmartElement bygger på några grundläggande koncept; webbsidor, element, filter och innehåll. Med dessa fyra byggstenar konfigureras objekt, visualiserat i Figur \ref{abstractstructure}, som back-endsystemet använder för att filtrera och leverera innehåll.
+SmartElement bygger på några grundläggande koncept; webbsidor, element, filter och innehåll. Med dessa fyra byggstenar konfigureras objekt, visualiserade i Figur \ref{abstractstructure}, som back-endsystemet använder för att filtrera och leverera innehåll.
 
 \subsubsection{Webbsidan}
 
@@ -34,7 +34,7 @@ Webbsidan är det högsta elementet i hierarkin som SmartElement handskas med. D
 
 \subsubsection{Element}
 
-Elementen är hållare för den data som returneras från back-endsystemet, de knyter innehållet till webbsidan. Elementet har i sig flere innehåll och filter. Filtren används för att välja ut det innehåll som skall visas i elementet. Element har en inom webbsidan unik kod som används för att specificera vilka element som behöver processeras när man anropar back-endsystemet.
+Elementen är hållare för den data som returneras från back-endsystemet, de knyter innehållet till webbsidan. Elementet har i sig flere innehåll och filter. Filtren används för att välja ut det innehåll som skall visas i elementet. Ett element har en inom webbsidan unik kod som används för att specificera vilka element som behöver processeras när man anropar back-endsystemet.
 
 \subsubsection{Filter}
 
@@ -46,7 +46,7 @@ Innehåll är den konkreta data som levereras för ett element efter att ett fil
 
 \subsection{Funktion}
 
-SmartElement har två huvudsakliga funktionsområden. Konfiguration av systemet genom \acrshort{api}-gränssnittet samt hantering av sidvisningar och filtrering av innehåll genom innehållsgränssnittet.
+SmartElement har två huvudsakliga funktionsområden, konfiguration av systemet genom \acrshort{api}-gränssnittet samt hantering av sidvisningar och filtrering av innehåll genom innehållsgränssnittet.
 
 \subsubsection{Konfiguration}
 
@@ -76,8 +76,8 @@ Efter konfiguration av element konfigureras ett eller flera innehåll under dess
 \label{pageviewprocess}
 \end{figure}
 
-Figur \ref{pageviewprocess} representerar kommunikationen vid en sidvisning. När en användares webbsida laddas, inkluderar den en JavaScript fil som innehåller SmartElements tag. Efter att sidan laddats klar körs tagen, som samlar ihop information om besökaren, samt eventuell extra data som användaren specificerat i tagen, och skickar informationen till back-enden. På back-enden kombineras informationen från tagen med eventuell statistikdata från en statistikdatabas för att skapa ett besökarobjekt.
+Figur \ref{pageviewprocess} representerar kommunikationen vid en sidvisning. När en användares webbsida laddas, inkluderar den en JavaScript-fil som innehåller SmartElements tag. Efter att sidan laddats klar körs tagen, som samlar ihop information om besökaren, samt eventuell extra data som användaren specificerat i tagen, och skickar informationen till back-enden. På back-enden kombineras informationen från tagen med eventuell statistikdata från en statistikdatabas för att skapa ett besökarobjekt.
 
 Backenden tar emot besökarobjektet och söker upp sidan som motsvarar det id som skickats. Efter att en sida har hittats går back-enden igenom de element som tagen begär innehåll för och filtrerar deras innehåll på basis av datan i besökarobjektet. Allt innehåll kompileras till en lista med element-id länkat till innehåll och skickas tillbaka till besökarens webbläsare.
 
-Om användaren inte valt att ändra på beteendet av tagen så anropar back-enden på tagen för att fylla elementen med den data som returnerats.
+Om användaren inte valt att ändra på beteendet av tagen så anropar back-enden tagen för att fylla elementen med den data som returnerats.

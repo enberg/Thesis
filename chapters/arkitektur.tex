@@ -1,6 +1,6 @@
 \section{Mjukvaruarkitektur}
 
-Arkitekturen utformades utgående från samma principer som den tekniska arkitekturen. Systemet har planerats utgående ifrån skalbarhet. Det vill säga att systemet skall vara lätt att utveckla funktionsmässigt, det skall vara lätt att underhålla systemet och det skall vara lätt att öka dess kapacitet vid behov. \citep[s. 203]{scalableweb}
+Arkitekturen utformades utgående från samma principer som den tekniska arkitekturen. Systemet har planerats utgående ifrån skalbarhet. Dvs. att systemet skall vara lätt att utveckla funktionsmässigt, det skall vara lätt att underhålla systemet och det skall vara lätt att öka dess kapacitet vid behov. \citep[s. 203]{scalableweb}
 
 \subsection{Horisontell skalbarhet}
 
@@ -21,9 +21,9 @@ Den tyngsta delen av applikationen, vad gäller skalbarhet, är applikationsdata
 
 Back-endsystemet, dvs. serverkomponenten, i SmartElement är den centrala delen av systemet var all data lagras och all filtrering sker. De delar som bygger upp serverkomponenten illustreras i Figur \ref{abstractbackend}. Systemet har två gränssnitt, ett öppet som används av tagen för att hämta innehåll vid sidvisningar, och ett stängt som används av en frontend vid konfiguration.
 
-Hela back-endsystemet är realiserat med en fokus på att vara tillståndslöst (jmfr. engelskans \textit{''stateless''}) vad gäller hanteringen av förfrågningar. I praktiken betyder detta att man inte skall behöva en session med back-enden för att kunna genomföra förfrågningar, utan all information som behövs förses antingen i förfrågningen, eller så kan den generaras från databasen. Detta betyder att t.ex. autentiseringen är baserad på en nyckel som används för att generera en signatur för varje förfrågning. Orsaken till detta ligger i att det är lättare att realisera horisontellt skalbarhet i systemet genom att lägga till applikationsservrar, då sessioner inte behöver synkroniseras mellan de olika servrarna.
+Hela back-endsystemet är realiserat med en fokus på att vara tillståndslöst (jmfr. engelskans \textit{''stateless''}) vad gäller hanteringen av förfrågningar. I praktiken betyder detta att man inte skall behöva en session med back-enden för att kunna genomföra förfrågningar, utan all information som behövs förses antingen i förfrågningen, eller så kan den generaras från databasen. Detta betyder att t.ex. autentiseringen är baserad på en nyckel som används för att generera en signatur för varje förfrågning. Orsaken till detta ligger i att det är lättare att realisera horisontell skalbarhet i systemet genom att lägga till applikationsservrar, då sessioner inte behöver synkroniseras mellan de olika servrarna.
 
-Tekniskt sett så finns det fyra huvudsakliga komponenter i back-endsystemet: applikationen, cache-lagret, applikations-databasen och statistik-databasen. Denna uppdelning är gjord för att försöka tillåta för oberoende horisontell skalbarhet i de olika ansvarsområdena genom att lägga till eller ta bort resurser av de olika komponenterna i takt med behov.
+Tekniskt sett så finns det fyra huvudsakliga komponenter i back-endsystemet: applikationen, cache-lagret, applikations-databasen och statistik-databasen. Denna uppdelning är gjord för att försöka tillåta oberoende horisontell skalbarhet i de olika ansvarsområdena genom att lägga till eller ta bort resurser av de olika komponenterna i takt med behov.
 
 \subsection{PHP-ramverket Laravel}
 
@@ -31,7 +31,7 @@ För att göra utvecklingen av systemet snabbare användes ett utvecklingsramver
 
 Ramverket som används för att utveckla SmartElement är PHP-ramverket Laravel. Det är ett yngre ramverk som utvecklats med komponenter från Symfony-ramverket, ett väletablerat PHP-ramverk som dock kan vara rätt tungt. Laravel drar även full nytta av pakethanteraren Composer, vilket tillåter lätt importering av kodpaket i projektet. Utöver detta är hela ramverket uppbyggt för att vara modulärt och tillåter således modifikation eller full ersättning av komponenter.
 
-Laravel-ramverket bygger på mönstret \gls{mvc} i sin arkitektur. Dvs. att ramverket delar upp ansvar i olika komponenter: datalager (Model), presentationslager (View) och kontrolllager (Controller). Datalagret ansvarar för applikationslogik och data, presentationslagret ansvarar för att presentera data och kontrolllagret ansvarar för att binda ihop presentations- och datalagret.\citep[s. 14-16]{gof}
+Laravel-ramverket bygger på mönstret \gls{mvc} i sin arkitektur. Dvs. ramverket delar upp ansvar i olika komponenter: datalager (Model), presentationslager (View) och kontrolllager (Controller). Datalagret ansvarar för applikationslogik och data, presentationslagret ansvarar för att presentera data och kontrolllagret ansvarar för att binda ihop presentations- och datalagret.\citep[s. 14-16]{gof}
 
 \subsection{Komponenter i systemet}
 
@@ -91,7 +91,7 @@ Elementobjektet, illustrerat i Figur \ref{elementuml}, motsvarar ett HTML-elemen
 
 Ett element innehåller filterset, innehåll och ett status. Figur \ref{filtersetuml} representerar ett FilterSetobjekt. Filterseten är filtersamlingar med en länk till ett innehållsobjekt samt en prioritet inom elementet. När sidobjektet anropar ett element för att få tillbaka det lämpliga innehållet kör elementet igenom sin filtersetsamling och ser om filtren passar besökarobjektet. Om fler en ett filterset passar så väljs det med högsta prioritet. När ett filterset valts ut så returnerar elementet det innehåll som filtersetet är länkat till. Om inget filterset passar så returneras ett tomt resultat.
 
-Filterseten bygger tillsammans med filtren på ett utvecklingsmönster som kallas för ''Strategy pattern''. Idén är att man genom att definiera ett bra gränssnitt för en process, lämnar systemet öppet för enkel vidareutveckling i ett senare skede. \citep[s. 349]{gof} FilterSetobjektet i samband med besökarobjektet utgör tillsammans det sammanhang i vilket strategierna (Filtren) appliceras.
+Filterseten bygger tillsammans med filtren på ett utvecklingsmönster som kallas för ''Strategy pattern''. Idén är att man genom att definiera ett bra gränssnitt för en process lämnar systemet öppet för enkel vidareutveckling i ett senare skede. \citep[s. 349]{gof} FilterSetobjektet i samband med besökarobjektet utgör tillsammans det sammanhang i vilket strategierna (Filtren) appliceras.
 
 \subsubsection{Filterobjektet}
 
@@ -104,7 +104,7 @@ Filterseten bygger tillsammans med filtren på ett utvecklingsmönster som kalla
 
 Filterobjekten är i slutändan de objekt som utför tester mot besökarobjekten. Som Figur \ref{filteruml} illustrerar består de av en filtertyp som definierar hur de jämför data, en fältidentitet som de använder för att läsa ut data ur besökarobjektet, ett värde som de testar mot och ett villkor som de använder för att utföra testet.
 
-Filterobjekten implementerar strategin i filtreringen som utförs i samband med filterseten. Ett filter tar endast ställning till en sak och returnerar ett logiskt värde beroende på om kriteriet möts eller ej. Filtersetet vet endast att det kan innehålla godtyckligt filter och filtret i sig vet att frågan alltid kommer att ställas på samma vis med likadan input.
+Filterobjekten implementerar strategin i filtreringen som utförs i samband med filterseten. Ett filter tar endast ställning till en sak och returnerar ett logiskt värde beroende på om kriteriet möts eller ej. Filtersetet vet endast att det kan innehålla godtyckliga filter och filtret i sig vet att frågan alltid kommer att ställas på samma vis med likadan input.
 
 \subsubsection{Contentobjekten}
 
@@ -115,7 +115,7 @@ Filterobjekten implementerar strategin i filtreringen som utförs i samband med 
 \label{contenttuml}
 \end{figure}
 
-Contentobjektet, illustrerat i Figur \ref{contenttuml}, är den data som returneras till besökaren efter att filtreringen skett. Systemet sätter ingen annan begränsning på datan än att den måste kunna sparas som en textsträng. Detta betyder att man kan producera avancerad funktionalitet genom att t.ex. spara Javascript-kod eller \gls{json}-data som innehåll och på så vis använda SmartElement för att styra exekvering i besökarens webbläsare. Det betyder också att systemet inte sätter så stora krav på anroparen eftersom det enda som är viktigt är att denne kan tolka datan som returneras. Detta betyder att man i princip kunde skapa godtycklig klient till back-enden genom att implementera protokollet som tagen använder.
+Contentobjektet, illustrerat i Figur \ref{contenttuml}, är den data som returneras till besökaren efter att filtreringen skett. Systemet sätter ingen annan begränsning på datan än att den måste kunna sparas som en textsträng. Detta betyder att man kan producera avancerad funktionalitet genom att t.ex. spara JavaScript-kod eller \gls{json}-data som innehåll och på så vis använda SmartElement för att styra exekvering i besökarens webbläsare. Det betyder också att systemet inte sätter så stora krav på anroparen eftersom det enda som är viktigt är att denne kan tolka datan som returneras. Detta betyder att man i princip kunde skapa en godtycklig klient till back-enden genom att implementera protokollet som tagen använder.
 
 \subsection{JavaScript-tagen}
 
@@ -129,7 +129,7 @@ Efter att back-enden processerat förfrågningen och returnerat data för de ele
 
 Systemet utvecklades med relativt låg budget vad gäller både tid och pengar. Därigenom finns en del begränsningar på tekniken och hårdvaran som fanns tillgänglig. Detta återspeglar sig i en del begränsningar i själva systemet samt i funktionalitet som inte implementerats.
 
-För tillfället sparas statistik endast som en lista av adresser som besökts. En mer avancerad modell skulle kunna aggregera data från denna lista och ge flere filtreringsmöjligheter. Statistikdatan behandlas endast i samband med besökarobjektet som systemet fungerar nu. Genom att aggregera statistik för hela sidan skulle man kunna skapa rekommendationer för upprätthållaren vad gäller olika besökarkretsar.
+För tillfället sparas statistik endast som en lista av adresser som besökts. En mer avancerad modell skulle kunna aggregera data från denna lista och ge flere filtreringsmöjligheter. Statistikdatan behandlas endast i samband med besökarobjektet så som systemet fungerar nu. Genom att aggregera statistik för hela sidan skulle man kunna skapa rekommendationer för upprätthållaren vad gäller olika besökarkretsar.
 
 Gränssnittet för leverering av innehåll är i dagens läge ännu ganska hårt bundet till tagen. Ett mer generellt \acrshort{api} skulle gagna systemet genom att tillåta enklare integrering i utomstående system.
 

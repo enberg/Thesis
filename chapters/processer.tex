@@ -6,7 +6,7 @@ Denna information används sedan för att söka igenom tillgängligt innehåll o
 
 \subsection{Information om besökaren}
 
-SmartElement använder sig till stor del av statistik som systemet samlar ihop med hjälp av en JavaScript tag som körs i besökarens webbläsare då denne besöker en sida som använder systemet. Denna information skickas till back-endsystemet som vidare processerar datan och sparar den i en dokumentdatabas under ett besökarobjekt. På detta vis kan systemet komma ihåg besökare mellan sessioner och på så vis skapa historik om dennes beteende och vanor, vilket i sin tur är till nytta för att hitta det bästa innehållet att presentera.
+SmartElement använder sig till stor del av statistik som systemet samlar ihop med hjälp av en JavaScript-tag som körs i besökarens webbläsare då denne besöker en sida som använder systemet. Denna information skickas till back-endsystemet som vidare processerar datan och sparar den i en dokumentdatabas under ett besökarobjekt. På detta vis kan systemet komma ihåg besökare mellan sessioner och på så vis skapa historik om dennes beteende och vanor, vilket i sin tur är till nytta för att hitta det bästa innehållet att presentera.
 
 \subsubsection{Hänvisningsinformation}
 
@@ -23,7 +23,7 @@ Genom att spara denna information får man dels en indikation av varifrån en be
 
 En nackdel är att hänvisningsinformation inte alltid finns tillgänglig. Avsaknad av denna information leder till att ett definitivt svar inte erhålls om hur besökaren hittat till sidan. Detta sker på grund av att hänvisningsinformation inte skickas t.ex. när man navigerar till webbsidan från en sida med krypterad anslutning, om besökarens webbläsare har konfigurerats att inte sända informationen eller om besökaren helt enkelt skrivit in webbsidans adress i sin webbläsare och är en så kallad direkt träff. \citep{httprfc}
 
-\subsubsection{IP Geolokalisering}
+\subsubsection{IP-geolokalisering}
 
 \begin{figure}[h!]
 \centering
@@ -36,7 +36,7 @@ Nästa information som samlas in om besökaren är en uppskattning av dennes pos
 
 SmartElement använder sig av en databas som köps in av ett företag som specialiserar sig på att upprätthålla så noggrann information som möjligt om var i världen IP-adresser egentligen är registrerade. Från denna databas söker systemet sedan fram information om besökarens läge. Information som är tillgänglig är bland annat vilket land besökaren befinner sig i, vilken region inom landet samt vilken stad.
 
-Trots att informationen i databasen är av rätt hög kvalitet, kan man inte helt och hållet lita på information som genereras genom IP-geolokalisering. Dels så är IP-addressen som sänds till servern inte nödvändigtvis besökarens egna IP-address då denne kan vara uppkopplad via en VPN-anslutning eller eventuellt använda sig av en proxy-server som inte vidareförmedlar ursprungsadressen. Detta betyder i sin tur att man får platsen var VPN- eller proxy-serverns IP är registrerad. Ett annat problem är att den information som finns tillgänglig beror på vad besökarens Internet-operatör rapporterar. Även om IP-adressen är besökarens egna så kan leverantören ha registrerat adressen på en annan plats än den var besökaren befinner sig. 
+Trots att informationen i databasen är av rätt hög kvalitet, kan man inte helt och hållet lita på information som genereras genom IP-geolokalisering. Dels så är IP-addressen som sänds till servern inte nödvändigtvis besökarens egna IP-address då denne kan vara uppkopplad via en VPN-anslutning eller eventuellt använda sig av en proxy-server som inte vidareförmedlar ursprungsadressen. Detta betyder i sin tur att man får platsen var VPN- eller proxy-serverns IP är registrerad. Ett annat problem är att den information som finns tillgänglig beror på vad besökarens Internet-operatör rapporterar. Även om IP-adressen är besökarens egen så kan leverantören ha registrerat adressen på en annan plats än den var besökaren befinner sig. 
 
 \subsubsection{Besökarstatistik}
 
@@ -44,15 +44,15 @@ För varje sidvisning på en webbsida med SmartElement sparas det statistik. Bes
 
 Genom att skapa statistik som är kopplad till besökaren kan man generera information om besökarens beteende då denne använder webbsidan. Man kan räkna hur ofta denne besöker specifika delar av sidan, om denne inte sett en viss sida på länge, om denne börjat besöka en specifik del mer eller mindre o.s.v. All denna information kan hjälpa att söka fram information som kan tänkas vara relevant för besökaren.
 
-De största problemen med statistik är att den är beroende av möjligheten att identifiera besökaren då denne återvänder till webbsidan. Som systemet är byggt för tillfället hänger detta på användningen av kakor som innehåller ett unikt id-nummer, vilket betyder att systemet tappar besökaren så fort denne raderar denna kaka. Det finns sätt att rundgå detta genom att använda sig av till exempel caching information för att identifiera besökare trots att denne raderat eller blockerat kakor. \citep{ashkanblog}
+De största problemen med statistik är att den är beroende av möjligheten att identifiera besökaren då denne återvänder till webbsidan. Som systemet är byggt för tillfället hänger detta på användningen av kakor som innehåller ett unikt id-nummer, vilket betyder att systemet tappar besökaren så fort denne raderar denna kaka. Det finns sätt att kringgå detta genom att använda sig av t.ex. cache-information för att identifiera besökare trots att denne raderat eller blockerat kakor. \citep{ashkanblog}
 
 
 
 \subsubsection{Tid}
 
-Vid varje sidvisning registreras tiden för besöket på basis av den tid som besökarens webbläsare rapporterar. Utöver tiden för sidvisningen så beräknar Javascript-tagen hur lång tid besökaren spenderat på sidan under det pågående besöket.
+Vid varje sidvisning registreras tiden för besöket på basis av den tid som besökarens webbläsare rapporterar. Utöver tiden för sidvisningen så beräknar JavaScript-tagen hur lång tid besökaren spenderat på sidan under det pågående besöket.
 
-Valet att registrera tiden som rapporteras av webbläsaren gjordes för att undvika problem med olika tidszoner och för att det är mer troligt att man vill göra ett beslut utgående från besökarens tid, och eftersom tagen registrerar besökarens tid så får systemet samtidigt möjligheten att registrera besökets längd.
+Valet att registrera tiden som rapporteras av webbläsaren gjordes för att undvika problem med olika tidszoner och för att det är mer troligt att man vill göra ett beslut utgående från besökarens tid. Eftersom tagen registrerar besökarens tid så får systemet samtidigt möjligheten att registrera besökets längd.
 
 \subsubsection{Användardefinierad information}
 
@@ -90,7 +90,7 @@ De tolv villkoren som kan användas samt de datatyper de kan hantera visas i Tab
     \hline
     I samling & Testar om samlingen som registrerats i filtret innehåller värdet som sänts & Samling \\
     \hline
-    Icke i samling & Negation av "i samling" villkoret & Samling \\
+    Icke i samling & Negation av villkoret "i samling" & Samling \\
     \hline
     Innehåller & Testar om värdet i filtret innehåller värdet som sändts & Text \\
     \hline
@@ -111,7 +111,7 @@ De tolv villkoren som kan användas samt de datatyper de kan hantera visas i Tab
 
 Genom att kombinera dessa enkla villkor med den data som samlas in vid sidvisningar skapas filter som kan göra meningsfulla beslut om besökaren.
 
-Under utvecklingen av SmartElement utvaldes några färdiga filtreringsmetoder för implementering i systemet som en grund för upprätthållare att börja bygga sin anpassning. Genom att studera den tillgängliga informationen valdes några frågor ut som var lätta att identifiera. Dessa utgör de inbyggda filtren i SmartElement.
+Under utvecklingen av SmartElement utvaldes några färdiga filtreringsmetoder för implementering i systemet som en grund för upprätthållare att börja bygga sin anpassning. Genom att studera den tillgängliga informationen utvaldes några frågor som var lätta att identifiera. Dessa utgör de inbyggda filtren i SmartElement.
 
 \subsubsection{Stadsfiltret}
 
@@ -127,9 +127,9 @@ Motivationen bakom landsfiltret var att tillåta dels större företag, som str�
 
 \subsubsection{Datumfiltret}
 
-Datumfiltret använder sig av dagens datum för att tillåta upprätthållaren att specificera när ett innehåll skall visas. Filtret kan användas med de olika jämförelsevillkoren. Upprätthållaren kan specificera ett datum efter vilket innehåll skall visas eller ett datum före vilket det skall visas. Med lika med villkoret kan man specificera en enda dag då innehållet skall visas och lika så en specifik dag då det inte skall visas.
+Datumfiltret använder sig av dagens datum för att tillåta upprätthållaren att specificera när ett innehåll skall visas. Filtret kan användas med de olika jämförelsevillkoren. Upprätthållaren kan specificera ett datum efter vilket innehåll skall visas eller ett datum före vilket det skall visas. Med villkoret lika med kan man specificera en enda dag då innehållet skall visas och lika så en specifik dag då det inte skall visas.
 
-Motivationen bakom datumfiltret var att ge upprätthållaren möjligheten att visa kampanjinnehåll under en specifik tid genom att kombinera två datum filter, ett med en nedre gräns och ett med en övre.
+Motivationen bakom datumfiltret var att ge upprätthållaren möjligheten att visa kampanjinnehåll under en specifik tid genom att kombinera två datumfilter, ett med en nedre gräns och ett med en övre.
 
 \subsubsection{Dagsfiltret}
 
@@ -171,7 +171,7 @@ Användningsfallet för hänvisarfiltret är att upprätthållaren vill skapa et
 
 Regionsfiltret använder sig av IP-geolokaliseringsinformation för att tillåta upprätthållaren att visa innehåll anpassat till besökarens region. I Finland kan man t.ex. specificera att ett innehåll skall visas endast om besökaren befinner sig i södra Finland.
 
-Användningsfallet är att upprätthållaren har regionalkampanjer som använder samma element på sidan för att visa relevanta information på basis av var besökaren befinner sig.
+Användningsfallet är att upprätthållaren har regionalkampanjer som använder samma element på sidan för att visa relevant information på basis av var besökaren befinner sig.
 
 \subsubsection{Tidsfiltret}
 
