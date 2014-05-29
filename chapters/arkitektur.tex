@@ -1,6 +1,6 @@
 \section{Mjukvaruarkitektur}
 
-Arkitekturen utformades utgående från samma principer som den tekniska arkitekturen. Systemet har planerats utgående ifrån skalbarhet. Dvs. att systemet skall vara lätt att utveckla funktionsmässigt, det skall vara lätt att underhålla systemet och det skall vara lätt att öka dess kapacitet vid behov. \citep[s. 203]{scalableweb}
+Arkitekturen utformades utgående från samma principer som den tekniska arkitekturen. Systemet har planerats utgående ifrån skalbarhet. Dvs. systemet skall vara lätt att utveckla funktionsmässigt, det skall vara lätt att underhålla systemet och det skall vara lätt att öka dess kapacitet vid behov. \citep[s. 203]{scalableweb}
 
 \subsection{Horisontell skalbarhet}
 
@@ -129,7 +129,7 @@ Efter att back-enden processerat förfrågningen och returnerat data för de ele
 
 Systemet utvecklades med relativt låg budget vad gäller både tid och pengar. Därigenom finns en del begränsningar på tekniken och hårdvaran som fanns tillgänglig. Detta återspeglar sig i en del begränsningar i själva systemet samt i funktionalitet som inte implementerats.
 
-För tillfället sparas statistik endast som en lista av adresser som besökts. En mer avancerad modell skulle kunna aggregera data från denna lista och ge flere filtreringsmöjligheter. Statistikdatan behandlas endast i samband med besökarobjektet så som systemet fungerar nu. Genom att aggregera statistik för hela sidan skulle man kunna skapa rekommendationer för upprätthållaren vad gäller olika besökarkretsar.
+För tillfället sparas statistik endast som en lista av adresser som besökts. En mer avancerad modell skulle kunna aggregera data från denna lista och ge flere filtreringsmöjligheter. Statistikdatan behandlas endast i samband med besökarobjektet såsom systemet fungerar nu. Genom att aggregera statistik för hela sidan skulle man kunna skapa rekommendationer för upprätthållaren vad gäller olika besökarkretsar.
 
 Gränssnittet för leverering av innehåll är i dagens läge ännu ganska hårt bundet till tagen. Ett mer generellt \acrshort{api} skulle gagna systemet genom att tillåta enklare integrering i utomstående system.
 
